@@ -60,6 +60,7 @@ export default {
             if (response.status == 200) {
               if(this.usuario == response.data.usuario) return true;
               if(this.senha == response.data.senha)return true;
+              this.$router.push("/home");
             }
           });
       }
