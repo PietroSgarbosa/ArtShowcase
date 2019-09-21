@@ -32,6 +32,7 @@
 
   <script>
 import * as config from "@/config.json";
+import axios from "axios";
 
 export default {
   component: {},
@@ -51,8 +52,17 @@ export default {
       if (senha == null || senha == "") return false;
       return true;
     },
-    autentificacao() {
-      this.$router.push("/home");
+    async autentificacao() {
+      if (this.verificaCampos()) {
+        await axios
+          .get(`${config.default.servidor}/authentification/`)
+          .then(response => {
+            if (response.status == 200) {
+              if(this.usuario == response.data.usuario) return true;
+              if(this.senha == response.data.senha)return true;
+            }
+          });
+      }
     }
   }
 };

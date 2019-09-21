@@ -1,8 +1,8 @@
 {
-  "name": "smk_project",
+  "name": "artshowcase",
   "version": "0.1.0",
-  "description": "Trabalho",
-  "author": "Eu mesmo",
+  "description": "Trabalho Jederson",
+  "author": "Pietro Sgarbosa",
   "license": "MIT",
   "scripts": {
     "serve": "vue-cli-service serve",
