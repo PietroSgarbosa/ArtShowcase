@@ -5,10 +5,10 @@
         <b-col>
           <b-col>
             <b-col>
-              <img src="https://i.ibb.co/sKws48t/Icon-atom.png" alt="Icon" class="size-img" />
+              <img src="/img/whiteeagle.png" alt="Icon" class="size-img" />
             </b-col>
             <b-col>
-              <h4 class="mt-3">Sign In</h4>
+              <h4 class="mt-3">Entrar</h4>
             </b-col>
           </b-col>
           <b-row>
@@ -22,7 +22,7 @@
             </b-input-group>
           </b-row>
           <b-row>
-            <b-button variant="primary" class="mt-3 mx-auto w-50" @click="autentificacao">Login</b-button>
+            <b-button variant="light" class="mt-3 mx-auto w-50" @click="autentificacao">Login</b-button>
           </b-row>
         </b-col>
       </b-card>
@@ -74,9 +74,16 @@ export default {
   width: 100%;
   margin-top: 10rem !important;
   max-width: 300px;
+  background-color: #FF4019;
+}
+
+h4 {
+  color: white !important;
 }
 .size-img {
-  max-width: 50px !important;
-  max-height: 50px !important;
+  max-width: 80px !important;
+  max-height: 80px !important;
 }
+
+
 </style>

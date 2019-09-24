@@ -10,6 +10,9 @@ const Login = () => import("@/views/login/Login");
 //Home
 const Home = () => import("@/views/Home");
 
+//
+const Profile = () => import("@/views/profile/Profile");
+
 Vue.use(Router);
 
 let router = new Router({
@@ -33,6 +36,11 @@ let router = new Router({
       name: "Home",
       component: Home,
     },
+    {
+      path: "/profile",
+      name: "Profile",
+      component: Profile,
+    }
   ],
 });
 export default router;
