@@ -1,5 +1,43 @@
   <template>
   <div>
+
+    <b-navbar class="nav1" toggleable="lg" type="dark" variant="danger">
+      <b-navbar-brand class="title" href="#">Art Showcase</b-navbar-brand>
+
+      <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+
+      <b-collapse id="nav-collapse" is-nav>
+        <b-navbar-nav class="text1">
+          <b-nav-item href="#">Informação</b-nav-item>
+          <b-nav-item href="#">Contato</b-nav-item>
+        </b-navbar-nav>
+
+        <!-- Right aligned nav items -->
+        <b-navbar-nav class="ml-auto">
+          <b-nav-item-dropdown text="Lang" right>
+            <b-dropdown-item href="#">EN</b-dropdown-item>
+            <b-dropdown-item href="#">ES</b-dropdown-item>
+            <b-dropdown-item href="#">RU</b-dropdown-item>
+            <b-dropdown-item href="#">FA</b-dropdown-item>
+          </b-nav-item-dropdown>
+
+          <b-nav-item-dropdown right>
+            <!-- Using 'button-content' slot -->
+            <template v-slot:button-content>
+              <em>Usuário</em>
+            </template>
+            <b-dropdown-item href="#">Perfil</b-dropdown-item>
+            <b-dropdown-item href="#">Deslogar</b-dropdown-item>
+          </b-nav-item-dropdown>
+        </b-navbar-nav>
+      </b-collapse>
+    </b-navbar>
+
+
+
+
+
+
     <center>
       <b-card class="signin">
         <b-col>
@@ -27,6 +65,15 @@
         </b-col>
       </b-card>
     </center>
+
+
+
+    <b-card-footer >
+      <p class="footer-text"> ARTSHOWCASE - Pietro.S />
+      <p class="footer-text"> COPYRIGHT© </p>
+    </b-card-footer>
+
+
   </div>
 </template>
 
@@ -74,7 +121,9 @@ export default {
   width: 100%;
   margin-top: 10rem !important;
   max-width: 300px;
-  background-color: #FF4019;
+  background-color: #f06464;
+  border-radius: 10px;
+  top: -40px;
 }
 
 h4 {
@@ -85,5 +134,25 @@ h4 {
   max-height: 80px !important;
 }
 
+
+.nav1 {
+  padding: 10px;
+}
+
+.title {
+  font-family: "Mansalva", cursive;
+  font-size: 25px;
+}
+
+.text1 {
+  font-family: "Mansalva", cursive;
+  font-size: 18px;
+}
+
+.footer-text {
+  text-align: center;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  
+}
 
 </style>
