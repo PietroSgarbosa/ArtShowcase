@@ -9,7 +9,7 @@
 
 
     <b-navbar class="nav1" toggleable="lg" type="dark" variant="danger">
-      <b-navbar-brand class="title" href="#">Art Showcase</b-navbar-brand>
+      <b-navbar-brand class="title" @click="redirect" href="#">Art Showcase</b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
@@ -33,8 +33,8 @@
             <template v-slot:button-content>
               <em>Usuário</em>
             </template>
-            <b-dropdown-item href="#">Perfil</b-dropdown-item>
-            <b-dropdown-item href="#">Deslogar</b-dropdown-item>
+            <b-dropdown-item @click="redirect1" href="#">Logar Perfil</b-dropdown-item>
+            <b-dropdown-item @click="redirect2" href="#">Cadastrar Perfil</b-dropdown-item>
           </b-nav-item-dropdown>
         </b-navbar-nav>
       </b-collapse>
@@ -138,7 +138,12 @@ export default {
     redirect() {
       this.$router.push("register");
     },
-
+    redirect1() {
+      this.$router.push("/");
+    },
+    redirect2() {
+      this.$router.push("register");
+    },
     onSlideStart(slide) {
         this.sliding = true
       },

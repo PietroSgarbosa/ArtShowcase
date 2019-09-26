@@ -2,7 +2,7 @@
   <div>
 
     <b-navbar class="nav1" toggleable="lg" type="dark" variant="danger">
-      <b-navbar-brand class="title" href="#">Art Showcase</b-navbar-brand>
+      <b-navbar-brand class="title" @click="redirect" href="#">Art Showcase</b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
@@ -70,7 +70,7 @@
 
 
     <b-card-footer >
-      <p class="footer-text"> ARTSHOWCASE - Pietro.S />
+      <p class="footer-text"> ARTSHOWCASE - Pietro.S </p>
       <p class="footer-text"> COPYRIGHT© </p>
     </b-card-footer>
 
@@ -127,6 +127,14 @@ export default {
       email: null,
       repetiremail: null
     };
+  },
+
+  methods: {
+
+    redirect() {
+      this.$router.push("home");
+    },
+
   }
 };
 </script>

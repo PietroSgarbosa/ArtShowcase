@@ -1,8 +1,8 @@
-  <template>
+<template>
   <div>
 
     <b-navbar class="nav1" toggleable="lg" type="dark" variant="danger">
-      <b-navbar-brand class="title" href="#">Art Showcase</b-navbar-brand>
+      <b-navbar-brand class="title" @click="redirect" href="#">Art Showcase</b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
@@ -69,7 +69,7 @@
 
 
     <b-card-footer >
-      <p class="footer-text"> ARTSHOWCASE - Pietro.S />
+      <p class="footer-text"> ARTSHOWCASE - Pietro.S </p>
       <p class="footer-text"> COPYRIGHT© </p>
     </b-card-footer>
 
@@ -77,7 +77,7 @@
   </div>
 </template>
 
-  <script>
+<script>
 import * as config from "@/config.json";
 import axios from "axios";
 
@@ -94,6 +94,12 @@ export default {
   beforeMount() {},
 
   methods: {
+
+    redirect() {
+      this.$router.push("home");
+    },
+
+
     verificaCampos() {
       if (usuario == null || usuario == "") return false;
       if (senha == null || senha == "") return false;
@@ -115,7 +121,7 @@ export default {
 };
 </script>
 
-  <style>
+<style>
 .signin {
   justify-content: center !important;
   width: 100%;
