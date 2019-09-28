@@ -8,8 +8,8 @@
 
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav class="text1">
-          <b-nav-item href="#">Informação</b-nav-item>
-          <b-nav-item href="#">Contato</b-nav-item>
+          <b-nav-item @click="redirect3" href="#">Informação</b-nav-item>
+          <b-nav-item @click="redirect4" href="#">Contato</b-nav-item>
         </b-navbar-nav>
 
         <!-- Right aligned nav items -->
@@ -26,8 +26,8 @@
             <template v-slot:button-content>
               <em>Usuário</em>
             </template>
-            <b-dropdown-item href="#">Perfil</b-dropdown-item>
-            <b-dropdown-item href="#">Deslogar</b-dropdown-item>
+            <b-dropdown-item @click="redirect1" href="#">Perfil</b-dropdown-item>
+            <b-dropdown-item  href="#">Deslogar</b-dropdown-item>
           </b-nav-item-dropdown>
         </b-navbar-nav>
       </b-collapse>
