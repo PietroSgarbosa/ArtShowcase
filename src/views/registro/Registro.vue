@@ -1,4 +1,4 @@
-  <template>
+<template>
   <div>
 
     <b-navbar class="nav1" toggleable="lg" type="dark" variant="danger">
@@ -49,16 +49,22 @@
             </b-col>
           </b-col>
           <b-row>
-            <b-input-group prepend="Username" v-model="usuario">
+            <b-input-group prepend="Nome" v-model="usuario" class="mt-3">
               <b-form-input></b-form-input>
             </b-input-group>
-            <b-input-group prepend="Password" v-model="senha" class="mt-3">
+            <b-input-group prepend="Nick" v-model="nick" class="mt-3">
               <b-form-input></b-form-input>
             </b-input-group>
-            <b-input-group prepend="E-mail" v-model="email" class="mt-3">
+            <b-input-group prepend="Email" v-model="email" class="mt-3">
               <b-form-input></b-form-input>
             </b-input-group>
-            <b-input-group prepend="Confirmar E-mail" v-model="repetiremail" class="mt-3">
+            <b-input-group prepend="Senha" v-model="senha" class="mt-3">
+              <b-form-input></b-form-input>
+            </b-input-group>
+            <b-input-group prepend="Idade" v-model="idade" class="mt-3">
+              <b-form-input></b-form-input>
+            </b-input-group>
+            <b-input-group prepend="Sexo" v-model="sexo" class="mt-3">
               <b-form-input></b-form-input>
             </b-input-group>
             <b-button variant="light" class="mt-3 mx-auto w-50">Cadastrar</b-button>
@@ -69,8 +75,8 @@
     </center>
 
 
-    <b-card-footer >
-      <p class="footer-text"> ARTSHOWCASE - Pietro.S </p>
+    <b-card-footer>
+      <p class="footer-text" > ARTSHOWCASE - Pietro.S </p>
       <p class="footer-text"> COPYRIGHT© </p>
     </b-card-footer>
 
@@ -123,9 +129,10 @@ export default {
   data: _ => {
     return {
       usuario: null,
+      nick: null,
       senha: null,
       email: null,
-      repetiremail: null
+      idade: null,
     };
   },
 
@@ -134,6 +141,18 @@ export default {
     redirect() {
       this.$router.push("home");
     },
+    redirect1() {
+      this.$router.push("/");
+    },
+    redirect2() {
+      this.$router.push("register");
+    },
+    redirect3() {
+      this.$router.push("information");
+    },
+    redirect4() {
+      this.$router.push("contact");
+    }
 
   }
 };
@@ -174,6 +193,7 @@ h4 {
 
 b-card-footer {
   top: -30px;
+  position: relative;
 }
 
 .footer-text {

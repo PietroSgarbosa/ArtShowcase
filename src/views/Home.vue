@@ -15,8 +15,8 @@
 
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav class="text1">
-          <b-nav-item href="#">Informação</b-nav-item>
-          <b-nav-item href="#">Contato</b-nav-item>
+          <b-nav-item @click="redirect3" href="#">Informação</b-nav-item>
+          <b-nav-item @click="redirect4" href="#">Contato</b-nav-item>
         </b-navbar-nav>
 
         <!-- Right aligned nav items -->
@@ -52,20 +52,17 @@
       controls
       indicators
       background="#ababab"
-      img-width="1024"
-      img-height="480"
-      style="text-shadow: 1px 1px 2px #333;"
+      img-width=""
+      img-height=""
+      style="text-shadow: 3px 3px 3px #333;"
       @sliding-start="onSlideStart"
       @sliding-end="onSlideEnd"
     >
       <!-- Text slides with image -->
-      <b-carousel-slide
-        caption="First slide"
-        text="Nulla vitae elit libero, a pharetra augue mollis interdum."
-        img-src="https://picsum.photos/1024/480/?image=52"
-          
-
-      ></b-carousel-slide>
+      <b-carousel-slide img-src="https://picsum.photos/1024/480/?image=52">
+        <h1> Bem vindo ao ArtShowcase </h1>
+        <p> A sua plataforma de gerenciamento de competições e portfólios online. </p> 
+      </b-carousel-slide>
 
       <!-- Slides with custom text -->
       <b-carousel-slide img-src="https://picsum.photos/1024/480/?image=54">
@@ -136,13 +133,19 @@ export default {
 
   methods: {
     redirect() {
-      this.$router.push("register");
+      this.$router.push("home");
     },
     redirect1() {
       this.$router.push("/");
     },
     redirect2() {
       this.$router.push("register");
+    },
+    redirect3() {
+      this.$router.push("information");
+    },
+    redirect4() {
+      this.$router.push("contact");
     },
     onSlideStart(slide) {
         this.sliding = true
