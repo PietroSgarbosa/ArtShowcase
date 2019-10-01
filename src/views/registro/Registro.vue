@@ -49,25 +49,25 @@
             </b-col>
           </b-col>
           <b-row>
-            <b-input-group prepend="Nome" v-model="usuario" class="mt-3">
+            <b-input-group prepend="Nome" v-model="usuario" class="mt-3" type="text" name="usuario" id="usuario">
               <b-form-input></b-form-input>
             </b-input-group>
-            <b-input-group prepend="Nick" v-model="nick" class="mt-3">
+            <b-input-group prepend="Nick" v-model="nick" class="mt-3" type="text" name="nick" id="nick">
               <b-form-input></b-form-input>
             </b-input-group>
-            <b-input-group prepend="Email" v-model="email" class="mt-3">
+            <b-input-group prepend="Email" v-model="email" class="mt-3" type="string" name="email" id="email">
               <b-form-input></b-form-input>
             </b-input-group>
-            <b-input-group prepend="Senha" v-model="senha" class="mt-3">
+            <b-input-group prepend="Senha" v-model="senha" class="mt-3" type="string" name="senha" id="senha">
               <b-form-input></b-form-input>
             </b-input-group>
-            <b-input-group prepend="Idade" v-model="idade" class="mt-3">
+            <b-input-group prepend="Idade" v-model="idade" class="mt-3" type="number" name="idade" id="idade">
               <b-form-input></b-form-input>
             </b-input-group>
-            <b-input-group prepend="Sexo" v-model="sexo" class="mt-3">
+            <b-input-group prepend="Sexo" v-model="sexo" class="mt-3" type="text" name="usuario" id="usuario">
               <b-form-input></b-form-input>
             </b-input-group>
-            <b-button variant="light" class="mt-3 mx-auto w-50">Cadastrar</b-button>
+            <b-button type="submit" value="Enviar" variant="light" class="mt-3 mx-auto w-50">Cadastrar</b-button>
           </b-row>
         </b-col>
       </b-card>
@@ -85,44 +85,9 @@
   </div>
 </template>
 
-
-<!-- ANTIGO REGISTRO
-
-<template>
-  <div class="app flex-row align-items-center">
-    <div class="container">
-      <div class="row justify-content-center">
-       
-        <b-col cols="6">
-          <b-col class="d-flex align-items-center flex-column bd-highlight mb-3">
-            <h4 class="mt-auto p-2 bd-highlight">Ingressão</h4>
-            <p class="mt-auto p-2 bd-highlight">Apenas um passo para uma nova perspectiva</p>
-          </b-col>
-          <b-row>
-            <b-input-group prepend="Username" v-model="usuario">
-              <b-form-input></b-form-input>
-            </b-input-group>
-            <b-input-group prepend="Password" v-model="senha" class="mt-3">
-              <b-form-input></b-form-input>
-            </b-input-group>
-            <b-input-group prepend="E-mail" v-model="email" class="mt-3">
-              <b-form-input></b-form-input>
-            </b-input-group>
-            <b-input-group prepend="Confirmar E-mail" v-model="repetiremail" class="mt-3">
-              <b-form-input></b-form-input>
-            </b-input-group>
-            <b-button variant="success" class="mt-3 w-25 botao">Sign Up</b-button>
-          </b-row>
-        </b-col>
-        
-      </div>
-    </div>
-  </div>
-</template>
--->
-
 <script>
 import * as config from "@/config.json";
+import axios from "axios";
 
 export default {
   component: {},
@@ -152,7 +117,9 @@ export default {
     },
     redirect4() {
       this.$router.push("contact");
-    }
+    },
+
+    
 
   }
 };
