@@ -67,7 +67,7 @@
             <b-input-group prepend="Sexo" v-model="sexo" class="mt-3" type="text" name="usuario" id="usuario">
               <b-form-input></b-form-input>
             </b-input-group>
-            <b-button type="submit" value="Enviar" variant="light" class="mt-3 mx-auto w-50">Cadastrar</b-button>
+            <b-button @click="registrarUser" variant="light" class="mt-3 mx-auto w-50">Cadastrar</b-button>
           </b-row>
         </b-col>
       </b-card>
@@ -95,9 +95,10 @@ export default {
     return {
       usuario: null,
       nick: null,
-      senha: null,
       email: null,
+      senha: null,
       idade: null,
+      sexo: null,
     };
   },
 
@@ -119,7 +120,26 @@ export default {
       this.$router.push("contact");
     },
 
-    
+    async registrarUser() {
+      await axios
+        .post('/user/register', {
+          usuario: this.usuario,
+          nick: this.nick,
+          email: this.email,
+          senha: this.senha,
+          idade: this.idade,
+          sexo: this.sexo,
+        })
+        .then(response => {
+          if (response.status == 200) {
+
+          } else {
+
+          }
+        });
+
+
+    }    
 
   }
 };
