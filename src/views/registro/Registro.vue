@@ -122,7 +122,7 @@ export default {
 
     async registrarUser() {
       await axios
-        .post('/user/register', {
+        axios.post('{config.json}/user/register', {
           usuario: this.usuario,
           nick: this.nick,
           email: this.email,
@@ -132,9 +132,9 @@ export default {
         })
         .then(response => {
           if (response.status == 200) {
-
+            alert("Usuário cadastrado com sucesso!")
           } else {
-
+            alert("Ocorreu um erro no cadastro.")
           }
         });
 

@@ -56,6 +56,12 @@
             <b-button variant="light" class="mt-3 mx-auto w-50" @click="autentificacao">Login</b-button>
           </b-row>
         </b-col>
+        <b-col class="register">
+          <b-row>
+           <a class="link"  @click="redirect3" href="#"> Ainda não possui um perfil? Cadastre agora! </a>
+          </b-row>
+        </b-col>
+
       </b-card>
     </center>
 
@@ -97,6 +103,9 @@ export default {
     redirect2() {
       this.$router.push("contact");
     },
+    redirect3() {
+      this.$router.push("register");
+    },
 
 
     verificaCampos() {
@@ -129,6 +138,7 @@ export default {
   background-color: #f06464;
   border-radius: 10px;
   top: -40px;
+  padding: 10px;
 }
 
 h4 {
@@ -152,6 +162,21 @@ h4 {
 .text1 {
   font-family: "Mansalva", cursive;
   font-size: 18px;
+}
+
+.register {
+  top: 20px;
+}
+
+.link{
+font-family: "Mansalva", cursive;
+font-size: 20px;
+color: aliceblue;
+text-decoration:none;
+}
+.link:hover{
+color:bisque;
+text-decoration:none;
 }
 
 .footer-text {
