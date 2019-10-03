@@ -1,5 +1,5 @@
-<template>
-  <div>
+<template >
+  <div class="background">
 
     <b-navbar class="nav1" toggleable="lg" type="dark" variant="danger">
       <b-navbar-brand class="title" @click="redirect" href="#">Art Showcase</b-navbar-brand>
@@ -68,7 +68,7 @@
 
 
     <b-card-footer >
-      <p class="footer-text"> ARTSHOWCASE - Pietro.S </p>
+      <p class="footer-text"> ARTSHOWCASE - <b>SkyHorse.Inc</b> </p>
       <p class="footer-text"> COPYRIGHT© </p>
     </b-card-footer>
 
@@ -130,6 +130,13 @@ export default {
 </script>
 
 <style>
+.background {
+  background-image: url("/img/wppmini.JPEG");
+  background: no-repeat;
+  width: 100%;
+  height: 100%;
+}
+
 .signin {
   justify-content: center !important;
   width: 100%;

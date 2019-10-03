@@ -98,7 +98,7 @@
 -->
 
   <b-card-footer >
-    <p class="footer-text"> ARTSHOWCASE - Pietro.S </p>
+    <p class="footer-text"> ARTSHOWCASE - <b>SkyHorse.Inc</b> </p>
     <p class="footer-text"> COPYRIGHT© </p>
   </b-card-footer>
 

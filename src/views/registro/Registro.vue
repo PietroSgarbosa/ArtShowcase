@@ -76,7 +76,7 @@
 
 
     <b-card-footer>
-      <p class="footer-text" > ARTSHOWCASE - Pietro.S </p>
+      <p class="footer-text" > ARTSHOWCASE - <b>SkyHorse.Inc</b> </p>
       <p class="footer-text"> COPYRIGHT© </p>
     </b-card-footer>
 
@@ -122,7 +122,7 @@ export default {
 
     async registrarUser() {
       await axios
-        axios.post('{config.json}/user/register', {
+        axios.post('http://localhost:3035/user/register', {
           usuario: this.usuario,
           nick: this.nick,
           email: this.email,
