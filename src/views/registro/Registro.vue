@@ -60,7 +60,7 @@
               <b-form-input v-model="sexo"></b-form-input>
             </b-input-group>
           
-            <b-button variant="light" class="mt-3 mx-auto w-50">Cadastrar</b-button>
+            <b-button variant="light" @click="registrarUser" class="mt-3 mx-auto w-50">Cadastrar</b-button>
           </b-row>
           <b-col class="login1">
           <b-row>
