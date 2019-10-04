@@ -9,12 +9,14 @@
 
 
     <b-navbar class="nav1" toggleable="lg" type="dark" variant="danger">
+
       <b-navbar-brand class="title" @click="redirect" href="#">Art Showcase</b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav class="text1">
+
           <b-nav-item @click="redirect3" href="#">Informação</b-nav-item>
           <b-nav-item @click="redirect4" href="#">Contato</b-nav-item>
         </b-navbar-nav>
