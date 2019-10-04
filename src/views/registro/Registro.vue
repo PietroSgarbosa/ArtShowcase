@@ -133,6 +133,7 @@ export default {
         .then(response => {
           if (response.status == 200) {
             alert("Usuário cadastrado com sucesso!")
+            this.$router.push("Confirm")
           } else {
             alert("Ocorreu um erro no cadastro.")
           }

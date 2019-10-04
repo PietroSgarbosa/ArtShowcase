@@ -1,7 +1,7 @@
 <template>
   <div>
-   
-<b-navbar class="nav1" toggleable="lg" type="dark" variant="danger">
+
+    <b-navbar class="nav1" toggleable="lg" type="dark" variant="danger">
       <b-navbar-brand class="title" @click="redirect" href="#">Art Showcase</b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
@@ -35,29 +35,100 @@
 
 
 
+    <center>
+    <b-card
+     title="bem Vindo"
+     img-src="https://picsum.photos/600/300/?image=25"
+     img-alt="Image"
+     img-top
+     tag="article"
+     style="max-width: 20rem;"
+     class="cardCenter"
     
+     >
+        <b-card-text>
+            <p class="text1"><b>O seu cadastro foi efetuado com sucesso!</b></p>
+        </b-card-text>
+
+        <b-button href="#" @click="redirectProfile" variant="light" class="mt-3 mx-auto w-50">Ir para Perfil</b-button>
+    </b-card>
+    </center>
+
     
     <b-card-footer>
       <p class="footer-text" > ARTSHOWCASE - <b>SkyHorse.Inc</b> </p>
       <p class="footer-text"> COPYRIGHT© </p>
     </b-card-footer>
 
+
+
   </div>
 </template>
 
 <script>
 import * as config from "@/config.json";
+import axios from "axios";
 
 export default {
   component: {},
   data: _ => {
-    return {};
+    return {
+      usuario: null,
+      nick: null,
+      email: null,
+      senha: null,
+      idade: null,
+      sexo: null,
+    };
+  },
+
+  methods: {
+
+    redirect() {
+      this.$router.push("home");
+    },
+    redirect1() {
+      this.$router.push("/");
+    },
+    redirect2() {
+      this.$router.push("register");
+    },
+    redirect3() {
+      this.$router.push("information");
+    },
+    redirect4() {
+      this.$router.push("contact");
+    },
+    redirectProfile() {
+      this.$router.push("profile");
+    },
+
+    async registrarUser() {
+      await axios
+        axios.post('http://localhost:3035/user/register', {
+          usuario: this.usuario,
+          nick: this.nick,
+          email: this.email,
+          senha: this.senha,
+          idade: this.idade,
+          sexo: this.sexo,
+        })
+        .then(response => {
+          if (response.status == 200) {
+            alert("Usuário cadastrado com sucesso!")
+          } else {
+            alert("Ocorreu um erro no cadastro.")
+          }
+        });
+
+
+    }    
+
   }
 };
 </script>
 
 <style>
-
 .register {
   justify-content: center !important;
   width: 100%;
@@ -88,17 +159,29 @@ h4 {
 .text1 {
   font-family: "Mansalva", cursive;
   font-size: 18px;
+  color: aliceblue;
 }
 
 b-card-footer {
-  top: -30px;
-  position: relative;
+  float: inline-end;
+  top:auto;
+  
 }
 
 .footer-text {
   text-align: center;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   
+}
+
+.cardCenter {
+justify-content: center !important;
+  width: 100%;
+  margin-top: 10rem !important;
+  max-width: 300px;
+  background-color: #f06464;
+  top: -90px;
+  border-radius: 10px;
 }
 
 </style>

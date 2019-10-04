@@ -19,6 +19,9 @@ const Contact = () => import("@/views/Contact");
 //Informações
 const Information = () => import("@/views/Information");
 
+//Confirmação de Cadastro
+const Confirm = () => import("@/views/registro/Confirm");
+
 Vue.use(Router);
 
 let router = new Router({
@@ -56,6 +59,11 @@ let router = new Router({
       path: "/information",
       name: "Information",
       component: Information,
+    },
+    {
+      path: "/Confirm",
+      name: "Confirm",
+      component: Confirm,
     }
   ],
 });
