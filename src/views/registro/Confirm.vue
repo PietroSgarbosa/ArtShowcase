@@ -1,7 +1,7 @@
 <template>
   <div>
 
-    <b-navbar class="nav1" toggleable="lg" type="dark" variant="danger">
+    <b-navbar class="nav1" toggleable="lg" type="dark" variant="dark">
       <b-navbar-brand class="title" @click="redirect" href="#">Art Showcase</b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
@@ -55,10 +55,10 @@
     </center>
 
     
-    <b-card-footer>
+    <footer>
       <p class="footer-text" > ARTSHOWCASE - <b>SkyHorse.Inc</b> </p>
       <p class="footer-text"> COPYRIGHT© </p>
-    </b-card-footer>
+    </footer>
 
 
 
@@ -129,15 +129,6 @@ export default {
 </script>
 
 <style>
-.register {
-  justify-content: center !important;
-  width: 100%;
-  margin-top: 10rem !important;
-  max-width: 300px;
-  background-color: #f06464;
-  top: -90px;
-  border-radius: 10px;
-}
 
 h4 {
   color: white !important;
@@ -162,26 +153,31 @@ h4 {
   color: aliceblue;
 }
 
-b-card-footer {
-  float: inline-end;
-  top:auto;
+
+.cardCenter {
+  justify-content: center !important;
+  width: 100%;
+  margin-top: 10rem !important;
+  max-width: 300px;
+  background-color: darkgray;
+  top: -90px;
+  border-radius: 10px;
   
 }
 
 .footer-text {
   text-align: center;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  
+  font-family:  "Andale Mono", monospace;
+  font-size: 20px;
+  color: white;
+
 }
 
-.cardCenter {
-justify-content: center !important;
-  width: 100%;
-  margin-top: 10rem !important;
-  max-width: 300px;
-  background-color: #f06464;
-  top: -90px;
-  border-radius: 10px;
+footer {
+  margin: 20px;
+  position: relative;
+  padding: 10px;
+  
 }
 
 </style>

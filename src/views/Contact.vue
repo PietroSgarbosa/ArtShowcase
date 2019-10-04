@@ -8,7 +8,7 @@
 <!-- NAV BAR -->
 
 
-    <b-navbar class="nav1" toggleable="lg" type="dark" variant="danger">
+    <b-navbar class="nav1" toggleable="lg" type="dark" variant="dark">
       <b-navbar-brand class="title" @click="redirect" href="#">Art Showcase</b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
@@ -47,10 +47,10 @@
   
     
 
-  <b-card-footer >
+  <footer >
     <p class="footer-text"> ARTSHOWCASE - <b>SkyHorse.Inc</b> </p>
     <p class="footer-text"> COPYRIGHT© </p>
-  </b-card-footer>
+  </footer>
 
 
 
@@ -110,6 +110,13 @@ export default {
 .footer-text {
   text-align: center;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
+  
+}
+
+footer {
+  margin: 20px;
+  position: relative;
+  padding: 10px;
   
 }
 </style>

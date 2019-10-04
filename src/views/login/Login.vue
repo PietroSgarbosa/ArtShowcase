@@ -1,8 +1,8 @@
 
 <template >
-  <div class="background">
+  <div >
 
-    <b-navbar class="nav1" toggleable="lg" type="dark" variant="danger">
+    <b-navbar class="nav1" toggleable="lg" type="dark" variant="dark">
       <b-navbar-brand class="title" @click="redirect" href="#">Art Showcase</b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
@@ -21,10 +21,10 @@
             <b-dropdown-item href="#">RU</b-dropdown-item>
             <b-dropdown-item href="#">FA</b-dropdown-item>
           </b-nav-item-dropdown>
-
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
+
     <center>
       <b-card class="signin">
         <b-col>
@@ -37,22 +37,22 @@
             </b-col>
           </b-col>
           <b-row>
-            <b-input-group prepend="Username" v-model="usuario">
-              <b-form-input></b-form-input>
+            <b-input-group prepend="Username">
+              <b-form-input v-model="usuario"></b-form-input>
             </b-input-group>
           </b-row>
           <b-row>
-            <b-input-group prepend="Password" v-model="senha" class="mt-3">
-              <b-form-input></b-form-input>
+            <b-input-group prepend="Password" class="mt-3">
+              <b-form-input v-model="senha"></b-form-input>
             </b-input-group>
           </b-row>
           <b-row>
             <b-button variant="light" class="mt-3 mx-auto w-50" @click="autentificacao">Login</b-button>
           </b-row>
         </b-col>
-        <b-col class="register">
+        <b-col class="register1">
           <b-row>
-           <a class="link"  @click="redirect3" href="#"> Ainda não possui um perfil? Cadastre agora! </a>
+           <a class="link2"  @click="redirect3" href="#"> Ainda não possui um perfil? Cadastre agora! </a>
           </b-row>
         </b-col>
 
@@ -61,10 +61,10 @@
 
 
 
-    <b-card-footer >
+    <footer >
       <p class="footer-text"> ARTSHOWCASE - <b>SkyHorse.Inc</b> </p>
       <p class="footer-text"> COPYRIGHT© </p>
-    </b-card-footer>
+    </footer>
 
 
   </div>
@@ -116,7 +116,10 @@ export default {
               if(this.usuario == response.data.usuario) return true;
               if(this.senha == response.data.senha)return true;
               this.$router.push("/home");
+            } else {
+                alert("Usuário ou senha incorretos!")
             }
+
           });
       }
     }
@@ -125,22 +128,17 @@ export default {
 </script>
 
 <style>
-.background {
-  background-image: url("/img/wppmini.JPEG");
-  background: no-repeat;
-  width: 100%;
-  height: 100%;
-}
 
 .signin {
   justify-content: center !important;
   width: 100%;
   margin-top: 10rem !important;
   max-width: 300px;
-  background-color: #f06464;
+  background-color:gray;
   border-radius: 10px;
   top: -40px;
-  padding: 10px;
+  padding: 5px;
+  border-color: gray;
 }
 
 h4 {
@@ -166,26 +164,34 @@ h4 {
   font-size: 18px;
 }
 
-.register {
+.register1 {
   top: 20px;
 }
 
-.link{
+.link2{
 font-family: "Mansalva", cursive;
 font-size: 20px;
 color: aliceblue;
 text-decoration:none;
 }
-.link:hover{
-color:bisque;
+.link2:hover{
+color: black;
 text-decoration:none;
 }
 
 
 .footer-text {
   text-align: center;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  
+  font-family:  "Andale Mono", monospace;
+  font-size: 20px;
+  color: white;
+
 }
 
+footer {
+  margin: 20px;
+  position: relative;
+  padding: 10px;
+  
+}
 </style>

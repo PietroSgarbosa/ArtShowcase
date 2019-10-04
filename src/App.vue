@@ -24,4 +24,9 @@ $simple-line-font-path: "~simple-line-icons/fonts/";
 // Import Main styles for this application
 @import "assets/scss/style";
 
+body {
+  background-color: gray;
+
+}
+
 </style>
