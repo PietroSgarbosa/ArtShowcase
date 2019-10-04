@@ -1,15 +1,16 @@
-  <template>
-  <div>
+
+<template >
+  <div class="background">
 
     <b-navbar class="nav1" toggleable="lg" type="dark" variant="danger">
-      <b-navbar-brand class="title" href="#">Art Showcase</b-navbar-brand>
+      <b-navbar-brand class="title" @click="redirect" href="#">Art Showcase</b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav class="text1">
-          <b-nav-item href="#">Informação</b-nav-item>
-          <b-nav-item href="#">Contato</b-nav-item>
+          <b-nav-item @click="redirect1" href="#">Informação</b-nav-item>
+          <b-nav-item @click="redirect2" href="#">Contato</b-nav-item>
         </b-navbar-nav>
 
         <!-- Right aligned nav items -->
@@ -21,23 +22,9 @@
             <b-dropdown-item href="#">FA</b-dropdown-item>
           </b-nav-item-dropdown>
 
-          <b-nav-item-dropdown right>
-            <!-- Using 'button-content' slot -->
-            <template v-slot:button-content>
-              <em>Usuário</em>
-            </template>
-            <b-dropdown-item href="#">Perfil</b-dropdown-item>
-            <b-dropdown-item href="#">Deslogar</b-dropdown-item>
-          </b-nav-item-dropdown>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
-
-
-
-
-
-
     <center>
       <b-card class="signin">
         <b-col>
@@ -63,13 +50,19 @@
             <b-button variant="light" class="mt-3 mx-auto w-50" @click="autentificacao">Login</b-button>
           </b-row>
         </b-col>
+        <b-col class="register">
+          <b-row>
+           <a class="link"  @click="redirect3" href="#"> Ainda não possui um perfil? Cadastre agora! </a>
+          </b-row>
+        </b-col>
+
       </b-card>
     </center>
 
 
 
     <b-card-footer >
-      <p class="footer-text"> ARTSHOWCASE - Pietro.S />
+      <p class="footer-text"> ARTSHOWCASE - <b>SkyHorse.Inc</b> </p>
       <p class="footer-text"> COPYRIGHT© </p>
     </b-card-footer>
 
@@ -77,7 +70,7 @@
   </div>
 </template>
 
-  <script>
+<script>
 import * as config from "@/config.json";
 import axios from "axios";
 
@@ -94,6 +87,21 @@ export default {
   beforeMount() {},
 
   methods: {
+
+    redirect() {
+      this.$router.push("home");
+    },
+    redirect1() {
+      this.$router.push("information");
+    },
+    redirect2() {
+      this.$router.push("contact");
+    },
+    redirect3() {
+      this.$router.push("register");
+    },
+
+
     verificaCampos() {
       if (usuario == null || usuario == "") return false;
       if (senha == null || senha == "") return false;
@@ -116,7 +124,14 @@ export default {
 };
 </script>
 
-  <style>
+<style>
+.background {
+  background-image: url("/img/wppmini.JPEG");
+  background: no-repeat;
+  width: 100%;
+  height: 100%;
+}
+
 .signin {
   justify-content: center !important;
   width: 100%;
@@ -125,6 +140,7 @@ export default {
   background-color: #f06464;
   border-radius: 10px;
   top: -40px;
+  padding: 10px;
 }
 
 h4 {
@@ -149,6 +165,22 @@ h4 {
   font-family: "Mansalva", cursive;
   font-size: 18px;
 }
+
+.register {
+  top: 20px;
+}
+
+.link{
+font-family: "Mansalva", cursive;
+font-size: 20px;
+color: aliceblue;
+text-decoration:none;
+}
+.link:hover{
+color:bisque;
+text-decoration:none;
+}
+
 
 .footer-text {
   text-align: center;
