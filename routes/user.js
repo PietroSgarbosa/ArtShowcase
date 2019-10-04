@@ -2,86 +2,79 @@ let conn = require('../dbconfig');
 
 module.exports = (app)=>{
 
-    app.get('/user/user_list', (req, res)=>{
+    app.post('/user/login', (req, res)=>{
 
-        conn.query("SELECT * FROM project_artshowcase.cadastro", (err, results)=>{
+        const {
+            nick,
+            senha
+        } = req.body;
 
+        let sql = `SELECT COUNT(*) as count FROM project_artshowcase.cadastro WHERE NICK_USUAR = '${nick}' AND SENH_USUAR = '${senha}'`;
+
+        conn.query(sql, (err, results, fields)=>{
+           
+            console.log(query.values);
+                       
             if(err){
-                res.send(err);
+                console.log(err);
+                res.sendStatus(400);
+            }else if (results < 1){
+                console.log("usuario incorreto");
+                res.sendStatus(404);
             }else{
-                res.send(results);
+                console.log("login correto");
+                res.sendStatus(200);
             }
         });
 
-        conn.end();
     });
 
     app.post('/user/register', (req, res)=>{
             
-        let post  = req.body;
-        let user = post.nick;
-        let nick = post.nick;
-        let mail = post.email;
-        let pw = post.senha;
-        let age = post.idade;
-        let gender = post.sexo;
+        const {
+            usuario,
+            nick,
+            email,
+            senha,
+            idade,
+            sexo
+        } = req.body;
 
         // insert statment (TESTING PURPOSE)
         let sql = `INSERT INTO project_artshowcase.cadastro
                     (NOME_USUAR, NICK_USUAR, MAIL_USUAR, SENH_USUAR, IDAD_USUAR, SEXO_USUAR)
-                     VALUES ('teste', 'teste', 'teste@teste', '123testando', '22', 'masculino');`;
+                     VALUES ('${usuario}', '${nick}', '${email}', '${senha}', '${idade}', '${sexo}');`;
 
-        
-        
         // execute the insert statment
         conn.query(sql, (err, results)=>{
 
             if(err){
-                res.send(err);
-                
+                console.log(err);
+                res.sendStatus(400);
             }else{
-                res.send(results);
-                app.render('Registro.vue', function (err, html) {
-                    // ...
-                  })
-                
+                res.sendStatus(200);
             }
         });
         
     });
-    /*NOT WORKING YET
-        //TEST INSERT
-            /*let sql = `INSERT INTO project_artshowcase.cadastro
-                (NOME_USUAR,
-                NICK_USUAR,
-                MAIL_USUAR,
-                SENH_USUAR,
-                IDAD_USUAR,
-                SEXO_USUAR)
-                VALUES
-                ('`+user+`',
-                '`+nick+`',
-                '`+mail+`',
-                '`+pw+`',
-                `+age+`,
-                '`+gender+`');`;*/
 
-            /*app.get('/user/register', (req, res)=>{
-                let query = `INSERT INTO project_artshowcase.cadastro
-                            (NOME_USUAR, NICK_USUAR, MAIL_USUAR, SENH_USUAR, IDAD_USUAR, SEXO_USUAR)
-                            VALUES ('teste', 'teste', 'teste@teste', '123testando', '22', 'masculino');`;
+    //TEST INSERT
+    /*app.get('/user/register', (req, res)=>{
+        let query = `INSERT INTO project_artshowcase.cadastro
+                    (NOME_USUAR, NICK_USUAR, MAIL_USUAR, SENH_USUAR, IDAD_USUAR, SEXO_USUAR)
+                     VALUES ('teste', 'teste', 'teste@teste', '123testando', '22', 'masculino');`;
 
-                conn.query(query, (err, results)=>{
+        conn.query(query, (err, results)=>{
 
-                    if(err){
-                        res.send(err);
-                    }else{
-                        res.send(results);
-                    }
-                });
-            });
-    */
+            if(err){
+                res.send(err);
+            }else{
+                res.send(results);
+            }
+        });
+    });*/
    
 }
-    
+    //AINDA NÃO FUNCIONAL
+     /**/
 
