@@ -1,3 +1,4 @@
+
 <template >
   <div class="background">
 
@@ -21,16 +22,9 @@
             <b-dropdown-item href="#">FA</b-dropdown-item>
           </b-nav-item-dropdown>
 
-          
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
-
-
-
-
-
-
     <center>
       <b-card class="signin">
         <b-col>
@@ -121,6 +115,7 @@ export default {
             if (response.status == 200) {
               if(this.usuario == response.data.usuario) return true;
               if(this.senha == response.data.senha)return true;
+              this.$router.push("/home");
             }
           });
       }
@@ -185,6 +180,7 @@ text-decoration:none;
 color:bisque;
 text-decoration:none;
 }
+
 
 .footer-text {
   text-align: center;
