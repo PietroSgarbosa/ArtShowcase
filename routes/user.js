@@ -9,20 +9,20 @@ module.exports = (app)=>{
             senha
         } = req.body;
 
-        let sql = `SELECT COUNT(*) as count FROM project_artshowcase.cadastro WHERE NICK_USUAR = '${nick}' AND SENH_USUAR = '${senha}'`;
+        let sql = `SELECT * FROM project_artshowcase.cadastro WHERE NICK_USUAR = '${nick}' AND SENH_USUAR = '${senha}'`;
 
         conn.query(sql, (err, results, fields)=>{
            
-            console.log(query.values);
+            console.log(results.length);
                        
             if(err){
                 console.log(err);
                 res.sendStatus(400);
-            }else if (results < 1){
-                console.log("usuario incorreto");
+            }else if (results.length != 1){
+                console.log("Usuário ou senha incorreto(s)");
                 res.sendStatus(404);
             }else{
-                console.log("login correto");
+                console.log("Login realizado!");
                 res.sendStatus(200);
             }
         });
