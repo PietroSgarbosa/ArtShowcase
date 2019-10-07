@@ -30,7 +30,6 @@
     "vue": "^2.6.6",
     "vue-color": "^2.7.0",
     "vue-loading-overlay": "^3.1.1",
-    "vue-parallaxy": "^1.1.1",
     "vue-router": "^3.1.1"
   },
   "devDependencies": {
