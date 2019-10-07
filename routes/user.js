@@ -20,7 +20,7 @@ module.exports = (app)=>{
                 res.sendStatus(400);
             }else if (results.length != 1){
                 console.log("Usuário ou senha incorreto(s)");
-                res.sendStatus(404);
+                res.sendStatus(204);
             }else{
                 console.log("Login realizado!");
                 res.sendStatus(200);
