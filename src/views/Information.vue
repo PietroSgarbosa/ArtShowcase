@@ -1,14 +1,11 @@
 <template>
   <div class="background">
-    <!--
-    <b-button variant="success" @click="redirect"></b-button>
-    -->
 
 
 <!-- NAV BAR -->
 
 
-    <b-navbar class="nav1" toggleable="lg" type="dark" variant="danger">
+    <b-navbar class="nav1" toggleable="lg" type="dark" variant="dark">
       <b-navbar-brand class="title" @click="redirect1" href="#">Art Showcase</b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
@@ -57,7 +54,7 @@
     class="cardOne"
     >
       <b-card-text >
-        Some quick example text to build on the card and make up the bulk of the card's content.
+        EXEMPLOS DE CARDS PARA INFORMAÇÕES
       </b-card-text>
     </b-card>
 
@@ -71,35 +68,15 @@
     class="cardTwo"
     >
       <b-card-text>
-        Some quick example text to build on the card and make up the bulk of the card's content.
+        EXEMPLOS DE CARDS PARA INFORMAÇÕES
       </b-card-text>
     </b-card>
   </div>
 </div>
-
-
-
- 
-
-
-    <b-card-body>
-    </b-card-body>
-      
- 
-
-  
-  
-    
-
-  <b-card-footer >
+  <footer >
     <p class="footer-text"> ARTSHOWCASE - <b>SkyHorse.Inc</b> </p>
     <p class="footer-text"> COPYRIGHT© </p>
-  </b-card-footer>
-
-
-
-
-    
+  </footer>
   </div>
 </template>
 

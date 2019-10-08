@@ -1,99 +1,15 @@
   <template>
   <div>
 
-    <b-navbar class="nav1" toggleable="lg" type="dark" variant="danger">
-      <b-navbar-brand class="title" href="#">Art Showcase</b-navbar-brand>
-
-      <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-
-      <b-collapse id="nav-collapse" is-nav>
-        <b-navbar-nav class="text1">
-          <b-nav-item href="#">Informação</b-nav-item>
-          <b-nav-item href="#">Contato</b-nav-item>
-        </b-navbar-nav>
-
-        <!-- Right aligned nav items -->
-        <b-navbar-nav class="ml-auto">
-          <b-nav-item-dropdown text="Lang" right>
-            <b-dropdown-item href="#">EN</b-dropdown-item>
-            <b-dropdown-item href="#">ES</b-dropdown-item>
-            <b-dropdown-item href="#">RU</b-dropdown-item>
-            <b-dropdown-item href="#">FA</b-dropdown-item>
-          </b-nav-item-dropdown>
-
-          <b-nav-item-dropdown right>
-            <!-- Using 'button-content' slot -->
-            <template v-slot:button-content>
-              <em>Usuário</em>
-            </template>
-            <b-dropdown-item href="#">Perfil</b-dropdown-item>
-            <b-dropdown-item href="#">Deslogar</b-dropdown-item>
-          </b-nav-item-dropdown>
-        </b-navbar-nav>
-      </b-collapse>
-    </b-navbar>
-
-
-
-
-
-    <center>
-      <b-card class="register">
-        <b-col>
-          <b-col>
-            <b-col>
-              <img src="/img/whiteeagle.png" alt="Icon" class="size-img" />
-            </b-col>
-            <b-col>
-              <h4 class="mt-3">Cadastrar</h4>
-            </b-col>
-          </b-col>
-          <b-row>
-            <b-input-group prepend="Username" v-model="usuario">
-              <b-form-input></b-form-input>
-            </b-input-group>
-            <b-input-group prepend="Password" v-model="senha" class="mt-3">
-              <b-form-input></b-form-input>
-            </b-input-group>
-            <b-input-group prepend="E-mail" v-model="email" class="mt-3">
-              <b-form-input></b-form-input>
-            </b-input-group>
-            <b-input-group prepend="Confirmar E-mail" v-model="repetiremail" class="mt-3">
-              <b-form-input></b-form-input>
-            </b-input-group>
-            <b-button variant="light" class="mt-3 mx-auto w-50">Cadastrar</b-button>
-          </b-row>
-        </b-col>
-      </b-card>
-
-    </center>
-
-
-    <b-card-footer >
-      <p class="footer-text"> ARTSHOWCASE - Pietro.S />
-      <p class="footer-text"> COPYRIGHT© </p>
-    </b-card-footer>
-
-
-
-  </div>
-</template>
-
-
-<!-- ANTIGO REGISTRO
-
-<template>
-  <div>
-
-    <b-navbar class="nav1" toggleable="lg" type="dark" variant="danger">
+    <b-navbar class="nav1" toggleable="lg" type="dark" variant="dark">
       <b-navbar-brand class="title" @click="redirect" href="#">Art Showcase</b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav class="text1">
-          <b-nav-item @click="redirect3" href="#">Informação</b-nav-item>
-          <b-nav-item @click="redirect4" href="#">Contato</b-nav-item>
+          <b-nav-item @click="redirect1" href="#">Informação</b-nav-item>
+          <b-nav-item @click="redirect2" href="#">Contato</b-nav-item>
         </b-navbar-nav>
 
         <!-- Right aligned nav items -->
@@ -103,15 +19,6 @@
             <b-dropdown-item href="#">ES</b-dropdown-item>
             <b-dropdown-item href="#">RU</b-dropdown-item>
             <b-dropdown-item href="#">FA</b-dropdown-item>
-          </b-nav-item-dropdown>
-
-          <b-nav-item-dropdown right>
-            <!-- Using 'button-content' slot -->
-            <template v-slot:button-content>
-              <em>Usuário</em>
-            </template>
-            <b-dropdown-item @click="redirect1" href="#">Perfil</b-dropdown-item>
-            <b-dropdown-item  href="#">Deslogar</b-dropdown-item>
           </b-nav-item-dropdown>
         </b-navbar-nav>
       </b-collapse>
@@ -128,37 +35,41 @@
             </b-col>
           </b-col>
           <b-row>
-            <b-input-group prepend="Nome" v-model="usuario" class="mt-3" type="text" name="usuario" id="usuario">
-              <b-form-input></b-form-input>
+            <b-input-group prepend="Nome Completo">
+              <b-form-input v-model="usuario"></b-form-input>
             </b-input-group>
-            <b-input-group prepend="Nick" v-model="nick" class="mt-3" type="text" name="nick" id="nick">
-              <b-form-input></b-form-input>
+            <b-input-group prepend="Username" class="mt-3">
+              <b-form-input v-model="nick"></b-form-input>
             </b-input-group>
-            <b-input-group prepend="Email" v-model="email" class="mt-3" type="string" name="email" id="email">
-              <b-form-input></b-form-input>
+            <b-input-group prepend="E-mail" class="mt-3">
+              <b-form-input v-model="email"></b-form-input>
             </b-input-group>
-            <b-input-group prepend="Senha" v-model="senha" class="mt-3" type="string" name="senha" id="senha">
-              <b-form-input></b-form-input>
+            <b-input-group prepend="Password" class="mt-3">
+              <b-form-input v-model="senha"></b-form-input>
             </b-input-group>
-            <b-input-group prepend="Idade" v-model="idade" class="mt-3" type="number" name="idade" id="idade">
-              <b-form-input></b-form-input>
+            <b-input-group prepend="Idade" class="mt-3">
+              <b-form-input v-model="idade"></b-form-input>
             </b-input-group>
-            <b-input-group prepend="Sexo" v-model="sexo" class="mt-3" type="text" name="usuario" id="usuario">
-              <b-form-input></b-form-input>
+            <b-input-group prepend="Sexo" class="mt-3">
+              <b-form-input v-model="sexo"></b-form-input>
             </b-input-group>
-            <b-button @click="registrarUser" variant="light" class="mt-3 mx-auto w-50">Cadastrar</b-button>
+          
+            <b-button variant="light" @click="registrarUser" class="mt-3 mx-auto w-50">Cadastrar</b-button>
           </b-row>
+          <b-col class="login1">
+          <b-row>
+           <a class="link3"  @click="redirect1" href="#"> Já possui um perfil? Logue agora! </a>
+          </b-row>
+        </b-col>
         </b-col>
       </b-card>
     </center>
-    <b-card-footer>
-      <p class="footer-text" > ARTSHOWCASE - <b>SkyHorse.Inc</b> </p>
+    <footer >
+      <p class="footer-text"> ARTSHOWCASE - <b>SkyHorse.Inc</b> </p>
       <p class="footer-text"> COPYRIGHT© </p>
-    </b-card-footer>
+    </footer>
   </div>
 </template>
--->
-
 <script>
 import * as config from "@/config.json";
 import axios from "axios";
@@ -226,9 +137,10 @@ export default {
   width: 100%;
   margin-top: 10rem !important;
   max-width: 300px;
-  background-color: #f06464;
+  background-color:gray;
   top: -90px;
   border-radius: 10px;
+  border-color: gray;
 }
 
 h4 {
@@ -252,16 +164,34 @@ h4 {
   font-family: "Mansalva", cursive;
   font-size: 18px;
 }
-
-b-card-footer {
-  top: -30px;
-  position: relative;
-}
-
 .footer-text {
   text-align: center;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-family:  "Andale Mono", monospace;
+  font-size: 20px;
+  color: white;
+
+}
+
+footer {
+  margin: 20px;
+  position: relative;
+  padding: 10px;
   
+}
+
+.login1 {
+  top: 20px;
+}
+
+.link3{
+font-family: "Mansalva", cursive;
+font-size: 20px;
+color: aliceblue;
+text-decoration:none;
+}
+.link3:hover{
+color: black;
+text-decoration:none;
 }
 
 </style>
