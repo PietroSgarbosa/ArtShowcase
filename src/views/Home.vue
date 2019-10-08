@@ -1,7 +1,7 @@
+
 <template variant="dark">
   <div>
    
-
     <b-navbar class="nav1" toggleable="lg" type="dark" variant="dark">
 
       <b-navbar-brand class="title" @click="redirect" href="#">Art Showcase</b-navbar-brand>
@@ -48,6 +48,7 @@
       controls
       indicators
       background="#ababab"
+
       img-width="1024"
       img-height="480"
       style="text-shadow: 3px 3px 3px #333;"
@@ -92,9 +93,6 @@
     <p class="footer-text"> ARTSHOWCASE - <b>SkyHorse.Inc</b> </p>
     <p class="footer-text"> COPYRIGHT© </p>
   </footer>
-
-
-
 
     
   </div>
@@ -247,6 +245,4 @@ padding: 10px;
 color: black;
 text-decoration:none;
 }
-
-
 </style>

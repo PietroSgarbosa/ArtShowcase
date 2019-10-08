@@ -1,6 +1,5 @@
 <template>
   <div>
-
     <b-navbar class="nav1" toggleable="lg" type="dark" variant="dark">
       <b-navbar-brand class="title" @click="redirect" href="#">Art Showcase</b-navbar-brand>
 
@@ -53,15 +52,10 @@
         <b-button href="#" @click="redirectProfile" variant="light" class="mt-3 mx-auto w-50">Ir para Perfil</b-button>
     </b-card>
     </center>
-
-    
     <footer>
       <p class="footer-text" > ARTSHOWCASE - <b>SkyHorse.Inc</b> </p>
       <p class="footer-text"> COPYRIGHT© </p>
     </footer>
-
-
-
   </div>
 </template>
 
@@ -129,7 +123,6 @@ export default {
 </script>
 
 <style>
-
 h4 {
   color: white !important;
 }
@@ -152,8 +145,6 @@ h4 {
   font-size: 18px;
   color: aliceblue;
 }
-
-
 .cardCenter {
   justify-content: center !important;
   width: 100%;
@@ -177,7 +168,6 @@ footer {
   margin: 20px;
   position: relative;
   padding: 10px;
-  
 }
 
 </style>

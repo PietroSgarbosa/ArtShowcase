@@ -20,15 +20,9 @@
             <b-dropdown-item href="#">RU</b-dropdown-item>
             <b-dropdown-item href="#">FA</b-dropdown-item>
           </b-nav-item-dropdown>
-
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
-
-
-
-
-
     <center>
       <b-card class="register">
         <b-col>
@@ -69,23 +63,13 @@
         </b-col>
         </b-col>
       </b-card>
-
     </center>
-
-
     <footer >
       <p class="footer-text"> ARTSHOWCASE - <b>SkyHorse.Inc</b> </p>
       <p class="footer-text"> COPYRIGHT© </p>
     </footer>
-
-
-
   </div>
 </template>
-
-
-
-
 <script>
 import * as config from "@/config.json";
 import axios from "axios";
@@ -180,7 +164,6 @@ h4 {
   font-family: "Mansalva", cursive;
   font-size: 18px;
 }
-
 .footer-text {
   text-align: center;
   font-family:  "Andale Mono", monospace;

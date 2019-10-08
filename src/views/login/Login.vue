@@ -24,7 +24,6 @@
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
-
     <center>
       <b-card class="signin">
         <b-col>
@@ -55,18 +54,12 @@
            <a class="link2"  @click="redirect3" href="#"> Ainda não possui um perfil? Cadastre agora! </a>
           </b-row>
         </b-col>
-
       </b-card>
     </center>
-
-
-
     <footer >
       <p class="footer-text"> ARTSHOWCASE - <b>SkyHorse.Inc</b> </p>
       <p class="footer-text"> COPYRIGHT© </p>
     </footer>
-
-
   </div>
 </template>
 
@@ -119,7 +112,6 @@ export default {
             } else {
                 alert("Usuário ou senha incorretos!")
             }
-
           });
       }
     }
@@ -128,7 +120,6 @@ export default {
 </script>
 
 <style>
-
 .signin {
   justify-content: center !important;
   width: 100%;
@@ -167,7 +158,6 @@ h4 {
 .register1 {
   top: 20px;
 }
-
 .link2{
 font-family: "Mansalva", cursive;
 font-size: 20px;

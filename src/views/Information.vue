@@ -1,6 +1,5 @@
 <template>
   <div class="background">
-  
 
 
 <!-- NAV BAR -->
@@ -74,22 +73,10 @@
     </b-card>
   </div>
 </div>
-
- 
-
-  
-  
-    
-
   <footer >
     <p class="footer-text"> ARTSHOWCASE - <b>SkyHorse.Inc</b> </p>
     <p class="footer-text"> COPYRIGHT© </p>
   </footer>
-
-
-
-
-    
   </div>
 </template>
 
