@@ -1,7 +1,14 @@
 <template>
   <div>
-   
-<b-navbar class="nav1" toggleable="lg" type="dark" variant="danger">
+    <!--
+    <b-button variant="success" @click="redirect"></b-button>
+    -->
+
+
+<!-- NAV BAR -->
+
+
+    <b-navbar class="nav1" toggleable="lg" type="dark" variant="dark">
       <b-navbar-brand class="title" @click="redirect" href="#">Art Showcase</b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
@@ -26,8 +33,8 @@
             <template v-slot:button-content>
               <em>Usuário</em>
             </template>
-            <b-dropdown-item @click="redirect1" href="#">Perfil</b-dropdown-item>
-            <b-dropdown-item  href="#">Deslogar</b-dropdown-item>
+            <b-dropdown-item @click="redirect1" href="#">Logar Perfil</b-dropdown-item>
+            <b-dropdown-item @click="redirect2" href="#">Cadastrar Perfil</b-dropdown-item>
           </b-nav-item-dropdown>
         </b-navbar-nav>
       </b-collapse>
@@ -35,13 +42,13 @@
 
 
 
-    
-    
-    <b-card-footer>
-      <p class="footer-text" > ARTSHOWCASE - <b>SkyHorse.Inc</b> </p>
-      <p class="footer-text"> COPYRIGHT© </p>
-    </b-card-footer>
+<!-- CARROSSEL -->
 
+  
+  <footer >
+    <p class="footer-text"> ARTSHOWCASE - <b>SkyHorse.Inc</b> </p>
+    <p class="footer-text"> COPYRIGHT© </p>
+  </footer>
   </div>
 </template>
 
@@ -51,31 +58,34 @@ import * as config from "@/config.json";
 export default {
   component: {},
   data: _ => {
-    return {};
+      return {
+
+      };
+  },
+
+  methods: {
+   redirect() {
+      this.$router.push("home");
+    },
+    redirect1() {
+      this.$router.push("/");
+    },
+    redirect2() {
+      this.$router.push("register");
+    },
+    redirect3() {
+      this.$router.push("information");
+    },
+    redirect4() {
+      this.$router.push("contact");
+    }
+    
   }
 };
 </script>
 
+
 <style>
-
-.register {
-  justify-content: center !important;
-  width: 100%;
-  margin-top: 10rem !important;
-  max-width: 300px;
-  background-color: #f06464;
-  top: -90px;
-  border-radius: 10px;
-}
-
-h4 {
-  color: white !important;
-}
-.size-img {
-  max-width: 80px !important;
-  max-height: 80px !important;
-}
-
 .nav1 {
   padding: 10px;
 }
@@ -90,15 +100,16 @@ h4 {
   font-size: 18px;
 }
 
-b-card-footer {
-  top: -30px;
-  position: relative;
-}
-
 .footer-text {
   text-align: center;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   
 }
 
+footer {
+  margin: 20px;
+  position: relative;
+  padding: 10px;
+  
+}
 </style>

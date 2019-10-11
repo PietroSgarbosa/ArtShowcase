@@ -1,6 +1,5 @@
-  <template>
+<template>
   <div>
-
     <b-navbar class="nav1" toggleable="lg" type="dark" variant="dark">
       <b-navbar-brand class="title" @click="redirect" href="#">Art Showcase</b-navbar-brand>
 
@@ -8,8 +7,8 @@
 
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav class="text1">
-          <b-nav-item @click="redirect1" href="#">Informação</b-nav-item>
-          <b-nav-item @click="redirect2" href="#">Contato</b-nav-item>
+          <b-nav-item @click="redirect3" href="#">Informação</b-nav-item>
+          <b-nav-item @click="redirect4" href="#">Contato</b-nav-item>
         </b-navbar-nav>
 
         <!-- Right aligned nav items -->
@@ -20,56 +19,46 @@
             <b-dropdown-item href="#">RU</b-dropdown-item>
             <b-dropdown-item href="#">FA</b-dropdown-item>
           </b-nav-item-dropdown>
+
+          <b-nav-item-dropdown right>
+            <!-- Using 'button-content' slot -->
+            <template v-slot:button-content>
+              <em>Usuário</em>
+            </template>
+            <b-dropdown-item @click="redirect1" href="#">Perfil</b-dropdown-item>
+            <b-dropdown-item  href="#">Deslogar</b-dropdown-item>
+          </b-nav-item-dropdown>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
+
+
+
     <center>
-      <b-card class="register">
-        <b-col>
-          <b-col>
-            <b-col>
-              <img src="/img/whiteeagle.png" alt="Icon" class="size-img" />
-            </b-col>
-            <b-col>
-              <h4 class="mt-3">Cadastrar</h4>
-            </b-col>
-          </b-col>
-          <b-row>
-            <b-input-group prepend="Nome Completo">
-              <b-form-input v-model="usuario"></b-form-input>
-            </b-input-group>
-            <b-input-group prepend="Username" class="mt-3">
-              <b-form-input v-model="nick"></b-form-input>
-            </b-input-group>
-            <b-input-group prepend="E-mail" class="mt-3">
-              <b-form-input v-model="email"></b-form-input>
-            </b-input-group>
-            <b-input-group prepend="Password" class="mt-3">
-              <b-form-input v-model="senha"></b-form-input>
-            </b-input-group>
-            <b-input-group prepend="Idade" class="mt-3">
-              <b-form-input v-model="idade"></b-form-input>
-            </b-input-group>
-            <b-input-group prepend="Sexo" class="mt-3">
-              <b-form-input v-model="sexo"></b-form-input>
-            </b-input-group>
-          
-            <b-button variant="light" @click="registrarUser" class="mt-3 mx-auto w-50">Cadastrar</b-button>
-          </b-row>
-          <b-col class="login1">
-          <b-row>
-           <a class="link3"  @click="redirect1" href="#"> Já possui um perfil? Logue agora! </a>
-          </b-row>
-        </b-col>
-        </b-col>
-      </b-card>
+    <b-card
+     title="bem Vindo"
+     img-src="https://picsum.photos/600/300/?image=25"
+     img-alt="Image"
+     img-top
+     tag="article"
+     style="max-width: 20rem;"
+     class="cardCenter"
+    
+     >
+        <b-card-text>
+            <p class="text1"><b>O seu cadastro foi efetuado com sucesso!</b></p>
+        </b-card-text>
+
+        <b-button href="#" @click="redirectProfile" variant="light" class="mt-3 mx-auto w-50">Ir para Perfil</b-button>
+    </b-card>
     </center>
-    <footer >
-      <p class="footer-text"> ARTSHOWCASE - <b>SkyHorse.Inc</b> </p>
+    <footer>
+      <p class="footer-text" > ARTSHOWCASE - <b>SkyHorse.Inc</b> </p>
       <p class="footer-text"> COPYRIGHT© </p>
     </footer>
   </div>
 </template>
+
 <script>
 import * as config from "@/config.json";
 import axios from "axios";
@@ -104,6 +93,9 @@ export default {
     redirect4() {
       this.$router.push("contact");
     },
+    redirectProfile() {
+      this.$router.push("profile");
+    },
 
     async registrarUser() {
       await axios
@@ -118,7 +110,6 @@ export default {
         .then(response => {
           if (response.status == 200) {
             alert("Usuário cadastrado com sucesso!")
-            this.$router.push("Confirm")
           } else {
             alert("Ocorreu um erro no cadastro.")
           }
@@ -132,17 +123,6 @@ export default {
 </script>
 
 <style>
-.register {
-  justify-content: center !important;
-  width: 100%;
-  margin-top: 10rem !important;
-  max-width: 300px;
-  background-color:gray;
-  top: -90px;
-  border-radius: 10px;
-  border-color: gray;
-}
-
 h4 {
   color: white !important;
 }
@@ -163,7 +143,19 @@ h4 {
 .text1 {
   font-family: "Mansalva", cursive;
   font-size: 18px;
+  color: aliceblue;
 }
+.cardCenter {
+  justify-content: center !important;
+  width: 100%;
+  margin-top: 10rem !important;
+  max-width: 300px;
+  background-color: darkgray;
+  top: -90px;
+  border-radius: 10px;
+  
+}
+
 .footer-text {
   text-align: center;
   font-family:  "Andale Mono", monospace;
@@ -176,22 +168,6 @@ footer {
   margin: 20px;
   position: relative;
   padding: 10px;
-  
-}
-
-.login1 {
-  top: 20px;
-}
-
-.link3{
-font-family: "Mansalva", cursive;
-font-size: 20px;
-color: aliceblue;
-text-decoration:none;
-}
-.link3:hover{
-color: black;
-text-decoration:none;
 }
 
 </style>

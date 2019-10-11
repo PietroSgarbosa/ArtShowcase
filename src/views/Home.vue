@@ -1,22 +1,18 @@
-<template>
+
+<template variant="dark">
   <div>
-    <!--
-    <b-button variant="success" @click="redirect"></b-button>
-    -->
+   
+    <b-navbar class="nav1" toggleable="lg" type="dark" variant="dark">
 
-
-<!-- NAV BAR -->
-
-
-    <b-navbar class="nav1" toggleable="lg" type="dark" variant="danger">
-      <b-navbar-brand class="title" href="#">Art Showcase</b-navbar-brand>
+      <b-navbar-brand class="title" @click="redirect" href="#">Art Showcase</b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav class="text1">
-          <b-nav-item href="#">Informação</b-nav-item>
-          <b-nav-item href="#">Contato</b-nav-item>
+
+          <b-nav-item @click="redirect3" href="#">Informação</b-nav-item>
+          <b-nav-item @click="redirect4" href="#">Contato</b-nav-item>
         </b-navbar-nav>
 
         <!-- Right aligned nav items -->
@@ -33,8 +29,8 @@
             <template v-slot:button-content>
               <em>Usuário</em>
             </template>
-            <b-dropdown-item href="#">Perfil</b-dropdown-item>
-            <b-dropdown-item href="#">Deslogar</b-dropdown-item>
+            <b-dropdown-item @click="redirect1" href="#">Logar Perfil</b-dropdown-item>
+            <b-dropdown-item @click="redirect2" href="#">Cadastrar Perfil</b-dropdown-item>
           </b-nav-item-dropdown>
         </b-navbar-nav>
       </b-collapse>
@@ -52,69 +48,51 @@
       controls
       indicators
       background="#ababab"
+
       img-width="1024"
       img-height="480"
-      style="text-shadow: 1px 1px 2px #333;"
+      style="text-shadow: 3px 3px 3px #333;"
       @sliding-start="onSlideStart"
       @sliding-end="onSlideEnd"
     >
-      <!-- Text slides with image -->
-      <b-carousel-slide
-        caption="First slide"
-        text="Nulla vitae elit libero, a pharetra augue mollis interdum."
-        img-src="https://picsum.photos/1024/480/?image=52"
-          
-
-      ></b-carousel-slide>
-
-      <!-- Slides with custom text -->
-      <b-carousel-slide img-src="https://picsum.photos/1024/480/?image=54">
-        <h1>Hello world!</h1>
+      
+      <b-carousel-slide class="img" img-src="/img/tatoo.jpg">
+        <h1 class="textCarousel"> Bem vindo ao ArtShowcase </h1>
+        <p class="textCarousel1"> A sua plataforma de gerenciamento de competições e portfólios online. </p> 
+      </b-carousel-slide>
+    
+      <b-carousel-slide class="img" img-src="/img/Sam.jpg">
+        <h1 class="textCarousel">Este é o Carrossel, um mural sobre futuras notícias</h1>
+      </b-carousel-slide>
+      
+      <b-carousel-slide class="img" img-src="/img/Klaus.jpg">
+        <h1 class="textCarousel">Por favor professor nos ajude</h1>
       </b-carousel-slide>
 
-      <!-- Slides with image only -->
-      <b-carousel-slide img-src="https://picsum.photos/1024/480/?image=58"></b-carousel-slide>
-
-      <!-- Slides with img slot -->
-      <!-- Note the classes .d-block and .img-fluid to prevent browser default image alignment -->
-      <b-carousel-slide>
-        <template v-slot:img>
-          <img
-            class="d-block img-fluid w-100"
-            width="1024"
-            height="480"
-            src="https://picsum.photos/1024/480/?image=55"
-            alt="image slot"
-          />
-        </template>
+      <b-carousel-slide class="img" img-src="/img/Ethel.jpg">
       </b-carousel-slide>
 
-      <!-- Slide with blank fluid image to maintain slide aspect ratio -->
-      <b-carousel-slide caption="Blank Image" img-blank img-alt="Blank image">
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eros felis, tincidunt
-          a tincidunt eget, convallis vel est. Ut pellentesque ut lacus vel interdum.
-        </p>
+      <b-carousel-slide class="img" img-src="/img/Xenic.jpg">
       </b-carousel-slide>
+      
     </b-carousel>
 
-    
 
-<!-- CONTADOR CARROSSEL
-    <p class="mt-4">
-      Slide #: {{ slide }}
-      <br />
-      Sliding: {{ sliding }}
-    </p>
--->
+      <div class="fundo1">
+        <img src="/img/whiteeagle.png" class="size-img"  style="display:inline" alt="Bird">
+        <h3>O local perfeito para expandir a sua ideia</h3>
+      </div>
+      
+      <div class="fundo2">
+        <a class="link1"  @click="redirect1" href="#"> Vamos começar? </a>
+      </div>
 
-  <b-card-footer >
-    <p class="footer-text"> ARTSHOWCASE - Pietro.S </p>
+
+
+  <footer >
+    <p class="footer-text"> ARTSHOWCASE - <b>SkyHorse.Inc</b> </p>
     <p class="footer-text"> COPYRIGHT© </p>
-  </b-card-footer>
-
-
-
+  </footer>
 
     
   </div>
@@ -122,9 +100,12 @@
 
 <script>
 import * as config from "@/config.json";
+import Parallax from 'vue-parallaxy';
 
 export default {
-  component: {},
+  component: {
+    Parallax
+  },
   data: _ => {
     return {
 
@@ -136,9 +117,20 @@ export default {
 
   methods: {
     redirect() {
+      this.$router.push("home");
+    },
+    redirect1() {
+      this.$router.push("/");
+    },
+    redirect2() {
       this.$router.push("register");
     },
-
+    redirect3() {
+      this.$router.push("information");
+    },
+    redirect4() {
+      this.$router.push("contact");
+    },
     onSlideStart(slide) {
         this.sliding = true
       },
@@ -170,9 +162,87 @@ export default {
 
 .footer-text {
   text-align: center;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-family:  "Andale Mono", monospace;
+  font-size: 20px;
+  color: white;
+
+}
+
+footer {
+  margin: 20px;
+  position: relative;
+  padding: 10px;
   
 }
 
+.img {
+  width: 100%;
+  height: 480px;
+  background: no-repeat;
+}
 
+.textCarousel {
+  font-family: "Mansalva", cursive;
+  font-size: 60px;
+  -webkit-text-stroke-width: 1px; 
+  -webkit-text-stroke-color:black;
+
+}
+
+.textCarousel1 {
+  font-family:  "Andale Mono", monospace;
+  font-size: 25px;
+  text-shadow: 10px;
+  -webkit-text-stroke-width: 0.5px; 
+  -webkit-text-stroke-color:black;
+
+}
+
+.fundo1 {
+  width: 100%;
+  height: 200px;
+  background-color: darkgray;
+  text-align: center;
+  font-family: "Mansalva", cursive;
+  padding: 20px;
+}
+
+.fundo2 {
+  width: 100%;
+  height: 200px;
+  background-color: darkgray;
+  text-align: center;
+  font-family: "Mansalva", cursive;
+  padding: 30px;
+}
+
+h3 {
+  font-size: 30px;
+  text-shadow: 10px;
+  color: white;
+}
+
+p {
+  font-size: 25px;
+  text-shadow: 10px;
+  color: white;
+}
+
+.size-img {
+  max-width: 140px !important;
+  max-height: 140px !important;
+}
+
+.link1{
+font-family: "Mansalva", cursive;
+font-size: 40px;
+color: aliceblue;
+text-decoration:none;
+top: 30px;
+padding: 10px;
+}
+.link1:hover{
+color: black;
+text-decoration:none;
+}
 </style>
