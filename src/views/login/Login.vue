@@ -1,6 +1,5 @@
   <template>
   <div>
-
     <b-navbar class="nav1" toggleable="lg" type="dark" variant="danger">
       <b-navbar-brand class="title" href="#">Art Showcase</b-navbar-brand>
 
@@ -33,11 +32,6 @@
       </b-collapse>
     </b-navbar>
 
-
-
-
-
-
     <center>
       <b-card class="signin">
         <b-col>
@@ -66,14 +60,12 @@
       </b-card>
     </center>
 
-
-
-    <b-card-footer >
-      <p class="footer-text"> ARTSHOWCASE - Pietro.S />
-      <p class="footer-text"> COPYRIGHT© </p>
+    <b-card-footer style="margim-bottom: 0;">
+      <b-row>
+        <p class="footer-text float-left">Vue.js</p>
+        <p class="footer-text float-right">Dev by SMK & Pietro Sgarbosa</p>
+      </b-row>
     </b-card-footer>
-
-
   </div>
 </template>
 
@@ -105,8 +97,8 @@ export default {
           .get(`${config.default.servidor}/authentification/`)
           .then(response => {
             if (response.status == 200) {
-              if(this.usuario == response.data.usuario) return true;
-              if(this.senha == response.data.senha)return true;
+              if (this.usuario == response.data.usuario) return true;
+              if (this.senha == response.data.senha) return true;
               this.$router.push("/home");
             }
           });
@@ -127,6 +119,14 @@ export default {
   top: -40px;
 }
 
+.float-right{
+  float: right;
+}
+
+.float-left{
+  float: left;
+}
+
 h4 {
   color: white !important;
 }
@@ -134,7 +134,6 @@ h4 {
   max-width: 80px !important;
   max-height: 80px !important;
 }
-
 
 .nav1 {
   padding: 10px;
@@ -153,7 +152,5 @@ h4 {
 .footer-text {
   text-align: center;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  
 }
-
 </style>
