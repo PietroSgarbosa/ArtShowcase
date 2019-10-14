@@ -2,15 +2,18 @@
 <template >
   <div >
 
+    <div class="fixed-top">
     <b-navbar class="nav1" toggleable="lg" type="dark" variant="dark">
-      <b-navbar-brand class="title" @click="redirect" href="#">Art Showcase</b-navbar-brand>
+      <b-navbar-brand class="title" @click="redirect" href="#">
+        <img src="/img/whiteeagle.png" class="d-inline-block align-top" id="eagle" alt="eagle">
+        ArtShowCase 
+      </b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav class="text1">
           <b-nav-item @click="redirect1" href="#">Informação</b-nav-item>
-          <b-nav-item @click="redirect2" href="#">Contato</b-nav-item>
         </b-navbar-nav>
 
         <!-- Right aligned nav items -->
@@ -24,6 +27,7 @@
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
+    </div>
 
     <center>
       <b-card class="signin">
@@ -61,10 +65,22 @@
 
 
 
-    <footer >
-      <p class="footer-text"> ARTSHOWCASE - <b>SkyHorse.Inc</b> </p>
-      <p class="footer-text"> COPYRIGHT© </p>
+    <!-- FOOTER AVANÇADO -->
+  <div class="position-relative"> 
+  <div class="footer">
+    <footer id="suport">
+      <ul>
+        <li>
+          <a href="">SkyHorse</a>
+        </li>
+        <li>
+          <a href="">Sobre Nós</a>
+        </li>
+          <a class="right">2019, Projetado por Pietro.S. Codificado por SkyHorse.Labs</a>
+      </ul>
     </footer>
+  </div>
+  </div>
 
 
   </div>
@@ -110,12 +126,18 @@ export default {
     async autentificacao() {
       if (this.verificaCampos()) {
         await axios
-          .get(`${config.default.servidor}/authentification/`)
+
+          /* ROTA DO SERVIDOR BACK */
+
+          .get("http://localhost:3035/user/login")
+
+          /* ROTA DO SERVIDOR BACK */
+
           .then(response => {
             if (response.status == 200) {
               if(this.usuario == response.data.usuario) return true;
               if(this.senha == response.data.senha)return true;
-              this.$router.push("/home");
+              this.$router.push("/profile");
             } else {
                 alert("Usuário ou senha incorretos!")
             }
@@ -128,7 +150,6 @@ export default {
 </script>
 
 <style>
-
 .signin {
   justify-content: center !important;
   width: 100%;
@@ -179,19 +200,64 @@ color: black;
 text-decoration:none;
 }
 
-
-.footer-text {
-  text-align: center;
-  font-family:  "Andale Mono", monospace;
-  font-size: 20px;
-  color: white;
-
+#eagle {
+  width: 35x;
+  height: 35px;
 }
 
-footer {
-  margin: 20px;
+/* --- FOOTER --- */
+
+.footer {
   position: relative;
-  padding: 10px;
-  
+  width: 100%;
+  font-family: "Open Sans", sans-serif;
+  font-size: 15px;
+  letter-spacing: 1px;
+  bottom: 0;
+  height: 60px;
+  color: white;
+  background-color: #333;
+  float: right;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+#suport ul {
+  background-color: #333;
+  list-style: none;
+  float: left;
+  width: 100%;
+}
+
+#suport ul li {
+  display: inline;
+}
+
+#suport ul li a {
+  display: inline-block;
+  margin: 20px;
+  width: 100px;
+  height: 50px;
+  color: white;
+  text-decoration: none;
+}
+
+#suport ul li a:hover {
+  color: red;
+}
+
+.right {
+  float: right;
+  width: 550px;
+  margin: 20px;
+  display: inline-block;
+}
+
+.body {
+  height: 100%;
+  width: 100%;
 }
 </style>

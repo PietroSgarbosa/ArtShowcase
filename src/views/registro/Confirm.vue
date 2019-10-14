@@ -1,6 +1,7 @@
 <template>
   <div>
 
+    <div class="fixed-top">
     <b-navbar class="nav1" toggleable="lg" type="dark" variant="dark">
       <b-navbar-brand class="title" @click="redirect" href="#">Art Showcase</b-navbar-brand>
 
@@ -32,7 +33,7 @@
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
-
+    </div>
 
 
     <center>

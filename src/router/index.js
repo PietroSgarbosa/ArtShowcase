@@ -49,6 +49,11 @@ let router = new Router({
       path: "/profile",
       name: "Profile",
       component: Profile,
+      /*
+      meta: {
+        requiresAuth: true
+      },
+      */
     },
     {
       path: "/contact",
@@ -66,5 +71,38 @@ let router = new Router({
       component: Confirm,
     }
   ],
+});
+
+/* AUTENTICADOR DE LOGIN */
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (localStorage.getItem("jwt") == null) {
+      next({
+        path: "/",
+        params: {
+          nextUrl: to.fullPath
+        }
+      });
+    } else {
+      if (to.matched.some(record => record.meta.is_admin)) {
+        next({
+          name: "Relatórios"
+        });
+      } else {
+        next();
+      }
+    }
+  } else if (to.matched.some(record => record.meta.guest)) {
+    if (localStorage.getItem("jwt") == null) {
+      next();
+    } else {
+      next({
+        name: "Relatórios"
+      });
+    }
+  } else {
+    next();
+  }
 });
 export default router;

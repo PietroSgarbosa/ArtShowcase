@@ -4,9 +4,7 @@
     <b-button variant="success" @click="redirect"></b-button>
     -->
 
-
-<!-- NAV BAR -->
-
+    <!-- NAV BAR -->
 
     <b-navbar class="nav1" toggleable="lg" type="dark" variant="dark">
       <b-navbar-brand class="title" @click="redirect" href="#">Art Showcase</b-navbar-brand>
@@ -40,59 +38,90 @@
       </b-collapse>
     </b-navbar>
 
+    <h1>Insira a imagem</h1>
+    <br />
+    <br />
+    <picture-input
+      ref="pictureInput"
+      @change="onChange"
+      margin="16"
+      width="600"
+      height="600"
+      accept="image/jpeg, image/png"
+      size="10"
+      :removable="true"
+      :customStrings="{upload:'<h1>Bummer!</h1>',drag: 'Drag a GIF or GTFO'}"
+    ></picture-input>
+    <br />
+    <br />
 
+    <div class="file-upload-form">
+      Upload an image file:
+      <input type="file" @change="previewImage" accept="image/*" />
+    </div>
+    <div class="image-preview" v-if="imageData.length">
+      <img class="preview" :src="imageData" />
+    </div>
 
-<!-- CARROSSEL -->
+    <!-- CARROSSEL -->
 
-  
-    
-
-  <footer >
-    <p class="footer-text"> ARTSHOWCASE - <b>SkyHorse.Inc</b> </p>
-    <p class="footer-text"> COPYRIGHT© </p>
-  </footer>
-
-
-
-
-    
+    <footer>
+      <p class="footer-text">
+        ARTSHOWCASE -
+        <b>SkyHorse.Inc</b>
+      </p>
+      <p class="footer-text">COPYRIGHT©</p>
+    </footer>
   </div>
 </template>
 
 <script>
 import * as config from "@/config.json";
+import PictureInput from "vue-picture-input";
 
 export default {
-  component: {},
+  component: {
+    PictureInput
+  },
   data: _ => {
-      return {
-
-      };
+    return {
+      imageData: ""
+    };
   },
 
   methods: {
-   redirect() {
-      this.$router.push("home");
-    },
-    redirect1() {
-      this.$router.push("/");
-    },
-    redirect2() {
-      this.$router.push("register");
-    },
-    redirect3() {
-      this.$router.push("information");
-    },
-    redirect4() {
-      this.$router.push("contact");
+    previewImage: function(event) {
+      var input = event.target;
+
+      if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = e => {
+          this.imageData = e.target.result;
+        };
+
+        reader.readAsDataURL(input.files[0]);
+      }
     }
-    
   }
 };
 </script>
 
 
 <style>
+
+.file-upload-form, .image-preview {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    padding: 20px;
+}
+img.preview {
+    width: 200px;
+    background-color: white;
+    border: 1px solid #DDD;
+    padding: 5px;
+}
+
+
 .nav1 {
   padding: 10px;
 }
@@ -110,13 +139,11 @@ export default {
 .footer-text {
   text-align: center;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  
 }
 
 footer {
   margin: 20px;
   position: relative;
   padding: 10px;
-  
 }
 </style>
