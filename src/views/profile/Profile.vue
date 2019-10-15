@@ -86,21 +86,25 @@
               <br />
               <br />
 
-              <!-- PICTURE INPUT -->
-
+              
               <picture-input
                 ref="pictureInput"
+                @change="onChange"
+                width="400"
+                height="400"
                 margin="16"
-                width="600"
-                height="600"
                 accept="image/jpeg, image/png"
                 size="10"
-                :customStrings="{upload:'<h1>Bummer!</h1>',drag: 'Drag a GIF or GTFO'}"
-                @change="onChange"
+                buttonClass="btn"
+                :customStrings="{
+                   upload: '<h1>Bummer!</h1>',
+                   drag: 'Drag a 😺 GIF or GTFO'
+                }"
               ></picture-input>
+
               
 
-              <!-- INSTANT PREVIEW -->
+              <!-- INSTANT PREVIEW 
 
               
                 <div class="file-upload-form">
@@ -108,20 +112,51 @@
                   <input type="file" @change="previewImage" accept="image/*" />
                 </div>
 
-              
+              -->
+
               <!-- Upload Academind -->
 
               <div>
-                <input 
-                  type="file" 
-                  @change="onFileSelected"
-                  style="display: none"
-                  ref="fileInput"
+                <b-form-group
+                  id="fieldset-horizontal"
+                  label-cols-sm="4"
+                  label-cols-lg="3"
+                  description="De um titulo ao seu trabalho para enriquecer seus dados."
+                  label="Titulo"
+                  label-for="input-horizontal"
                 >
-                <button @click="$refs.fileInput.click()">Pick File  </button>
-                <button @click="onUpload">Upload</button>
+                  <b-form-input v-model="titulo" id="input-horizontal"></b-form-input>
+                </b-form-group>
+
+                <b-form-group
+                  id="fieldset-horizontal"
+                  label-cols-sm="4"
+                  label-cols-lg="3"
+                  description="Adicone uma breve descrição."
+                  label="Descrição"
+                  label-for="input-horizontal"
+                >
+                  <b-form-input v-model="descricao" id="input-horizontal"></b-form-input>
+                </b-form-group>
+
+                <input type="file" @change="onFileSelected" />
+
+                <br />
+                <br />
+
+                <b-form-file
+                  v-model="file"
+                  :state="Boolean(file)"
+                  placeholder="Choose a file or drop it here..."
+                  drop-placeholder="Drop file here..."
+                ></b-form-file>
+                <div class="mt-3">Arquivo selecionado: {{ file ? file.name : '' }}</div>
+
+                <br />
+                <br />
+
+                <b-button variant="primary" @click="onUpload" class="mt-3 mx-auto">Submit</b-button>
               </div>
-            
 
               <br />
               <br />
@@ -130,6 +165,11 @@
           <b-tab title="Campeonatos" active>
             <p>Campeonatos que você está participando</p>
             <!-- LISTAGEM DE CAMPEONATOS ATIVOS -->
+          </b-tab>
+
+          <b-tab title="Editar Dados" active>
+            <p>Atualizar dados do perfil</p>
+            <!-- ATUALIZAÇÕES  -->
           </b-tab>
         </b-tabs>
       </div>
@@ -171,7 +211,7 @@
 <script>
 import * as config from "@/config.json";
 import PictureInput from "vue-picture-input";
-import axios from 'axios'
+import axios from "axios";
 
 export default {
   component: {
@@ -179,12 +219,27 @@ export default {
   },
   data: _ => {
     return {
-      selectedFile: null
+      titulo: null,
+      descricao: null,
+      selectedFile: null,
+      file: null
     };
   },
 
   methods: {
-    
+    redirect() {
+      this.$router.push("home");
+    },
+    redirect1() {
+      this.$router.push("information");
+    },
+    redirect2() {
+      this.$router.push("contact");
+    },
+    redirect3() {
+      this.$router.push("register");
+    },
+
     /*
 
      previewImage: function(event) {
@@ -208,35 +263,52 @@ export default {
 
     */
 
-     onFileSelected(event) {
-       this.selectedFile = event.target.files[0]
-     },
+    onFileSelected(event) {
+      this.selectedFile = event.target.files[0];
+    },
 
-     onUpload () {
+    onUpload() {
+      const fd = new FormData();
+      fd.append("image", this.fileSelected, this.fileSelected.name);
+      /* ROTA PARA BACK */
+      axios
+        .post(
+          "http://localhost:3035/user/register",
+          fd,
+          {
+            titulo: this.titulo,
+            descricao: this.descricao
+          },
+          {
+            onUploadProgress: uploadEvent => {
+              console.log(
+                "Progresso do upload: " +
+                  Math.round((uploadEvent.loaded / uploadEvent.total) * 100) +
+                  "%"
+              );
+            }
+          }
+        )
+        .then(response => {
+          if (response.status == 200) {
+            alert("Trabalho Inserido!");
+            this.$router.push("Profile");
+          } else {
+            alert("Ocorreu um erro na inserção.");
+          }
+        });
+    },
 
-       const fd = new formDate();
-       fd.append('image', this.fileSelected, this.fileSelected.name)
-        /* ROTA PARA BACK */
-        axios.post("" , fd)
-          .then(res => {
-            console.log(res)
-          })
-
-     },
-
-    /*
-
-    onChange() {
-      console.log("New picture selected!");
-      if (this.$refs.pictureInput.image) {
-        console.log("Picture loaded.");
-      } else {
-        console.log("FileReader API not supported: use the <form>, Luke!");
+      onChange(image) {
+        console.log("New picture selected!");
+        if (image) {
+          console.log("Picture loaded.");
+          this.image = image;
+        } else {
+          console.log("FileReader API not supported: use the <form>, Luke!");
+        }
       }
     }
-    */
-  }
-
   
 };
 </script>
@@ -244,15 +316,16 @@ export default {
 <style>
 /* INSERÇÃO */
 
-.file-upload-form, .image-preview {
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-    padding: 20px;
+.file-upload-form,
+.image-preview {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  padding: 20px;
 }
 img.preview {
-    width: 200px;
-    background-color: white;
-    border: 1px solid #DDD;
-    padding: 5px;
+  width: 200px;
+  background-color: white;
+  border: 1px solid #ddd;
+  padding: 5px;
 }
 
 /* SECÕES */

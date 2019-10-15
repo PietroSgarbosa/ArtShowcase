@@ -118,32 +118,31 @@ export default {
     },
 
 
-    verificaCampos() {
-      if (usuario == null || usuario == "") return false;
-      if (senha == null || senha == "") return false;
-      return true;
-    },
+   
     async autentificacao() {
-      if (this.verificaCampos()) {
-        await axios
+      
+        await axios;
 
           /* ROTA DO SERVIDOR BACK */
-
-          .get("http://localhost:3035/user/login")
+        axios
+          .post("http://localhost:3035/user/login", {
+            usuario: this.usuario,
+            senha: this.senha,
+          })
+    
 
           /* ROTA DO SERVIDOR BACK */
 
           .then(response => {
             if (response.status == 200) {
-              if(this.usuario == response.data.usuario) return true;
-              if(this.senha == response.data.senha)return true;
+               alert("Usuário logado!")
               this.$router.push("/profile");
             } else {
                 alert("Usuário ou senha incorretos!")
             }
 
           });
-      }
+
     }
   }
 };
