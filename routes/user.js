@@ -26,22 +26,27 @@ module.exports = (app)=>{
                 console.log("Usuário ou senha incorreto(s)");
                 res.sendStatus(403);
             }else{
-                const user={
+                const user={  //OBJECT WITH ALL USER'S DATA (THE IMPORTANT ONES)
                     id : results[0].CODI_USUAR,
-                    nick : results[0].NICK_USUAR
+                    name : results[0].NOME_USUAR,
+                    nick : results[0].NICK_USUAR,
+                    email : results[0].MAIL_USUAR,
+                    age : results[0].IDAD_USUAR,
+                    gender : results[0].SEXO_USUAR
                 };
                 jwt.sign({user}, JWT_SECRET,(err, token) =>{//HERE'S WHERE ALL THE TOKEN SHENANIGANS BEGINS. 
+                    console.log("Login realizado! token: " + token);
                     res.status(200).json({token});          //ALL THE INFORMATION CONTAINED IN THE OBJECT "user"
                 });                                         //WILL BE ENCODED INTO A TOKEN, AND THE WORD 'secret'
                                                             //IS THE KEY TO DECODE IT. THE LOGGED USER WILL HAVE A SPECIFIC TOKEN
             }                                               //AND A TIMESTAMP FOR US TO KEEP TRACK OF HIM/HER/IT
-        });
+        });                                                 //OH... AND THIS LINE SEND ALL THE DATA TO THE FRONT            
 
     });
 
     app.post('/user/upload_image',verifyToken, (req, res) =>{
         
-        jwt.verify(req.token, JWT_SECRET, (err, authData)=>{//HERE THE API RECIEVES THE TOKEN AND THEN DECODE IT, 
+        jwt.verify(req.token, JWT_SECRET, (err, authData)=>{//THE API RECIEVES THE TOKEN AND THEN DECODE IT, 
             if(err){                                        //TURNING IT INTO A JSON THAT CONTAINS ALL THE DATA FROM THE USER.
                 res.sendStatus(403);                        //ALSO, HERE'S WHERE WE PUT OUR LITTLE SECRET FOR DECONDING.
             }else{                                          //THERE ARE MUCH BETTER WAYS TO HIDE THESE HARD CODED PASSWORDS,
@@ -64,7 +69,7 @@ module.exports = (app)=>{
             sexo
         } = req.body;
 
-        // insert statment (TESTING PURPOSE)
+        // insert statment (WORKS AMAZINGLY!!!)
         let sql = `INSERT INTO cadastro
                     (NOME_USUAR, NICK_USUAR, MAIL_USUAR, SENH_USUAR, IDAD_USUAR, SEXO_USUAR)
                      VALUES ('${usuario}', '${nick}', '${email}', '${senha}', '${idade}', '${sexo}');`;
@@ -74,8 +79,10 @@ module.exports = (app)=>{
 
             if(err){
                 console.log(err);
+                console.log("--------------------------------");
                 res.sendStatus(400);
             }else{
+                console.log("Usuário Criado!");
                 res.sendStatus(200);
             }
         });
@@ -101,6 +108,7 @@ module.exports = (app)=>{
             next();
         }else{
         //forbidden '403'
+        console.log("Acesso negado!");
         res.sendStatus(403);
         }
 
