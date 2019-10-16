@@ -45,6 +45,11 @@ module.exports = (app)=>{
     });
 
     app.post('/user/upload_image',verifyToken, (req, res) =>{
+
+        const {
+            titulo,
+            descricao
+        } = req.body; //RECIEVES DATA FROM THE FORM
         
         jwt.verify(req.token, JWT_SECRET, (err, authData)=>{//THE API RECIEVES THE TOKEN AND THEN DECODE IT, 
             if(err){                                        //TURNING IT INTO A JSON THAT CONTAINS ALL THE DATA FROM THE USER.
