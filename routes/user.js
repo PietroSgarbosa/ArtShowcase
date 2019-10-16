@@ -8,12 +8,15 @@ module.exports = (app)=>{
     app.post('/user/login', (req, res)=>{
         
         const {
-            usuario,
+            nick,
             senha
-        } = req.body;
+        } = req.body; //RECIEVES USER DATA FROM THE FORM
 
-        let sql = `SELECT CODI_USUAR, NOME_USUAR FROM cadastro WHERE NICK_USUAR = '${usuario}' AND SENH_USUAR = '${senha}'`;
-
+        let sql = `SELECT CODI_USUAR, NICK_USUAR, NOME_USUAR, 
+                   MAIL_USUAR, IDAD_USUAR, SEXO_USUAR 
+                   FROM cadastro
+                   WHERE NICK_USUAR = '${nick}' AND SENH_USUAR = '${senha}'`; //IF THE USER EXISTS, RETRIEVES ALL IT'S DATA
+                                                                              //FOR SENDING IT TO THE FRONT END LATER.
         conn.query(sql, (err, results)=>{
                   
             if(err){
@@ -25,7 +28,7 @@ module.exports = (app)=>{
             }else{
                 const user={
                     id : results[0].CODI_USUAR,
-                    name : results[0].NOME_USUAR
+                    nick : results[0].NICK_USUAR
                 };
                 jwt.sign({user}, JWT_SECRET,(err, token) =>{//HERE'S WHERE ALL THE TOKEN SHENANIGANS BEGINS. 
                     res.status(200).json({token});          //ALL THE INFORMATION CONTAINED IN THE OBJECT "user"
