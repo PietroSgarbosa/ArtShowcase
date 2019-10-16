@@ -26,7 +26,7 @@ module.exports = (app)=>{
                 console.log("Usuário ou senha incorreto(s)");
                 res.sendStatus(403);
             }else{
-                const user={  //OBJECT WITH ALL USER'S DATA (THE IMPORTANT ONES)
+                const user={   //OBJECT WITH ALL USER'S DATA (THE IMPORTANT ONES)
                     id : results[0].CODI_USUAR,
                     name : results[0].NOME_USUAR,
                     nick : results[0].NICK_USUAR,
