@@ -43,9 +43,14 @@
           class="topCard overflow-hidden border border-light bg-transparent"
           style="max-width: 540px;"
         >
+
+
+        <!-- SCRIPT PARA MUDAR A IMAGEM DO USUÁRIO EM CODIFICAÇÃO -->
+
+
           <b-row no-gutters class="bg-transparent">
             <b-col>
-              <div class="imgBox rounded-circle" href="#" @click="changeImage"></div>
+              <div class="imgBox rounded-circle" href="#"></div>
             </b-col>
             <b-col md="6">
               <b-card-body>
@@ -63,7 +68,7 @@
     <center>
       <div class="tab">
         <b-tabs content-class="mt-3" align="center" pills card>
-          <b-tab title="Editar" active>
+          <b-tab title="Artes Publicadas" active>
             <p>Seus trabalhos publicados</p>
             <!-- LISTAGEM DE IMAGENS -->
 
@@ -79,30 +84,62 @@
           </b-tab>
           <b-tab title="Publicar" active>
             <p>Submeter um trabalho</p>
-            <!-- FORMULARIO PARA UPAR IMAGEM -->
+
+            <!-- FORMULARIO PARA UPAR IMAGEM COM PICTURE INPUT -->
 
             <b-container>
               <h1>Insira a imagem</h1>
               <br />
               <br />
 
-              
+              <!-- PICTURE INPUT 
+
+               <b-form-group
+                  id="fieldset-horizontal"
+                  label-cols-sm="4"
+                  label-cols-lg="3"
+                  description="De um titulo ao seu trabalho para enriquecer seus dados."
+                  label="Titulo"
+                  label-for="input-horizontal"
+                >
+                  <b-form-input v-model="titulo" id="input-horizontal"></b-form-input>
+                </b-form-group>
+
+                <b-form-group
+                  id="fieldset-horizontal"
+                  label-cols-sm="4"
+                  label-cols-lg="3"
+                  description="Adicone uma breve descrição."
+                  label="Descrição"
+                  label-for="input-horizontal"
+                >
+                  <b-form-input v-model="descricao" id="input-horizontal"></b-form-input>
+                </b-form-group>
+
+                <br />
+
+
+              <b-card header="Editar Imagem">
               <picture-input
                 ref="pictureInput"
-                @change="onChange"
-                width="400"
-                height="400"
+                :zIndex="10"
+                style="width: 100%;"
                 margin="16"
                 accept="image/jpeg, image/png"
                 size="10"
                 buttonClass="btn"
-                :customStrings="{
-                   upload: '<h1>Bummer!</h1>',
-                   drag: 'Drag a 😺 GIF or GTFO'
+                :custom-strings="{
+                   upload: '<h1>Seu dispositivo não aceita este tipo!</h1>',
+                   drag: 'Arraste uma imagem <br> (ou clique aqui)',
+                   change: 'Mudar imagem'
                 }"
+                @change="onChange"
               ></picture-input>
-
+              </b-card>
               
+              <b-button variant="primary" @click="onUpload" class="mt-3 mx-auto">Submit</b-button>
+
+              -->
 
               <!-- INSTANT PREVIEW 
 
@@ -114,7 +151,7 @@
 
               -->
 
-              <!-- Upload Academind -->
+              
 
               <div>
                 <b-form-group
@@ -144,19 +181,11 @@
                 <br />
                 <br />
 
-                <b-form-file
-                  v-model="file"
-                  :state="Boolean(file)"
-                  placeholder="Choose a file or drop it here..."
-                  drop-placeholder="Drop file here..."
-                ></b-form-file>
-                <div class="mt-3">Arquivo selecionado: {{ file ? file.name : '' }}</div>
-
-                <br />
-                <br />
 
                 <b-button variant="primary" @click="onUpload" class="mt-3 mx-auto">Submit</b-button>
               </div>
+
+              
 
               <br />
               <br />
@@ -174,21 +203,6 @@
         </b-tabs>
       </div>
     </center>
-
-    <!-- DATADO 
-    <div class="card2">
-      
-        <center>
-           <b-card class="cardCenter">
-             <img src="/img/reiLeaoCalvo.jpg" class="img" alt="Responsive image">
-           <b-card-text>
-              <p class="text1"><b>Username</b></p>
-           </b-card-text>
-           </b-card>
-          </center>
-      
-    </div>
-    -->
 
     <div class="position-relative">
       <div class="footer">
@@ -213,7 +227,12 @@ import * as config from "@/config.json";
 import PictureInput from "vue-picture-input";
 import axios from "axios";
 
+/* IMPORTS AINDA SEM USO */
+import VueJwtDecode from 'vue-jwt-decode';
+
+
 export default {
+  name: "editarimagem",
   component: {
     PictureInput
   },
@@ -263,6 +282,7 @@ export default {
 
     */
 
+   
     onFileSelected(event) {
       this.selectedFile = event.target.files[0];
     },
@@ -270,17 +290,15 @@ export default {
     onUpload() {
       const fd = new FormData();
       fd.append("image", this.fileSelected, this.fileSelected.name);
-      /* ROTA PARA BACK */
+     
       axios
+
+      /* Aqui temos a variavel fd (imagem), descricao e titulo sendo postados */
+  
         .post(
           "http://localhost:3035/user/register",
-          fd,
-          {
-            titulo: this.titulo,
-            descricao: this.descricao
-          },
-          {
-            onUploadProgress: uploadEvent => {
+          fd, {titulo: this.titulo, descricao: this.descricao},
+          {onUploadProgress: uploadEvent => {
               console.log(
                 "Progresso do upload: " +
                   Math.round((uploadEvent.loaded / uploadEvent.total) * 100) +
@@ -289,6 +307,7 @@ export default {
             }
           }
         )
+
         .then(response => {
           if (response.status == 200) {
             alert("Trabalho Inserido!");
@@ -298,23 +317,28 @@ export default {
           }
         });
     },
+    
 
+    /* ONCHANGE POR DOCUMENTAÇÃO E "FIORIN" 
       onChange(image) {
-        console.log("New picture selected!");
+        
         if (image) {
-          console.log("Picture loaded.");
-          this.image = image;
+          this.saveBtn = true;
+          localStorage.setItem("image", image);
         } else {
-          console.log("FileReader API not supported: use the <form>, Luke!");
+          this.saveBtn = false;
         }
       }
+      */
     }
+
+    
   
 };
 </script>
 
 <style>
-/* INSERÇÃO */
+
 
 .file-upload-form,
 .image-preview {
