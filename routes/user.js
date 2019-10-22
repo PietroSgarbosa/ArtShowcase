@@ -14,7 +14,7 @@ module.exports = (app)=>{
 
         let sql = `SELECT CODI_USUAR, NICK_USUAR, NOME_USUAR, 
                    MAIL_USUAR, IDAD_USUAR, SEXO_USUAR 
-                   FROM cadastro
+                   FROM cadastro_usuario
                    WHERE NICK_USUAR = '${nick}' AND SENH_USUAR = '${senha}'`; //IF THE USER EXISTS, RETRIEVES ALL IT'S DATA
                                                                               //FOR SENDING IT TO THE FRONT END LATER.
         conn.query(sql, (err, results)=>{
@@ -75,7 +75,7 @@ module.exports = (app)=>{
         } = req.body;
 
         // insert statment (WORKS AMAZINGLY!!!)
-        let sql = `INSERT INTO cadastro
+        let sql = `INSERT INTO cadastro_usuario
                     (NOME_USUAR, NICK_USUAR, MAIL_USUAR, SENH_USUAR, IDAD_USUAR, SEXO_USUAR)
                      VALUES ('${usuario}', '${nick}', '${email}', '${senha}', '${idade}', '${sexo}');`;
 
