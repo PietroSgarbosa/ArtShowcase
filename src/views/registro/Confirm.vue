@@ -112,7 +112,7 @@ export default {
           email: this.email,
           senha: this.senha,
           idade: this.idade,
-          sexo: this.sexo,
+          sexo: this.sexo
         })
         .then(response => {
           if (response.status == 200) {
