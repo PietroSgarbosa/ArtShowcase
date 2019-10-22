@@ -1,6 +1,6 @@
 const conn = require('../dbconfig');
 const jwt = require('jsonwebtoken');
-const JWT_SECRET = 'secret';
+
 
 
 module.exports = (app)=>{
@@ -34,7 +34,7 @@ module.exports = (app)=>{
                     age : results[0].IDAD_USUAR,
                     gender : results[0].SEXO_USUAR
                 };
-                jwt.sign({user}, JWT_SECRET,(err, token) =>{//HERE'S WHERE ALL THE TOKEN SHENANIGANS BEGINS. 
+                jwt.sign({user}, process.env.JWT_SECRET,(err, token) =>{//HERE'S WHERE ALL THE TOKEN SHENANIGANS BEGINS. 
                     console.log("Login realizado! token: " + token);
                     res.status(200).json({token});          //ALL THE INFORMATION CONTAINED IN THE OBJECT "user"
                 });                                         //WILL BE ENCODED INTO A TOKEN, AND THE WORD 'secret'
@@ -47,11 +47,12 @@ module.exports = (app)=>{
     app.post('/user/upload_image',verifyToken, (req, res) =>{
 
         const {
+            token,
             titulo,
             descricao
         } = req.body; //RECIEVES DATA FROM THE FORM
         
-        jwt.verify(req.token, JWT_SECRET, (err, authData)=>{//THE API RECIEVES THE TOKEN AND THEN DECODE IT, 
+        jwt.verify(req.token, process.env.JWT_SECRET, (err, authData)=>{//THE API RECIEVES THE TOKEN AND THEN DECODE IT, 
             if(err){                                        //TURNING IT INTO A JSON THAT CONTAINS ALL THE DATA FROM THE USER.
                 res.sendStatus(403);                        //ALSO, HERE'S WHERE WE PUT OUR LITTLE SECRET FOR DECONDING.
             }else{                                          //THERE ARE MUCH BETTER WAYS TO HIDE THESE HARD CODED PASSWORDS,
@@ -61,6 +62,22 @@ module.exports = (app)=>{
                 });
             }
         });
+    });
+
+    app.post('/user/logout',verifyToken, (req, res) =>{
+
+        const {
+            token
+        } = req.body; //RECIEVES DATA FROM THE FORM
+
+        if(err){                                        
+            res.sendStatus(400);                        
+        }else{                                          
+            res.json({                                  
+                status : 200
+            });
+        }
+        
     });
 
     app.post('/user/register', (req, res)=>{
