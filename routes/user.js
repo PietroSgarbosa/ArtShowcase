@@ -51,7 +51,7 @@ module.exports = (app)=>{
             titulo,
             descricao,
             imagem
-        } = req.body; //RECIEVES DATA FROM THE FORM
+        } = req.body; //RECIEVES DATA FROM THE FORM 
         
         jwt.verify(req.token, process.env.JWT_SECRET, (err, authData)=>{
            
