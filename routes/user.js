@@ -49,18 +49,27 @@ module.exports = (app)=>{
         const {
             token,
             titulo,
-            descricao
+            descricao,
+            imagem
         } = req.body; //RECIEVES DATA FROM THE FORM
         
-        jwt.verify(req.token, process.env.JWT_SECRET, (err, authData)=>{//THE API RECIEVES THE TOKEN AND THEN DECODE IT, 
-            if(err){                                        //TURNING IT INTO A JSON THAT CONTAINS ALL THE DATA FROM THE USER.
-                res.sendStatus(403);                        //ALSO, HERE'S WHERE WE PUT OUR LITTLE SECRET FOR DECONDING.
-            }else{                                          //THERE ARE MUCH BETTER WAYS TO HIDE THESE HARD CODED PASSWORDS,
-                res.json({                                  //I'LL BE LOOKING FOWARD ON USING THOSE WAYS...
-                    message : 'post created',
-                    authData
-                });
-            }
+        jwt.verify(req.token, process.env.JWT_SECRET, (err, authData)=>{
+           
+            let sql = `SELECT CODI_USUAR, NICK_USUAR, NOME_USUAR, 
+                   MAIL_USUAR, IDAD_USUAR, SEXO_USUAR 
+                   FROM cadastro_usuario
+                   WHERE NICK_USUAR = '${nick}' AND SENH_USUAR = '${senha}'`;               
+                                                                                        
+            conn.query(sql, (err, results)=>{                                            
+                if(err){                                        
+                    res.sendStatus(403);                        
+                }else{                                          
+                    res.json({                                  
+                        message : 'post created',
+                        authData
+                    });
+                }
+            });
         });
     });
 
