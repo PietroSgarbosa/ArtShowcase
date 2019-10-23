@@ -47,7 +47,6 @@ module.exports = (app)=>{
     app.post('/user/upload_image',verifyToken, (req, res) =>{
 
         const {
-            token,
             titulo,
             descricao,
             imagem
