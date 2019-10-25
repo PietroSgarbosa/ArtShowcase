@@ -63,6 +63,22 @@ module.exports = (app)=>{
         
     });
 
+    app.get('/user/search_images', (req, res) =>{
+
+        let sql = `SELECT IMAG_PERFI as TITULO, IMAG_PORTI as IMAGEM FROM upload_imagens WHERE CODI_USUAR = 1;`;              
+                                                                                        
+            conn.query(sql, (err, results)=>{ 
+                
+                if(err){                                        
+                    res.sendStatus(403);                        
+                }else{
+                    res.json({results});
+                }
+            });
+           
+        
+    });
+
     //TESTING
     /*app.post('/user/upload_image',verifyToken, (req, res) =>{
 
