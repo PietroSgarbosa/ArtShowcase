@@ -44,20 +44,38 @@ module.exports = (app)=>{
 
     });
 
-    app.post('/user/upload_image',verifyToken, (req, res) =>{
+    app.post('/user/upload_image', (req, res) =>{
 
         const {
-            titulo,
-            descricao,
-            imagem
+            fd
         } = req.body; //RECIEVES DATA FROM THE FORM 
+
+        console.info(fd);                                                                                        
+                                                        
+        if(err){                                        
+            res.sendStatus(403);                        
+        }else{                                          
+            res.json({                                  
+                status : 200
+            });
+        }
+           
+        
+    });
+
+    //TESTING
+    /*app.post('/user/upload_image',verifyToken, (req, res) =>{
+
+        const {
+            fs
+        } = req.body; //RECIEVES DATA FROM THE FORM 
+
+        console.log(fs);
         
         jwt.verify(req.token, process.env.JWT_SECRET, (err, authData)=>{
            
-            let sql = `SELECT CODI_USUAR, NICK_USUAR, NOME_USUAR, 
-                   MAIL_USUAR, IDAD_USUAR, SEXO_USUAR 
-                   FROM cadastro_usuario
-                   WHERE NICK_USUAR = '${nick}' AND SENH_USUAR = '${senha}'`;               
+            let sql = `INSERT INTO upload_imagens (CODI_USUAR, IMAG_PERFI, IMAG_PORTI) 
+                       VALUES ('1', '11', '1');`;               
                                                                                         
             conn.query(sql, (err, results)=>{                                            
                 if(err){                                        
@@ -70,7 +88,7 @@ module.exports = (app)=>{
                 }
             });
         });
-    });
+    });*/
 
     //THE LOGOUT IS DONE IN THE FRONT END, DELETING THE TOKEN FROM IT'S LOCAL STORAGE
     /*app.post('/user/logout',verifyToken, (req, res) =>{
