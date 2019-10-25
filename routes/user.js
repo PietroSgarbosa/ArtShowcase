@@ -107,23 +107,6 @@ module.exports = (app)=>{
         });
     });*/
 
-    //THE LOGOUT IS DONE IN THE FRONT END, DELETING THE TOKEN FROM IT'S LOCAL STORAGE
-    /*app.post('/user/logout',verifyToken, (req, res) =>{
-
-        const {
-            token
-        } = req.body; //RECIEVES DATA FROM THE FORM
-
-        if(err){                                        
-            res.sendStatus(400);                        
-        }else{                                          
-            res.json({                                  
-                status : 200
-            });
-        }
-        
-    }); */
-
     app.post('/user/register', (req, res)=>{
             
         const {
