@@ -289,7 +289,7 @@ export default {
 
     onUpload() {
       const fd = new FormData();
-      fd.append("image", this.fileSelected, this.fileSelected.name);
+      fd.append("image", this.selectedFile, this.selectedFile.name);
      
       axios
 
