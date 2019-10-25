@@ -44,7 +44,7 @@ module.exports = (app)=>{
 
     });
 
-    app.post('/user/upload_image', (req, res) =>{
+    app.post('/user/upload_image', (req, res, err) =>{
 
         const {
             fd
@@ -52,7 +52,8 @@ module.exports = (app)=>{
 
         console.info(fd);                                                                                        
                                                         
-        if(err){                                        
+        if(err){ 
+            console.info(err);
             res.sendStatus(403);                        
         }else{                                          
             res.json({                                  
