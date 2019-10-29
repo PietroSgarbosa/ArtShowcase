@@ -43,10 +43,7 @@
           class="topCard overflow-hidden border border-light bg-transparent"
           style="max-width: 540px;"
         >
-
-
-        <!-- SCRIPT PARA MUDAR A IMAGEM DO USUÁRIO EM CODIFICAÇÃO -->
-
+          <!-- SCRIPT PARA MUDAR A IMAGEM DO USUÁRIO EM CODIFICAÇÃO -->
 
           <b-row no-gutters class="bg-transparent">
             <b-col>
@@ -72,6 +69,7 @@
             <p>Seus trabalhos publicados</p>
             <!-- LISTAGEM DE IMAGENS -->
 
+            <!-- EXEMPLO DE COMO FICARÁ -->
             <b-container>
               <b-card class="secoes">
                 <img src="/img/reiLeaoCalvo.jpg" class="imgSecoes d-inline-block align-top" />
@@ -92,7 +90,7 @@
               <br />
               <br />
 
-              <!-- PICTURE INPUT 
+              <!-- PICTURE INPUT
 
                <b-form-group
                   id="fieldset-horizontal"
@@ -141,18 +139,6 @@
 
               -->
 
-              <!-- INSTANT PREVIEW 
-
-              
-                <div class="file-upload-form">
-                  Upload an image file:
-                  <input type="file" @change="previewImage" accept="image/*" />
-                </div>
-
-              -->
-
-              
-
               <div>
                 <b-form-group
                   id="fieldset-horizontal"
@@ -181,11 +167,8 @@
                 <br />
                 <br />
 
-
                 <b-button variant="primary" @click="onUpload" class="mt-3 mx-auto">Submit</b-button>
               </div>
-
-              
 
               <br />
               <br />
@@ -199,6 +182,34 @@
           <b-tab title="Editar Dados" active>
             <p>Atualizar dados do perfil</p>
             <!-- ATUALIZAÇÕES  -->
+            <h1>Edite suas informações e troque sua imagem de perfil</h1>
+
+            <br />
+            <br />
+
+            <b-form-group
+                  id="fieldset-horizontal"
+                  label-cols-sm="4"
+                  label-cols-lg="3"
+                  description="Seu nickname."
+                  label="Nome de Usuario"
+                  label-for="input-horizontal"
+                >
+                  <b-form-input v-model="usuario" id="input-horizontal"></b-form-input>
+                </b-form-group>
+
+                <b-form-group
+                  id="fieldset-horizontal"
+                  label-cols-sm="4"
+                  label-cols-lg="3"
+                  description="Adicone uma breve descrição. do seu perfil e carreira"
+                  label="Descrição"
+                  label-for="input-horizontal"
+                >
+                  <b-form-input v-model="descricaoUser" id="input-horizontal"></b-form-input>
+            </b-form-group>
+
+
           </b-tab>
         </b-tabs>
       </div>
@@ -228,8 +239,7 @@ import PictureInput from "vue-picture-input";
 import axios from "axios";
 
 /* IMPORTS AINDA SEM USO */
-import VueJwtDecode from 'vue-jwt-decode';
-
+import VueJwtDecode from "vue-jwt-decode";
 
 export default {
   name: "editarimagem",
@@ -241,7 +251,8 @@ export default {
       titulo: null,
       descricao: null,
       selectedFile: null,
-      file: null
+      file: null,
+      imagem: null
     };
   },
 
@@ -259,56 +270,38 @@ export default {
       this.$router.push("register");
     },
 
-    /*
 
-     previewImage: function(event) {
-            
-            var input = event.target;
-            
-            if (input.files && input.files[0]) {
-                
-                var reader = new FileReader();
-                
-                reader.onload = (e) => {
-                    
-                    
-                    this.imageData = e.target.result;
-                }
-                
-                reader.readAsDataURL(input.files[0]);
-            }
-
-     },
-
-    */
-
-   
     onFileSelected(event) {
       this.selectedFile = event.target.files[0];
     },
 
-    onUpload() {
+    
+
+    async onUpload() {
+
       const fd = new FormData();
       fd.append("image", this.fileSelected, this.fileSelected.name);
-     
-      axios
 
-      /* Aqui temos a variavel fd (imagem), descricao e titulo sendo postados */
-  
-        .post(
-          "http://localhost:3035/user/register",
-          fd, {titulo: this.titulo, descricao: this.descricao},
-          {onUploadProgress: uploadEvent => {
-              console.log(
-                "Progresso do upload: " +
-                  Math.round((uploadEvent.loaded / uploadEvent.total) * 100) +
-                  "%"
-              );
-            }
-          }
-        )
-
+      let image64;
+      image2base64(fd)
         .then(response => {
+          image64 = "teste";
+          console.log(image64);
+        })
+        .catch(error => {
+          console.log(error);
+        });
+
+      await axios;
+      /* para mandar apenas a imagem sem CONVERSÃO coloque a variavel FD no POST */
+      axios
+        .post("http://localhost:3035/user/upload_image", {
+          imagem: this.image64,
+          titulo: this.titulo, 
+          descricao: this.descricao 
+        })
+
+        .then(responde => {
           if (response.status == 200) {
             alert("Trabalho Inserido!");
             this.$router.push("Profile");
@@ -316,8 +309,8 @@ export default {
             alert("Ocorreu um erro na inserção.");
           }
         });
-    },
-    
+
+
 
     /* ONCHANGE POR DOCUMENTAÇÃO E "FIORIN" 
       onChange(image) {
@@ -331,14 +324,13 @@ export default {
       }
       */
     }
-
-    
-  
+  }
 };
 </script>
 
 <style>
 
+/* -------- CSS PTOTÓTIPO -------- */
 
 .file-upload-form,
 .image-preview {

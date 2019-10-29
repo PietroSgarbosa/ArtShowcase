@@ -149,6 +149,10 @@ export default {
 </script>
 
 <style>
+
+/* -------- CSS PTOTÓTIPO -------- */
+
+
 .signin {
   justify-content: center !important;
   width: 100%;

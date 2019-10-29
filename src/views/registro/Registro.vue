@@ -52,7 +52,12 @@
               <b-form-input v-model="idade"></b-form-input>
             </b-input-group>
             <b-input-group prepend="Sexo" class="mt-3">
-              <b-form-input v-model="sexo"></b-form-input>
+              <select v-model="sexo">
+                <option disabled value>Selecione um:</option>
+                <option>Masculino</option>
+                <option>Feminino</option>
+              </select>
+              
             </b-input-group>
 
             <b-button variant="light" @click="registrarUser" class="mt-3 mx-auto w-50">Cadastrar</b-button>
@@ -147,6 +152,10 @@ export default {
 </script>
 
 <style>
+
+/* -------- CSS PTOTÓTIPO -------- */
+
+
 .register {
   justify-content: center !important;
   width: 100%;

@@ -161,6 +161,10 @@ export default {
 
 
 <style>
+
+/* -------- CSS PTOTÓTIPO -------- */
+
+
 .nav1 {
   padding: 10px;
 }

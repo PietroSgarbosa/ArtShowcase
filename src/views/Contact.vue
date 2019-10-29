@@ -41,27 +41,26 @@
     <h1>Insira a imagem</h1>
     <br />
     <br />
+
     <picture-input
       ref="pictureInput"
-      @change="onChange"
-      margin="16"
-      width="600"
-      height="600"
-      accept="image/jpeg, image/png"
-      size="10"
+      @change="onChanged"
+      @remove="onRemoved"
+      :width="500"
       :removable="true"
-      :customStrings="{upload:'<h1>Bummer!</h1>',drag: 'Drag a GIF or GTFO'}"
+      removeButtonClass="ui red button"
+      :height="500"
+      accept="image/jpeg, image/png, image/gif"
+      buttonClass="ui button primary"
+      :customStrings="{
+  upload: '<h1>Upload it!</h1>',
+  drag: 'Drag and drop your image here'}"
     ></picture-input>
-    <br />
-    <br />
 
-    <div class="file-upload-form">
-      Upload an image file:
-      <input type="file" @change="previewImage" accept="image/*" />
-    </div>
-    <div class="image-preview" v-if="imageData.length">
-      <img class="preview" :src="imageData" />
-    </div>
+    <button @click="attemptUpload" v-bind:class="{ disabled: !image }">Upload</button>
+
+    <br />
+    <br />
 
     <!-- CARROSSEL -->
 
@@ -77,7 +76,7 @@
 
 <script>
 import * as config from "@/config.json";
-import PictureInput from "vue-picture-input";
+import PictureInput from "vue-picture-input"
 
 export default {
   component: {
@@ -89,39 +88,12 @@ export default {
     };
   },
 
-  methods: {
-    previewImage: function(event) {
-      var input = event.target;
-
-      if (input.files && input.files[0]) {
-        var reader = new FileReader();
-
-        reader.onload = e => {
-          this.imageData = e.target.result;
-        };
-
-        reader.readAsDataURL(input.files[0]);
-      }
-    }
-  }
+  methods: {}
 };
 </script>
 
 
 <style>
-
-.file-upload-form, .image-preview {
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-    padding: 20px;
-}
-img.preview {
-    width: 200px;
-    background-color: white;
-    border: 1px solid #DDD;
-    padding: 5px;
-}
-
-
 .nav1 {
   padding: 10px;
 }

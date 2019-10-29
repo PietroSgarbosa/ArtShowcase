@@ -7,6 +7,7 @@ import BootstrapVue from "bootstrap-vue";
 import App from "./App";
 import router from "./router";
 import moment from 'moment';
+import PictureInput from "vue-picture-input";
 
 
 Vue.prototype.moment = moment
@@ -18,6 +19,7 @@ new Vue({
   router,
   template: "<App/>",
   components: {
-    App
+    App,
+    PictureInput
   }
 });
