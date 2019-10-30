@@ -42,7 +42,7 @@
           </b-col>
           <b-row>
             <b-input-group prepend="Username">
-              <b-form-input v-model="usuario"></b-form-input>
+              <b-form-input v-model="nick"></b-form-input>
             </b-input-group>
           </b-row>
           <b-row>
@@ -95,7 +95,7 @@ export default {
 
   data: _ => {
     return {
-      usuario: null,
+      nick: null,
       senha: null
     };
   },
@@ -126,8 +126,8 @@ export default {
           /* ROTA DO SERVIDOR BACK */
         axios
           .post("http://localhost:3035/user/login", {
-            usuario: this.usuario,
-            senha: this.senha,
+            nick: this.nick,
+            senha: this.senha
           })
     
 

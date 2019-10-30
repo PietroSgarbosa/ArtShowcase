@@ -280,7 +280,7 @@ export default {
     async onUpload() {
 
       const fd = new FormData();
-      fd.append("image", this.fileSelected, this.fileSelected.name);
+      fd.append("image", this.selectedFile, this.selectedFile.name);
 
       let image64;
       image2base64(fd)
