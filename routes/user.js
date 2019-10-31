@@ -47,10 +47,14 @@ module.exports = (app)=>{
     app.post('/user/upload_image', (req, res, err) =>{
 
         const {
-            fd
+            imagem,
+            titulo,
+            descricao
         } = req.body; //RECIEVES DATA FROM THE FORM 
 
-        console.info(fd);                                                                                        
+        console.info(imagem);  
+        console.info(titulo); 
+        console.info(descricao);                                                                                       
                                                         
         if(err){ 
             console.info(err);
