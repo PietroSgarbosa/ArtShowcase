@@ -50,20 +50,21 @@ module.exports = (app)=>{
             imagem,
             titulo,
             descricao
-        } = req.body; //RECIEVES DATA FROM THE FORM 
-
-        console.info(imagem);  
-        console.info(titulo); 
-        console.info(descricao);                                                                                       
+        } = req.body; //RECIEVES DATA FROM THE FORM     
+        
+        let sql = `INSERT INTO upload_imagens (CODI_USUAR, IMAG_PORTI, TITU_IMAG, DESC_IMAG) 
+                   VALUES ('1', '${imagem}', '${titulo}', '${descricao}');`;
                                                         
-        if(err){ 
-            console.info(err);
-            res.sendStatus(403);                        
-        }else{                                          
-            res.json({                                  
-                status : 200
-            });
-        }
+        conn.query(sql, (err)=>{                                            
+            if(err){
+                console.log(err);
+                console.log("--------------------------------");                                    
+                res.sendStatus(403);                        
+            }else{   
+                console.log("Imagens cadastradas!");                                        
+                res.sendStatus(200);
+            }
+        });
            
         
     });
@@ -77,7 +78,7 @@ module.exports = (app)=>{
                 if(err){                                        
                     res.sendStatus(403);                        
                 }else{
-                    res.json({results});
+                    res.sendStatus(200).json({results});
                 }
             });
            
