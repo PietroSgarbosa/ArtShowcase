@@ -9,8 +9,9 @@ let ip = '127.0.0.1';
 let app = express();
 
 app.use(cors());
-app.use(bodyParser.urlencoded({ extended: false}));
-app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ limit: '10mb', extended: true}));
+app.use(bodyParser.json({limit: '10mb', extended: true}));
+
 
 
 consign().include('routes').into(app);
