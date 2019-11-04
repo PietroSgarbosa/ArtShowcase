@@ -75,6 +75,10 @@
 
                 <!-- TESTE PARA CHECAR O JSON -->
 
+                <li v-for:="image in images">
+
+                </li>
+
                 {{ imageData }}
 
 
@@ -93,7 +97,7 @@
               <br />
               <br />
 
-              
+              <!--
 
                <b-form-group
                   id="fieldset-horizontal"
@@ -140,7 +144,7 @@
               
               <b-button variant="primary" @click="onUpload" class="mt-3 mx-auto">Submit</b-button>
 
-              
+              -->
 
               <div>
                 <b-form-group
@@ -259,7 +263,8 @@ export default {
       selectedFile: null,
       file: null,
       imagem: null,
-      imageData: null
+      imageData: null,
+      images: []
     };
   },
 
@@ -354,7 +359,10 @@ export default {
     axios
     /* CAMINHO DA CHAMADA */
       .get('')
-      .then(response => (this.imageData = response))
+      .then(response => response.json())
+      .then((data) => {
+        this.images = data;
+      })
   }
   }
 };
