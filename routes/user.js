@@ -69,6 +69,22 @@ module.exports = (app)=>{
         
     });
 
+    app.get('/user/TEST_userData', (req, res) =>{
+
+        let sql = `SELECT CODI_USUAR, NICK_USUAR, NOME_USUAR, 
+                   MAIL_USUAR, IDAD_USUAR, SEXO_USUAR 
+                   FROM cadastro_usuario`;              
+                                                                                        
+        conn.query(sql, (err, results)=>{ 
+            
+            if(err){                                        
+                res.sendStatus(400);                        
+            }else{
+                res.sendStatus(200).json({results});
+            }
+        });   
+    });
+
     app.get('/user/search_images', (req, res) =>{
 
         let sql = `SELECT IMAG_PERFI as TITULO, IMAG_PORTI as IMAGEM FROM upload_imagens WHERE CODI_USUAR = 1;`;              
