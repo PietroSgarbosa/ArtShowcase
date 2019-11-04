@@ -169,8 +169,8 @@
                   <b-form-input v-model="descricao" id="input-horizontal"></b-form-input>
                 </b-form-group>
 
-                <b-input type="file" @change="onFileSelected" v-model="imagem">
-                </b-input>
+                <input type="file" @change="onFileSelected"/>
+              
 
                 <br />
                 <br />
