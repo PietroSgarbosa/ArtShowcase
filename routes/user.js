@@ -97,7 +97,6 @@ module.exports = (app)=>{
                     res.sendStatus(200).json({results});
                 }
             });
-           
         
     });
 
