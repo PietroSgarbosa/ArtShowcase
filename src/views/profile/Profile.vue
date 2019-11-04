@@ -72,12 +72,15 @@
             <!-- EXEMPLO DE COMO FICARÁ -->
             <b-container>
               <b-card class="secoes">
-                <img src="/img/reiLeaoCalvo.jpg" class="imgSecoes d-inline-block align-top" />
+
+                <!-- TESTE PARA CHECAR O JSON -->
+
+                {{ imageData }}
+
+
               </b-card>
 
-              <b-card class="secoes">
-                <img src="/img/Sam.jpg" class="imgSecoes d-inline-block align-top" />
-              </b-card>
+              
             </b-container>
           </b-tab>
           <b-tab title="Publicar" active>
@@ -90,7 +93,7 @@
               <br />
               <br />
 
-              <!-- PICTURE INPUT
+              
 
                <b-form-group
                   id="fieldset-horizontal"
@@ -137,7 +140,7 @@
               
               <b-button variant="primary" @click="onUpload" class="mt-3 mx-auto">Submit</b-button>
 
-              -->
+              
 
               <div>
                 <b-form-group
@@ -162,7 +165,8 @@
                   <b-form-input v-model="descricao" id="input-horizontal"></b-form-input>
                 </b-form-group>
 
-                <input type="file" @change="onFileSelected" />
+                <b-input type="file" @change="onFileSelected" v-model="imagem">
+                </b-input>
 
                 <br />
                 <br />
@@ -238,6 +242,8 @@ import * as config from "@/config.json";
 import PictureInput from "vue-picture-input";
 import axios from "axios";
 
+var image64;
+
 /* IMPORTS AINDA SEM USO */
 import VueJwtDecode from "vue-jwt-decode";
 
@@ -252,7 +258,8 @@ export default {
       descricao: null,
       selectedFile: null,
       file: null,
-      imagem: null
+      imagem: null,
+      imageData: null
     };
   },
 
@@ -272,12 +279,26 @@ export default {
 
 
     onFileSelected(event) {
-      this.selectedFile = event.target.files[0];
+      var file = document
+      .querySelector('input[type=file]')
+      .files[0];
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        this.imgSrc = event.target.result;
+
+        image64 = this.imgSrc;
+        console.log(image64);
+      }
+      reader.readAsDataURL(file);
     },
 
     
 
     async onUpload() {
+      image64.replace('data:image/png;base64,',"");
+      console.log(image64);
+
+      /* TESTE TESTE TESTE
 
       const fd = new FormData();
       fd.append("image", this.selectedFile, this.selectedFile.name);
@@ -292,11 +313,13 @@ export default {
           console.log(error);
         });
 
+      */
+
       await axios;
       /* para mandar apenas a imagem sem CONVERSÃO coloque a variavel FD no POST */
       axios
         .post("http://localhost:3035/user/upload_image", {
-          imagem: this.image64,
+          imagem: image64,
           titulo: this.titulo, 
           descricao: this.descricao 
         })
@@ -323,7 +346,16 @@ export default {
         }
       }
       */
-    }
+    },
+
+    /* MÉTODO GET */
+
+    mounted () {
+    axios
+    /* CAMINHO DA CHAMADA */
+      .get('')
+      .then(response => (this.imageData = response))
+  }
   }
 };
 </script>

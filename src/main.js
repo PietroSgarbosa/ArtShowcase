@@ -7,7 +7,11 @@ import BootstrapVue from "bootstrap-vue";
 import App from "./App";
 import router from "./router";
 import moment from 'moment';
-import PictureInput from "vue-picture-input";
+import PictureInput from 'vue-picture-input';
+
+// TENTANDO REGISTRAR O COMPONENTE GLOBALMENTE COM MÉTODOS ALTERNATIVOS
+
+Vue.use(PictureInput);
 
 
 Vue.prototype.moment = moment
@@ -20,6 +24,5 @@ new Vue({
   template: "<App/>",
   components: {
     App,
-    PictureInput
   }
 });
