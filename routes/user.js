@@ -13,7 +13,7 @@ module.exports = (app)=>{
         } = req.body; //RECIEVES USER DATA FROM THE FORM
 
         let sql = `SELECT CODI_USUAR, NICK_USUAR, NOME_USUAR, 
-                   MAIL_USUAR, IDAD_USUAR, SEXO_USUAR 
+                   MAIL_USUAR, IDAD_USUAR, SEXO_USUAR, IMAG_PERFI 
                    FROM cadastro_usuario
                    WHERE NICK_USUAR = '${nick}' AND SENH_USUAR = '${senha}'`; //IF THE USER EXISTS, RETRIEVES ALL IT'S DATA
                                                                               //FOR SENDING IT TO THE FRONT END LATER.
@@ -23,7 +23,7 @@ module.exports = (app)=>{
                 console.log(err);
                 res.sendStatus(400);
             }else if (results.length != 1){
-                console.log("Usuário ou senha incorreto(s)");
+                
                 res.sendStatus(403);
             }else{
                 const user={   //OBJECT WITH ALL USER'S DATA (THE IMPORTANT ONES)
@@ -32,10 +32,10 @@ module.exports = (app)=>{
                     nick : results[0].NICK_USUAR,
                     email : results[0].MAIL_USUAR,
                     age : results[0].IDAD_USUAR,
-                    gender : results[0].SEXO_USUAR
+                    gender : results[0].SEXO_USUAR,
+                    photo : results[0].IMAG_PERFI
                 };
                 //jwt.sign({user}, process.env.JWT_SECRET,(err, token) =>{//HERE'S WHERE ALL THE TOKEN SHENANIGANS BEGINS. 
-                    console.log("Login realizado! token: " + user);
                     res.status(200).json({user});          //ALL THE INFORMATION CONTAINED IN THE OBJECT "user"
                // });                                         //WILL BE ENCODED INTO A TOKEN, AND THE WORD 'secret'
                                                             //IS THE KEY TO DECODE IT. THE LOGGED USER WILL HAVE A SPECIFIC TOKEN
