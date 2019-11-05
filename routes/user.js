@@ -34,10 +34,10 @@ module.exports = (app)=>{
                     age : results[0].IDAD_USUAR,
                     gender : results[0].SEXO_USUAR
                 };
-                jwt.sign({user}, process.env.JWT_SECRET,(err, token) =>{//HERE'S WHERE ALL THE TOKEN SHENANIGANS BEGINS. 
-                    console.log("Login realizado! token: " + token);
-                    res.status(200).json({token});          //ALL THE INFORMATION CONTAINED IN THE OBJECT "user"
-                });                                         //WILL BE ENCODED INTO A TOKEN, AND THE WORD 'secret'
+                //jwt.sign({user}, process.env.JWT_SECRET,(err, token) =>{//HERE'S WHERE ALL THE TOKEN SHENANIGANS BEGINS. 
+                    console.log("Login realizado! token: " + user);
+                    res.status(200).json({user});          //ALL THE INFORMATION CONTAINED IN THE OBJECT "user"
+               // });                                         //WILL BE ENCODED INTO A TOKEN, AND THE WORD 'secret'
                                                             //IS THE KEY TO DECODE IT. THE LOGGED USER WILL HAVE A SPECIFIC TOKEN
             }                                               //AND A TIMESTAMP FOR US TO KEEP TRACK OF HIM/HER/IT
         });                                                 //OH... AND THIS LINE SEND ALL THE DATA TO THE FRONT            
