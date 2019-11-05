@@ -52,7 +52,7 @@
             <b-col md="6">
               <b-card-body>
                 <h1>{{this.nome_usuario}}</h1>
-                <b-card-text>{{this.nick}</b-card-text>
+                <b-card-text>{{this.nick}}</b-card-text>
               </b-card-body>
             </b-col>
           </b-row>
