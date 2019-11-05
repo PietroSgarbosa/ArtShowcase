@@ -48,7 +48,7 @@
           <b-row no-gutters class="bg-transparent">
             <b-col>
               <div class="imgBox rounded-circle" href="#">
-                <img style="background-image" v-bind:src="this.imagem">
+                <img class="img" v-bind:src="this.imagem">
               </div>
               
             </b-col>
