@@ -71,9 +71,7 @@ module.exports = (app)=>{
 
     app.get('/user/TEST_userData', (req, res) =>{
 
-        let sql = `SELECT NICK_USUAR AS nick, NOME_USUAR as nome, 
-                (SELECT IMAG_PORTI FROM upload_imagens WHERE TITU_IMAG = 'Gohan Calvo') as imagem
-                FROM cadastro_usuario;`;               
+        let sql = `SELECT NICK_USUAR AS nick, NOME_USUAR as nome, IMAG_PERFI as imagem FROM cadastro_usuario;`;               
                                                                                         
         conn.query(sql, (err, results)=>{ 
             
