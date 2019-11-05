@@ -75,11 +75,9 @@
 
                 <!-- TESTE PARA CHECAR O JSON -->
 
-                <li v-for:="image in images">
+            
 
-                </li>
-
-                {{ imageData }}
+              
 
 
               </b-card>
@@ -96,55 +94,6 @@
               <h1>Insira a imagem</h1>
               <br />
               <br />
-
-              <!--
-
-               <b-form-group
-                  id="fieldset-horizontal"
-                  label-cols-sm="4"
-                  label-cols-lg="3"
-                  description="De um titulo ao seu trabalho para enriquecer seus dados."
-                  label="Titulo"
-                  label-for="input-horizontal"
-                >
-                  <b-form-input v-model="titulo" id="input-horizontal"></b-form-input>
-                </b-form-group>
-
-                <b-form-group
-                  id="fieldset-horizontal"
-                  label-cols-sm="4"
-                  label-cols-lg="3"
-                  description="Adicone uma breve descrição."
-                  label="Descrição"
-                  label-for="input-horizontal"
-                >
-                  <b-form-input v-model="descricao" id="input-horizontal"></b-form-input>
-                </b-form-group>
-
-                <br />
-
-
-              <b-card header="Editar Imagem">
-              <picture-input
-                ref="pictureInput"
-                :zIndex="10"
-                style="width: 100%;"
-                margin="16"
-                accept="image/jpeg, image/png"
-                size="10"
-                buttonClass="btn"
-                :custom-strings="{
-                   upload: '<h1>Seu dispositivo não aceita este tipo!</h1>',
-                   drag: 'Arraste uma imagem <br> (ou clique aqui)',
-                   change: 'Mudar imagem'
-                }"
-                @change="onChange"
-              ></picture-input>
-              </b-card>
-              
-              <b-button variant="primary" @click="onUpload" class="mt-3 mx-auto">Submit</b-button>
-
-              -->
 
               <div>
                 <b-form-group
@@ -195,6 +144,8 @@
             <br />
             <br />
 
+            <!--
+
             <b-form-group
                   id="fieldset-horizontal"
                   label-cols-sm="4"
@@ -216,6 +167,8 @@
                 >
                   <b-form-input v-model="descricaoUser" id="input-horizontal"></b-form-input>
             </b-form-group>
+
+            -->
 
 
           </b-tab>
@@ -243,18 +196,13 @@
 
 <script>
 import * as config from "@/config.json";
-import PictureInput from "vue-picture-input";
 import axios from "axios";
 
 var image64;
 
-/* IMPORTS AINDA SEM USO */
-import VueJwtDecode from "vue-jwt-decode";
 
 export default {
-  name: "editarimagem",
   component: {
-    PictureInput
   },
   data: _ => {
     return {
@@ -338,19 +286,6 @@ export default {
           }
         });
 
-
-
-    /* ONCHANGE POR DOCUMENTAÇÃO E "FIORIN" 
-      onChange(image) {
-        
-        if (image) {
-          this.saveBtn = true;
-          localStorage.setItem("image", image);
-        } else {
-          this.saveBtn = false;
-        }
-      }
-      */
     },
 
     /* MÉTODO GET */
