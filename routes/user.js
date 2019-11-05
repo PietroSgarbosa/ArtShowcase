@@ -71,16 +71,17 @@ module.exports = (app)=>{
 
     app.get('/user/TEST_userData', (req, res) =>{
 
-        let sql = `SELECT CODI_USUAR, NICK_USUAR, NOME_USUAR, 
-                   MAIL_USUAR, IDAD_USUAR, SEXO_USUAR 
-                   FROM cadastro_usuario`;              
+        let sql = `SELECT NICK_USUAR AS nick, NOME_USUAR as nome, 
+                (SELECT IMAG_PORTI FROM upload_imagens WHERE TITU_IMAG = 'Gohan Calvo') as imagem
+                FROM cadastro_usuario;`;               
                                                                                         
         conn.query(sql, (err, results)=>{ 
             
             if(err){                                        
                 res.sendStatus(400);                        
             }else{
-                res.sendStatus(200).json({results});
+                
+                res.json({status : 200, results});
             }
         });   
     });
@@ -94,7 +95,7 @@ module.exports = (app)=>{
                 if(err){                                        
                     res.sendStatus(403);                        
                 }else{
-                    res.sendStatus(200).json({results});
+                    res.json({status : 200, results});
                 }
             });
         
