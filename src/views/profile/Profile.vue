@@ -51,8 +51,8 @@
             </b-col>
             <b-col md="6">
               <b-card-body>
-                <h1>Username</h1>
-                <b-card-text>Descrição do usuario</b-card-text>
+                <h1>{{this.nome_usuario}}</h1>
+                <b-card-text>{{this.nick}</b-card-text>
               </b-card-body>
             </b-col>
           </b-row>
@@ -74,11 +74,6 @@
               <b-card class="secoes">
 
                 <!-- TESTE PARA CHECAR O JSON -->
-
-            
-
-              
-
 
               </b-card>
 
@@ -206,15 +201,26 @@ export default {
   },
   data: _ => {
     return {
+      nome_usuario: null,
+      nick: null,
       titulo: null,
       descricao: null,
       selectedFile: null,
       file: null,
       imagem: null,
       imageData: null,
-      images: []
     };
   },
+
+  mounted (){
+
+    axios.get('http://localhost:3035/user/TEST_userData')
+      .then((res)=>{
+        this.nome_usuario = res.data.results[0].nome;
+        this.nick = res.data.results[0].nick;
+        //this.imagem = res.data.results[0].imagem;
+      })
+     },
 
   methods: {
     redirect() {
