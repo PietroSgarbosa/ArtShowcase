@@ -44,13 +44,13 @@ module.exports = (app)=>{
 
     });
 
-    app.post('/user/upload_image', (req, res, err) =>{
+    app.post('/user/upload_image', (req, res) =>{
 
         const {
-            fd
+            imagem
         } = req.body; //RECIEVES DATA FROM THE FORM 
-
-        console.info(fd);                                                                                        
+        
+        console.log(imagem);                                                                                        
                                                         
         if(err){ 
             console.info(err);
