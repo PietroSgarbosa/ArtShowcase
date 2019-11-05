@@ -216,7 +216,6 @@ export default {
   },
 
   mounted(){
-
     axios.get('http://localhost:3035/user/TEST_userData')
       .then((res)=>{
         this.nome_usuario = res.data.results[0].nome;
