@@ -47,7 +47,10 @@
 
           <b-row no-gutters class="bg-transparent">
             <b-col>
-              <div class="imgBox rounded-circle" href="#"></div>
+              <div class="imgBox rounded-circle" href="#">
+                <img style="background-image" v-bind:src="this.imagem">
+              </div>
+              
             </b-col>
             <b-col md="6">
               <b-card-body>
@@ -212,13 +215,15 @@ export default {
     };
   },
 
-  mounted (){
+  mounted(){
 
     axios.get('http://localhost:3035/user/TEST_userData')
       .then((res)=>{
         this.nome_usuario = res.data.results[0].nome;
+
         this.nick = res.data.results[0].nick;
-        //this.imagem = res.data.results[0].imagem;
+        this.imagem = res.data.results[0].imagem;
+      
       })
      },
 
@@ -244,9 +249,8 @@ export default {
       const reader = new FileReader();
       reader.onload = (event) => {
         this.imgSrc = event.target.result;
-
         image64 = this.imgSrc;
-        console.log(image64);
+        
       }
       reader.readAsDataURL(file);
     },
@@ -255,24 +259,6 @@ export default {
 
     async onUpload() {
       image64.replace('data:image/png;base64,',"");
-      console.log(image64);
-
-      /* TESTE TESTE TESTE
-
-      const fd = new FormData();
-      fd.append("image", this.selectedFile, this.selectedFile.name);
-
-      let image64;
-      image2base64(fd)
-        .then(response => {
-          image64 = "teste";
-          console.log(image64);
-        })
-        .catch(error => {
-          console.log(error);
-        });
-
-      */
 
       await axios;
       /* para mandar apenas a imagem sem CONVERSÃO coloque a variavel FD no POST */
