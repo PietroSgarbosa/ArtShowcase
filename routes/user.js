@@ -44,24 +44,46 @@ module.exports = (app)=>{
 
     });
 
-    app.post('/user/upload_image', (req, res) =>{
+    app.post('/user/upload_image', (req, res, err) =>{
 
         const {
-            imagem
-        } = req.body; //RECIEVES DATA FROM THE FORM 
+            imagem,
+            titulo,
+            descricao
+        } = req.body; //RECIEVES DATA FROM THE FORM     
         
-        console.log(imagem);                                                                                        
+        let sql = `INSERT INTO upload_imagens (CODI_USUAR, IMAG_PORTI, TITU_IMAG, DESC_IMAG) 
+                   VALUES ('1', '${imagem}', '${titulo}', '${descricao}');`;
                                                         
-        if(err){ 
-            console.info(err);
-            res.sendStatus(403);                        
-        }else{                                          
-            res.json({                                  
-                status : 200
-            });
-        }
+        conn.query(sql, (err)=>{                                            
+            if(err){
+                console.log(err);
+                console.log("--------------------------------");                                    
+                res.sendStatus(403);                        
+            }else{   
+                console.log("Imagens cadastradas!");                                        
+                res.sendStatus(200);
+            }
+        });
            
         
+    });
+
+    app.get('/user/TEST_userData', (req, res) =>{
+
+        let sql = `SELECT NICK_USUAR AS nick, NOME_USUAR as nome, 
+                (SELECT IMAG_PORTI FROM upload_imagens WHERE TITU_IMAG = 'Gohan Calvo') as imagem
+                FROM cadastro_usuario;`;               
+                                                                                        
+        conn.query(sql, (err, results)=>{ 
+            
+            if(err){                                        
+                res.sendStatus(400);                        
+            }else{
+                
+                res.json({status : 200, results});
+            }
+        });   
     });
 
     app.get('/user/search_images', (req, res) =>{
@@ -73,20 +95,17 @@ module.exports = (app)=>{
                 if(err){                                        
                     res.sendStatus(403);                        
                 }else{
-                    res.json({results});
+                    res.json({status : 200, results});
                 }
             });
-           
         
     });
 
     //TESTING
     /*app.post('/user/upload_image',verifyToken, (req, res) =>{
-
         const {
             fs
         } = req.body; //RECIEVES DATA FROM THE FORM 
-
         console.log(fs);
         
         jwt.verify(req.token, process.env.JWT_SECRET, (err, authData)=>{
@@ -106,23 +125,6 @@ module.exports = (app)=>{
             });
         });
     });*/
-
-    //THE LOGOUT IS DONE IN THE FRONT END, DELETING THE TOKEN FROM IT'S LOCAL STORAGE
-    /*app.post('/user/logout',verifyToken, (req, res) =>{
-
-        const {
-            token
-        } = req.body; //RECIEVES DATA FROM THE FORM
-
-        if(err){                                        
-            res.sendStatus(400);                        
-        }else{                                          
-            res.json({                                  
-                status : 200
-            });
-        }
-        
-    }); */
 
     app.post('/user/register', (req, res)=>{
             
@@ -183,4 +185,3 @@ module.exports = (app)=>{
 }
     //AINDA NÃO FUNCIONAL
      /**/
-
