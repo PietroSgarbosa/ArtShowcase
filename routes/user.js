@@ -75,17 +75,17 @@ module.exports = (app)=>{
             imagem,
             id
         } = req.body; //RECIEVES DATA FROM THE FORM     
-        
-        let sql = `INSERT INTO cadastro_usuario (IMAG_PERFI) 
-                   VALUES ('${imagem}') WHERE CODI_USUAR = '${id}';`;
+        console.log(id);
+        let sql = `UPDATE cadastro_usuario SET IMAG_PERFI = '${imagem}'
+                   WHERE CODI_USUAR = '${id}';`;
                                                         
-        conn.query(sql, (err)=>{                                            
+        conn.query(sql, (err, results)=>{                                            
             if(err){
                 console.log(err);
                 console.log("--------------------------------");                                    
-                res.sendStatus(403);                        
+                res.sendStatus(400);                        
             }else{   
-                console.log("Imagens cadastradas!");                                        
+                console.log("Imagen de perfil cadastrada!");                                        
                 res.sendStatus(200);
             }
         });
