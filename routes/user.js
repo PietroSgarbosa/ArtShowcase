@@ -69,6 +69,29 @@ module.exports = (app)=>{
         
     });
 
+    app.post('/user/insert_profile_pic', (req, res, err) =>{
+
+        const {
+            imagem,
+            id
+        } = req.body; //RECIEVES DATA FROM THE FORM     
+        
+        let sql = `INSERT INTO cadastro_usuario (IMAG_PERFI) 
+                   VALUES ('${imagem}') WHERE CODI_USUAR = '${id}';`;
+                                                        
+        conn.query(sql, (err)=>{                                            
+            if(err){
+                console.log(err);
+                console.log("--------------------------------");                                    
+                res.sendStatus(403);                        
+            }else{   
+                console.log("Imagens cadastradas!");                                        
+                res.sendStatus(200);
+            }
+        });
+             
+    });
+
     app.get('/user/TEST_userData', (req, res) =>{
 
         let sql = `SELECT NICK_USUAR AS nick, NOME_USUAR as nome, IMAG_PERFI as imagem FROM cadastro_usuario;`;               
