@@ -114,7 +114,7 @@
                   <b-form-input v-model="descricaoImg" id="input-horizontal" :state="state4" trim></b-form-input>
                 </b-form-group>
 
-                <input type="file" @change="onFileSelected" />
+                <input type="file" id="my_drawings" @change="onFileSelected('','my_drawings')" />
 
                 <br />
                 <br />
@@ -190,15 +190,10 @@
               <br />
               <br />
 
-              <input type="file" @change="onFileSelected" />
+              <input type="file" id="profile_pic" @change="onFileSelected('','profile_pic')" />
               <br />
               <br />
-              <b-button
-                variant="primary"
-                @click="profilePic"
-                class="mt-3 mx-auto"
-              >Definir imagem de perfil</b-button>
-
+              <b-button variant="primary" @click="profilePic" class="mt-3 mx-auto">Definir imagem de perfil</b-button>
               <br />
             </div>
           </b-tab>
@@ -227,13 +222,10 @@
 <script>
 import * as config from "@/config.json";
 import axios from "axios";
-
 /* variavel GLOBAL */
 var image64;
-
 export default {
   /* VALIDAÇÃO DOS CAMPOS DE CARACTERE */
-
   computed: {
     state1() {
       return this.newUsername.length >= 4 ? true : false;
@@ -287,20 +279,8 @@ export default {
       return this.state === true ? "Obrigado" : "";
     }
   },
-  data() {
+  /*data() {
     return {
-      //atributos testes
-      user_data: null,
-      nome_usuario: null,
-      nick: null,
-      titulo: null,
-      descricao: null,
-      profile_pic: null,
-      file: null,
-      imagem: null,
-      imageData: null,
-      //atributos testes
-      
       //atributos definitivos
       newUsername: "",
       descricaoUser: "",
@@ -308,7 +288,7 @@ export default {
       descricaoImg: ""
       //atributos definitivos
     };
-  },
+  },*/
   component: {},
   data: _ => {
     return {
@@ -327,9 +307,7 @@ export default {
       descricaoImg: []
     };
   },
-
   /* SCRIPT PARA RECEBER JSON DO LOCAL STORAGE */
-
   mounted() {
     if (localStorage.getItem("reloaded")) {
       localStorage.removeItem("reloaded");
@@ -342,7 +320,6 @@ export default {
     this.nick = this.user_data.nick;
     this.imagem = this.user_data.photo;
   },
-
   methods: {
     redirect() {
       this.$router.push("home");
@@ -356,30 +333,26 @@ export default {
     redirect3() {
       this.$router.push("register");
     },
-
     /* SCRIPT PARA DESLOGAR */
-
     logOut() {
       if (localStorage) {
         localStorage.removeItem("user_data");
       }
       this.$router.push("home");
     },
-
     /* SCRIPT PARA CAPTURAR A IMAGEM E USAR COMO URL */
-
-    onFileSelected(event) {
-      var file = document.querySelector("input[type=file]").files[0];
+    onFileSelected(event, id) {
+      var file = document
+      .querySelector('input[type=file][id='+id+']')
+      .files[0];
       const reader = new FileReader();
-      reader.onload = event => {
+      reader.onload = (event) => {
         this.imgSrc = event.target.result;
         image64 = this.imgSrc;
-      };
+      }
       reader.readAsDataURL(file);
     },
-
     /* SCRIPT PARA SETAR IMAGEM DE PERFIL */
-
     async profilePic(){
       this.user_data = JSON.parse(localStorage.getItem("user_data"));
       await axios;
@@ -403,19 +376,16 @@ export default {
           }
         });
     },
-
     /* SCRIPT PARA UPAR IMAGEM DE TRABALHOS NA FUTURA GALERIA */
-
     async onUpload() {
       await axios;
-
       axios
         .post("http://localhost:3035/user/upload_image", {
           imagem: image64,
           titulo: this.titulo,
-          descricao: this.descricao
+          descricao: this.descricaoImg
         })
-        .then(responde => {
+        .then(response => {
           if (response.status == 200) {
             alert("Trabalho Inserido!");
             this.$router.push("Profile");
@@ -424,9 +394,7 @@ export default {
           }
         });
     },
-
     /* PARA ATAULIZAR DADOS */
-
     async alteraDados() {
       await axios;
       axios
