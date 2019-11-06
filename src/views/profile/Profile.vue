@@ -28,7 +28,7 @@
               <em>Usuário</em>
             </template>
             <b-dropdown-item @click="redirect1" href="#">Perfil</b-dropdown-item>
-            <b-dropdown-item href="#">Deslogar</b-dropdown-item>
+            <b-dropdown-item @click="logOut" href="#">Deslogar</b-dropdown-item>
           </b-nav-item-dropdown>
         </b-navbar-nav>
       </b-collapse>
@@ -41,9 +41,7 @@
         <b-card
           no-body
           class="topCard overflow-hidden border border-light bg-transparent"
-          style="max-width: 540px;"
-        >
-          <!-- SCRIPT PARA MUDAR A IMAGEM DO USUÁRIO EM CODIFICAÇÃO -->
+          style="max-width: 540px;">
 
           <b-row no-gutters class="bg-transparent">
             <b-col>
@@ -291,10 +289,24 @@ export default {
   },
   data() {
     return {
+      //atributos testes
+      user_data: null,
+      nome_usuario: null,
+      nick: null,
+      titulo: null,
+      descricao: null,
+      profile_pic: null,
+      file: null,
+      imagem: null,
+      imageData: null,
+      //atributos testes
+      
+      //atributos definitivos
       newUsername: "",
       descricaoUser: "",
       titulo: "",
       descricaoImg: ""
+      //atributos definitivos
     };
   },
   component: {},
@@ -354,7 +366,7 @@ export default {
       this.$router.push("home");
     },
 
-    /* SCRIPT PARA CAPTURAR A MIMAGEM E USAR COMO URL */
+    /* SCRIPT PARA CAPTURAR A IMAGEM E USAR COMO URL */
 
     onFileSelected(event) {
       var file = document.querySelector("input[type=file]").files[0];
@@ -374,19 +386,18 @@ export default {
     
       axios
         //atualiza no banco de dados a imagem de perfil
-        .post("http://localhost:3035/user/insert_profile_pic", {
+        .post("http://localhost:3035/user/update_profile_pic", {
           imagem: image64,
           id : this.user_data.id
         })
         .then(response => {
           if (response.status == 200) {
-            alert("Imagem do Perfil adicionada!");
             this.user_data.photo = image64;
             //atualiza no local storage a imagem de perfil
             localStorage.setItem("user_data", JSON.stringify(this.user_data));
             //muda a imagem de perfil logo após atualizar o local storage
             this.imagem = image64;
-
+            alert("Imagem do Perfil alterada!");
           } else {
             alert("Ocorreu um erro na inserção.");
           }
@@ -396,7 +407,6 @@ export default {
     /* SCRIPT PARA UPAR IMAGEM DE TRABALHOS NA FUTURA GALERIA */
 
     async onUpload() {
-      image64.replace("data:image/png;base64,", "");
       await axios;
 
       axios
