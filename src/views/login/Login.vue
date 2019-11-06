@@ -127,7 +127,8 @@ export default {
         axios
           .post("http://localhost:3035/user/login", {
             nick: this.nick,
-            senha: this.senha
+            senha: this.senha,
+            user_data: []
           })
     
 
@@ -135,7 +136,11 @@ export default {
 
           .then(response => {
             if (response.status == 200) {
-               alert("Usuário logado!")
+              this.user_data = (response.data.user);
+              localStorage.setItem('user_data', JSON.stringify(this.user_data));
+              var welcome = JSON.parse(localStorage.getItem("user_data"));
+              alert("Bem vindo " + welcome.nick + "!")
+              welcome = null;
               this.$router.push("/profile");
             } else {
                 alert("Usuário ou senha incorretos!")

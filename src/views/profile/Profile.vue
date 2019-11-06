@@ -48,9 +48,8 @@
           <b-row no-gutters class="bg-transparent">
             <b-col>
               <div class="imgBox rounded-circle" href="#">
-                <img class="img" v-bind:src="this.imagem">
+                <img class="img" v-bind:src="this.imagem" />
               </div>
-              
             </b-col>
             <b-col md="6">
               <b-card-body>
@@ -69,22 +68,17 @@
       <div class="tab">
         <b-tabs content-class="mt-3" align="center" pills card>
           <b-tab title="Artes Publicadas" active>
-            <p>Seus trabalhos publicados</p>
+            <h1>Seus trabalhos publicados</h1>
             <!-- LISTAGEM DE IMAGENS -->
 
             <!-- EXEMPLO DE COMO FICARÁ -->
             <b-container>
               <b-card class="secoes">
-
                 <!-- TESTE PARA CHECAR O JSON -->
-
               </b-card>
-
-              
             </b-container>
           </b-tab>
           <b-tab title="Publicar" active>
-            <p>Submeter um trabalho</p>
 
             <!-- FORMULARIO PARA UPAR IMAGEM COM PICTURE INPUT -->
 
@@ -101,8 +95,11 @@
                   description="De um titulo ao seu trabalho para enriquecer seus dados."
                   label="Titulo"
                   label-for="input-horizontal"
+                  :invalid-feedback="invalidFeedback3"
+                  :valid-feedback="validFeedback"
+                  :state="state3"
                 >
-                  <b-form-input v-model="titulo" id="input-horizontal"></b-form-input>
+                  <b-form-input v-model="titulo" id="input-horizontal" :state="state3" trim></b-form-input>
                 </b-form-group>
 
                 <b-form-group
@@ -112,12 +109,14 @@
                   description="Adicone uma breve descrição."
                   label="Descrição"
                   label-for="input-horizontal"
+                  :invalid-feedback="invalidFeedback4"
+                  :valid-feedback="validFeedback"
+                  :state="state4"
                 >
-                  <b-form-input v-model="descricao" id="input-horizontal"></b-form-input>
+                  <b-form-input v-model="descricaoImg" id="input-horizontal" :state="state4" trim></b-form-input>
                 </b-form-group>
 
-                <input type="file" @change="onFileSelected"/>
-              
+                <input type="file" @change="onFileSelected" />
 
                 <br />
                 <br />
@@ -130,45 +129,80 @@
             </b-container>
           </b-tab>
           <b-tab title="Campeonatos" active>
-            <p>Campeonatos que você está participando</p>
+            <h1>Campeonatos Inscritos</h1>
             <!-- LISTAGEM DE CAMPEONATOS ATIVOS -->
           </b-tab>
 
           <b-tab title="Editar Dados" active>
-            <p>Atualizar dados do perfil</p>
             <!-- ATUALIZAÇÕES  -->
             <h1>Edite suas informações e troque sua imagem de perfil</h1>
 
             <br />
             <br />
 
-            <!--
+            <div class="changeData" align="center">
+              <b-form-group
+                id="fieldset-1"
+                description="Digite o seu novo nome de usuário."
+                label="Usuário"
+                label-for="input-1"
+                :invalid-feedback="invalidFeedback1"
+                :valid-feedback="validFeedback"
+                :state="state1"
+              >
+                <b-form-input id="input-1" v-model="newUsername" :state="state1" trim></b-form-input>
+              </b-form-group>
 
-            <b-form-group
-                  id="fieldset-horizontal"
-                  label-cols-sm="4"
-                  label-cols-lg="3"
-                  description="Seu nickname."
-                  label="Nome de Usuario"
-                  label-for="input-horizontal"
-                >
-                  <b-form-input v-model="usuario" id="input-horizontal"></b-form-input>
-                </b-form-group>
+              <br />
 
-                <b-form-group
-                  id="fieldset-horizontal"
-                  label-cols-sm="4"
-                  label-cols-lg="3"
-                  description="Adicone uma breve descrição. do seu perfil e carreira"
-                  label="Descrição"
-                  label-for="input-horizontal"
-                >
-                  <b-form-input v-model="descricaoUser" id="input-horizontal"></b-form-input>
-            </b-form-group>
+              <b-row>
+                <b-col sm="2">
+                  <label for="textarea-auto-height">Descrição</label>
+                </b-col>
+                <b-col sm="10">
+                  <b-form-textarea
+                    placeholder="Digite sua descrição..."
+                    rows="3"
+                    max-rows="8"
+                    description="Adicone uma breve descrição. do seu perfil e carreira"
+                    v-model="descricaoUser"
+                    :invalid-feedback="invalidFeedback2"
+                    :valid-feedback="validFeedback"
+                    :state="state2"
+                    trim
+                  ></b-form-textarea>
+                </b-col>
+              </b-row>
 
-            -->
+              <br />
 
+              <b-input-group prepend="Sexo" class="mt-3" align="center">
+                <select v-model="newGender">
+                  <option disabled value>Selecione um:</option>
+                  <option>Masculino</option>
+                  <option>Feminino</option>
+                </select>
+              </b-input-group>
 
+              <br />
+              <br />
+
+              <b-button variant="primary" @click="alteraDados" class="mt-3 mx-auto">Aceitar Edições</b-button>
+
+              <br />
+              <br />
+
+              <input type="file" @change="onFileSelected" />
+              <br />
+              <br />
+              <b-button
+                variant="primary"
+                @click="profilePic"
+                class="mt-3 mx-auto"
+              >Definir imagem de perfil</b-button>
+
+              <br />
+            </div>
           </b-tab>
         </b-tabs>
       </div>
@@ -196,35 +230,106 @@
 import * as config from "@/config.json";
 import axios from "axios";
 
+/* variavel GLOBAL */
 var image64;
 
-
 export default {
-  component: {
+  /* VALIDAÇÃO DOS CAMPOS DE CARACTERE */
+
+  computed: {
+    state1() {
+      return this.newUsername.length >= 4 ? true : false;
+    },
+    invalidFeedback1() {
+      if (this.newUsername.length > 4) {
+        return "";
+      } else if (this.newUsername.length > 0) {
+        return "Digite pelo menos 4 caracteres.";
+      } else {
+        return "Por favor, digite algo.";
+      }
+    },
+    state2() {
+      return this.descricaoUser.length >= 10 ? true : false;
+    },
+    invalidFeedback2() {
+      if (this.descricaoUser.length > 10) {
+        return "";
+      } else if (this.descricaoUser.length > 0) {
+        return "Digite pelo menos 10 caracteres.";
+      } else {
+        return "Por favor, digite algo.";
+      }
+    },
+    state3() {
+      return this.titulo.length >= 4 ? true : false;
+    },
+    invalidFeedback3() {
+      if (this.titulo.length > 4) {
+        return "";
+      } else if (this.titulo.length > 0) {
+        return "Digite pelo menos 4 caracteres.";
+      } else {
+        return "Por favor, digite algo.";
+      }
+    },
+    state4() {
+      return this.descricaoImg.length >= 10 ? true : false;
+    },
+    invalidFeedback4() {
+      if (this.descricaoImg.length > 10) {
+        return "";
+      } else if (this.descricaoImg.length > 0) {
+        return "Digite pelo menos 10 caracteres.";
+      } else {
+        return "Por favor, digite algo.";
+      }
+    },
+    validFeedback() {
+      return this.state === true ? "Obrigado" : "";
+    }
   },
+  data() {
+    return {
+      newUsername: "",
+      descricaoUser: "",
+      titulo: "",
+      descricaoImg: ""
+    };
+  },
+  component: {},
   data: _ => {
     return {
+      user_data: null,
       nome_usuario: null,
       nick: null,
-      titulo: null,
-      descricao: null,
       selectedFile: null,
-      file: null,
       imagem: null,
       imageData: null,
+      profile_pic: null,
+      file: null,
+      newGender: null,
+      newUsername: [],
+      descricaoUser: [],
+      titulo: [],
+      descricaoImg: []
     };
   },
 
-  mounted(){
-    axios.get('http://localhost:3035/user/TEST_userData')
-      .then((res)=>{
-        this.nome_usuario = res.data.results[0].nome;
+  /* SCRIPT PARA RECEBER JSON DO LOCAL STORAGE */
 
-        this.nick = res.data.results[0].nick;
-        this.imagem = res.data.results[0].imagem;
-      
-      })
-     },
+  mounted() {
+    if (localStorage.getItem("reloaded")) {
+      localStorage.removeItem("reloaded");
+    } else {
+      localStorage.setItem("reloaded", "1");
+      location.reload();
+    }
+    this.user_data = JSON.parse(localStorage.getItem("user_data"));
+    this.nome_usuario = this.user_data.name;
+    this.nick = this.user_data.nick;
+    this.imagem = this.user_data.photo;
+  },
 
   methods: {
     redirect() {
@@ -240,34 +345,66 @@ export default {
       this.$router.push("register");
     },
 
+    /* SCRIPT PARA DESLOGAR */
+
+    logOut() {
+      if (localStorage) {
+        localStorage.removeItem("user_data");
+      }
+      this.$router.push("home");
+    },
+
+    /* SCRIPT PARA CAPTURAR A MIMAGEM E USAR COMO URL */
 
     onFileSelected(event) {
-      var file = document
-      .querySelector('input[type=file]')
-      .files[0];
+      var file = document.querySelector("input[type=file]").files[0];
       const reader = new FileReader();
-      reader.onload = (event) => {
+      reader.onload = event => {
         this.imgSrc = event.target.result;
         image64 = this.imgSrc;
-        
-      }
+      };
       reader.readAsDataURL(file);
     },
 
+    /* SCRIPT PARA SETAR IMAGEM DE PERFIL */
+
+    async profilePic(){
+      this.user_data = JSON.parse(localStorage.getItem("user_data"));
+      await axios;
     
+      axios
+        //atualiza no banco de dados a imagem de perfil
+        .post("http://localhost:3035/user/insert_profile_pic", {
+          imagem: image64,
+          id : this.user_data.id
+        })
+        .then(response => {
+          if (response.status == 200) {
+            alert("Imagem do Perfil adicionada!");
+            this.user_data.photo = image64;
+            //atualiza no local storage a imagem de perfil
+            localStorage.setItem("user_data", JSON.stringify(this.user_data));
+            //muda a imagem de perfil logo após atualizar o local storage
+            this.imagem = image64;
+
+          } else {
+            alert("Ocorreu um erro na inserção.");
+          }
+        });
+    },
+
+    /* SCRIPT PARA UPAR IMAGEM DE TRABALHOS NA FUTURA GALERIA */
 
     async onUpload() {
-      image64.replace('data:image/png;base64,',"");
-
+      image64.replace("data:image/png;base64,", "");
       await axios;
-      /* para mandar apenas a imagem sem CONVERSÃO coloque a variavel FD no POST */
+
       axios
         .post("http://localhost:3035/user/upload_image", {
           imagem: image64,
-          titulo: this.titulo, 
-          descricao: this.descricao 
+          titulo: this.titulo,
+          descricao: this.descricao
         })
-
         .then(responde => {
           if (response.status == 200) {
             alert("Trabalho Inserido!");
@@ -276,27 +413,41 @@ export default {
             alert("Ocorreu um erro na inserção.");
           }
         });
-
     },
 
-    /* MÉTODO GET */
+    /* PARA ATAULIZAR DADOS */
 
-    mounted () {
-    axios
-    /* CAMINHO DA CHAMADA */
-      .get('')
-      .then(response => response.json())
-      .then((data) => {
-        this.images = data;
-      })
-  }
+    async alteraDados() {
+      await axios;
+      axios
+      /*altere aqui*/
+        .post("http://localhost:3035/", {
+            newUsername: this.newUsername,
+            descricaoUser: this.descricaoUser,
+            newGender: this.newGender
+        })
+        .then(response => {
+          if (response.status == 200) {
+            alert("Alterações concluídas!");
+            this.$router.push("Profile");
+          } else {
+            alert("Ocorreu um erro nas alterações.");
+          }
+        });
+    }
   }
 };
 </script>
 
 <style>
-
 /* -------- CSS PTOTÓTIPO -------- */
+
+.changeData {
+  width: 600px !important;
+  height: 600px !important;
+  margin: auto;
+  display: block;
+}
 
 .file-upload-form,
 .image-preview {
