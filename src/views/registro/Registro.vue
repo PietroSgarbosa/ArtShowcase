@@ -146,6 +146,33 @@ export default {
             alert("Ocorreu um erro no cadastro.");
           }
         });
+
+        await axios;
+
+      /* ROTA DO SERVIDOR BACK */
+    axios
+      .post("http://localhost:3035/user/login", {
+        nick: this.nick,
+        senha: this.senha,
+        user_data: []
+      })
+
+
+      /* ROTA DO SERVIDOR BACK */
+
+      .then(response => {
+        if (response.status == 200) {
+          this.user_data = (response.data.user);
+          localStorage.setItem('user_data', JSON.stringify(this.user_data));
+          var welcome = JSON.parse(localStorage.getItem("user_data"));
+          alert("Bem vindo " + welcome.nick + "!")
+          welcome = null;
+          this.$router.push("/confirm");
+        } else {
+            alert("Erro no cadastro!")
+        }
+      });
+
     }
   }
 };
