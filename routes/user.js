@@ -69,13 +69,13 @@ module.exports = (app)=>{
         
     });
 
-    app.post('/user/insert_profile_pic', (req, res, err) =>{
+    app.post('/user/update_profile_pic', (req, res, err) =>{
 
         const {
             imagem,
             id
         } = req.body; //RECIEVES DATA FROM THE FORM     
-        console.log(id);
+        
         let sql = `UPDATE cadastro_usuario SET IMAG_PERFI = '${imagem}'
                    WHERE CODI_USUAR = '${id}';`;
                                                         
@@ -92,7 +92,7 @@ module.exports = (app)=>{
              
     });
 
-    app.get('/user/TEST_userData', (req, res) =>{
+    app.get('/user/get_user_data', (req, res) =>{
 
         let sql = `SELECT NICK_USUAR AS nick, NOME_USUAR as nome, IMAG_PERFI as imagem FROM cadastro_usuario;`;               
                                                                                         
