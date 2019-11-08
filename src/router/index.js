@@ -30,20 +30,21 @@ let router = new Router({
   scrollBehavior: () => ({
     y: 0
   }),
-  routes: [{
-      path: "/",
+  routes: [
+    {
+      path: "/login",
       name: "Login",
       component: Login,
+    },
+    {
+      path: "/",
+      name: "Home",
+      component: Home,
     },
     {
       path: "/register",
       name: "Sign Up",
       component: Register,
-    },
-    {
-      path: "/home",
-      name: "Home",
-      component: Home,
     },
     {
       path: "/profile",
@@ -73,7 +74,8 @@ let router = new Router({
   ],
 });
 
-/* AUTENTICADOR DE LOGIN */
+/* AUTENTICADOR DE LOGIN PROTOTIPO NÃO FUNCIONAL */
+/*
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
@@ -105,4 +107,5 @@ router.beforeEach((to, from, next) => {
     next();
   }
 });
+*/
 export default router;

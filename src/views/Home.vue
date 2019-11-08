@@ -132,10 +132,10 @@ export default {
 
   methods: {
     redirect() {
-      this.$router.push("home");
+      this.$router.push("/");
     },
     redirect1() {
-      this.$router.push("/");
+      this.$router.push("login");
     },
     redirect2() {
       this.$router.push("register");
