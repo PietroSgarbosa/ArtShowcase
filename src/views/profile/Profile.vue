@@ -115,18 +115,11 @@
                     <b-form-input v-model="descricaoImg" id="input-horizontal" :state="state4" trim></b-form-input>
                   </b-form-group>
 
-                  <input type="file" @change="onFileSelected" />
-
-<<<<<<< HEAD
-                  <br />
-                  <br />
-
-                  <b-button variant="primary" @click="onUpload" class="mt-3 mx-auto">Submit</b-button>
-                </div>
-=======
                 <input type="file" id="my_drawings" @change="onFileSelected('','my_drawings')" />
->>>>>>> 0039b747a3cc604db56aa93ebdeb4ef29e6b0797
-
+                  <br />
+                    <b-button variant="primary" @click="onUpload" class="mt-3 mx-auto">Inserir no Portifólio</b-button>
+                  <br />
+                </div>
                 <br />
                 <br />
               </div>
@@ -225,7 +218,7 @@
                   <br />
                   <br />
 
-                  <b-button variant="primary" @click="onUpload" class="mt-3 mx-auto">Submit</b-button>
+                  <b-button variant="primary" class="mt-3 mx-auto">Submit</b-button>
                 </div>
 
                 <br />
@@ -241,79 +234,6 @@
             <br />
             <br />
 
-<<<<<<< HEAD
-            <b-container>
-              <div class="changeData">
-                <b-form-group
-                  id="fieldset-horizontal"
-                  label-cols-sm="2"
-                  label-cols-lg="2"
-                  description="Digite o seu novo nome de usuário."
-                  label="Usuário"
-                  label-for="input-1"
-                  :invalid-feedback="invalidFeedback1"
-                  :valid-feedback="validFeedback"
-                  :state="state1"
-                >
-                  <b-form-input id="input-1" v-model="newUsername" :state="state1" trim></b-form-input>
-                </b-form-group>
-
-                <br />
-
-                <b-row>
-                  <b-col sm="2">
-                    <label for="textarea-auto-height">Descrição</label>
-                  </b-col>
-                  <b-col sm="10">
-                    <b-form-textarea
-                      placeholder="Digite sua descrição..."
-                      rows="3"
-                      max-rows="8"
-                      description="Adicone uma breve descrição. do seu perfil e carreira"
-                      v-model="descricaoUser"
-                      :invalid-feedback="invalidFeedback2"
-                      :valid-feedback="validFeedback"
-                      :state="state2"
-                      trim
-                    ></b-form-textarea>
-                  </b-col>
-                </b-row>
-
-                <br />
-
-                <b-input-group prepend="Sexo" class="mt-3" align="center">
-                  <select v-model="newGender">
-                    <option disabled value>Selecione um:</option>
-                    <option>Masculino</option>
-                    <option>Feminino</option>
-                  </select>
-                </b-input-group>
-
-                <br />
-                <br />
-
-                <b-button
-                  variant="primary"
-                  @click="alteraDados"
-                  class="mt-3 mx-auto"
-                >Aceitar Edições</b-button>
-
-                <br />
-                <br />
-
-                <input type="file" @change="onFileSelected" />
-                <br />
-                <br />
-                <b-button
-                  variant="primary"
-                  @click="profilePic"
-                  class="mt-3 mx-auto"
-                >Definir imagem de perfil</b-button>
-
-                <br />
-              </div>
-            </b-container>
-=======
             <div class="changeData" align="center">
               <b-form-group
                 id="fieldset-1"
@@ -372,7 +292,6 @@
               <b-button variant="primary" @click="profilePic" class="mt-3 mx-auto">Definir imagem de perfil</b-button>
               <br />
             </div>
->>>>>>> 0039b747a3cc604db56aa93ebdeb4ef29e6b0797
           </b-tab>
           </div>
         </b-tabs>
@@ -493,8 +412,6 @@ export default {
       return this.state === true ? "Obrigado" : "";
     }
   },
-<<<<<<< HEAD
-=======
   /*data() {
     return {
       //atributos definitivos
@@ -505,7 +422,6 @@ export default {
       //atributos definitivos
     };
   },*/
->>>>>>> 0039b747a3cc604db56aa93ebdeb4ef29e6b0797
   component: {},
   data: _ => {
     return {
@@ -515,6 +431,7 @@ export default {
       selectedFile: null,
       imagem: null,
       imageData: null,
+      imgSrc: null,
       profile_pic: null,
       file: null,
       newGender: null,
@@ -567,7 +484,7 @@ export default {
       if (localStorage) {
         localStorage.removeItem("user_data");
       }
-      this.$router.push("home");
+      this.$router.push("/");
     },
     /* SCRIPT PARA CAPTURAR A IMAGEM E USAR COMO URL */
     onFileSelected(event, id) {
@@ -582,32 +499,25 @@ export default {
       reader.readAsDataURL(file);
     },
     /* SCRIPT PARA SETAR IMAGEM DE PERFIL */
-<<<<<<< HEAD
-
-    async profilePic() {
-=======
     async profilePic(){
->>>>>>> 0039b747a3cc604db56aa93ebdeb4ef29e6b0797
-      this.user_data = JSON.parse(localStorage.getItem("user_data"));
+      //this.user_data = JSON.parse(localStorage.getItem("user_data")); ---> NAO PRECISA USAR MAS NUNCA SE SABE
       await axios;
 
       axios
         //atualiza no banco de dados a imagem de perfil
-        .post("http://localhost:3035/user/update_profile_pic", {
+        .put("http://localhost:3035/user/update_profile_pic", {
           imagem: image64,
           id: this.user_data.id
         })
         .then(response => {
           if (response.status == 200) {
+            
             this.user_data.photo = image64;
             //atualiza no local storage a imagem de perfil
             localStorage.setItem("user_data", JSON.stringify(this.user_data));
             //muda a imagem de perfil logo após atualizar o local storage
             this.imagem = image64;
-<<<<<<< HEAD
-=======
             alert("Imagem do Perfil alterada!");
->>>>>>> 0039b747a3cc604db56aa93ebdeb4ef29e6b0797
           } else {
             alert("Ocorreu um erro na inserção.");
           }
@@ -618,6 +528,7 @@ export default {
       await axios;
       axios
         .post("http://localhost:3035/user/upload_image", {
+          id: this.user_data.id,
           imagem: image64,
           titulo: this.titulo,
           descricao: this.descricaoImg
@@ -636,7 +547,8 @@ export default {
       await axios;
       axios
         /*altere aqui*/
-        .post("http://localhost:3035/", {
+        .put("http://localhost:3035//user/update_user_data", {
+          id: this.user_data.id,
           newUsername: this.newUsername,
           descricaoUser: this.descricaoUser,
           newGender: this.newGender
@@ -644,6 +556,9 @@ export default {
         .then(response => {
           if (response.status == 200) {
             alert("Alterações concluídas!");
+            this.newUsername = null;
+            this.descricaoUser = null;
+            this.newGender = null;
             this.$router.push("Profile");
           } else {
             alert("Ocorreu um erro nas alterações.");
