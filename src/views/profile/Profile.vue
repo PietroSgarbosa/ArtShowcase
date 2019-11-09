@@ -51,8 +51,8 @@
             </b-col>
             <b-col md="6">
               <b-card-body>
-                <h1>{{this.nome_usuario}}</h1>
-                <b-card-text>{{this.nick}}</b-card-text>
+                <h1>{{this.nick}}</h1>
+                <b-card-text>{{this.nome_usuario}}</b-card-text>
               </b-card-body>
             </b-col>
           </b-row>
@@ -259,7 +259,7 @@
                     rows="3"
                     max-rows="8"
                     description="Adicone uma breve descrição. do seu perfil e carreira"
-                    v-model="descricaoUser"
+                    v-model="newDescricaoUser"
                     :invalid-feedback="invalidFeedback2"
                     :valid-feedback="validFeedback"
                     :state="state2"
@@ -337,12 +337,12 @@ export default {
       }
     },
     state2() {
-      return this.descricaoUser.length >= 10 ? true : false;
+      return this.newDescricaoUser.length >= 10 ? true : false;
     },
     invalidFeedback2() {
-      if (this.descricaoUser.length > 10) {
+      if (this.newDescricaoUser.length > 10) {
         return "";
-      } else if (this.descricaoUser.length > 0) {
+      } else if (this.newDescricaoUser.length > 0) {
         return "Digite pelo menos 10 caracteres.";
       } else {
         return "Por favor, digite algo.";
@@ -428,20 +428,22 @@ export default {
       user_data: null,
       nome_usuario: null,
       nick: null,
+      descricaoUser: '',
+      gender: null,
       selectedFile: null,
       imagem: null,
       imageData: null,
       imgSrc: null,
       profile_pic: null,
       file: null,
-      newGender: null,
-      tema: "",
-      newUsername: "",
-      descricaoUser: "",
-      titulo: "",
-      descricaoImg: "",
-      nomeCampeonato: "",
-      info: "",
+      tema: '',
+      newGender: '',
+      newUsername: '',
+      newDescricaoUser: '',
+      titulo: '',
+      descricaoImg: '',
+      nomeCampeonato: '',
+      info: '',
 
       /* AS VARIAVEIS DA CHAVE SERÃO DECLARADAS AQUI */
       selected: "2",
@@ -465,6 +467,7 @@ export default {
     this.nome_usuario = this.user_data.name;
     this.nick = this.user_data.nick;
     this.imagem = this.user_data.photo;
+    this.gender = this.user_data.gender;
   },
   methods: {
     redirect() {
@@ -523,6 +526,7 @@ export default {
           }
         });
     },
+
     /* SCRIPT PARA UPAR IMAGEM DE TRABALHOS NA FUTURA GALERIA */
     async onUpload() {
       await axios;
@@ -542,29 +546,63 @@ export default {
           }
         });
     },
+
     /* PARA ATAULIZAR DADOS */
     async alteraDados() {
       await axios;
       axios
         /*altere aqui*/
-        .put("http://localhost:3035//user/update_user_data", {
+        .put("http://localhost:3035/user/update_user_data", {
+          //DADOS ATUAIS DO USUÁRIO
           id: this.user_data.id,
+          nick: this.user_data.nick,
+          gender: this.user_data.gender,
+          descricao: this.user_data.descricaoUser,
+          //CAMPOS PARA ALTERAR OS DADOS ATUAIS
           newUsername: this.newUsername,
-          descricaoUser: this.descricaoUser,
+          newDescricaoUser: this.newDescricaoUser,
           newGender: this.newGender
         })
         .then(response => {
           if (response.status == 200) {
+            this.user_data.nick = this.newUsername != null ? this.newUsername : this.user_data.nick;
+            this.user_data.descricaoUser = this.newDescricaoUser != null ? this.newDescricaoUser : this.user_data.descricaoUser;
+            this.user_data.gender = this.newGender != null ? this.newGender : this.user_data.gender;
+
+            localStorage.setItem("user_data", JSON.stringify(this.user_data));
             alert("Alterações concluídas!");
-            this.newUsername = null;
-            this.descricaoUser = null;
-            this.newGender = null;
+            this.nick = this.user_data.nick;
+            this.gender = this.user_data.gender;
+            this.newUsername = '';
+            this.newDescricaoUser = '';
+            this.newGender = '';
             this.$router.push("Profile");
           } else {
             alert("Ocorreu um erro nas alterações.");
           }
         });
+    },
+
+    //CRIAÇÃO DE CAMPEONATO
+    async criaCampeonato() {
+      await axios;
+      axios
+        .post("http://localhost:3035/user/create_championship", {
+          id, //PRECISO DO ID CO CARA
+          titulo_campeonato,
+          descricao_campeonato,
+          tema_campeonato
+        })
+        .then(response => {
+          if (response.status == 200) {
+            alert("Campeonato Criado!");
+            this.$router.push("Confirm");
+          } else {
+            alert("Ocorreu um erro na criação do campeonato.");
+          }
+        });
     }
+
   }
 };
 </script>
