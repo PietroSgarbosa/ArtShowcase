@@ -43,25 +43,26 @@ module.exports = (app)=>{
         });                                                 //OH... AND THIS LINE SEND ALL THE DATA TO THE FRONT            
 
     });
-
+    
+    //INSERT IMAGE TO THE USER'S ALBUM
     app.post('/user/upload_image', (req, res, err) =>{
 
         const {
+            id,
             imagem,
             titulo,
             descricao
         } = req.body; //RECIEVES DATA FROM THE FORM     
         
-        let sql = `INSERT INTO upload_imagens (CODI_USUAR, IMAG_PORTI, TITU_IMAG, DESC_IMAG) 
-                   VALUES ('1', '${imagem}', '${titulo}', '${descricao}');`;
+        let sql = `INSERT INTO upload_imagens (CODI_USUAR, IMAG_PORTI, TITU_IMAGE, DESC_IMAGE) 
+                   VALUES ('${id}', '${imagem}', '${titulo}', '${descricao}');`;
                                                         
         conn.query(sql, (err)=>{                                            
             if(err){
                 console.log(err);
                 console.log("--------------------------------");                                    
                 res.sendStatus(403);                        
-            }else{   
-                console.log("Imagens cadastradas!");                                        
+            }else{                                           
                 res.sendStatus(200);
             }
         });
@@ -69,7 +70,32 @@ module.exports = (app)=>{
         
     });
 
-    app.post('/user/update_profile_pic', (req, res, err) =>{
+    //UPDATE USER'S DATA
+    app.post('/user/update_user_data', (req, res, err) =>{
+
+        const {
+            id,
+            name,
+        } = req.body; //RECIEVES DATA FROM THE FORM     
+        
+        let sql = `UPDATE cadastro_usuario SET IMAG_PERFI = '${imagem}'
+                   WHERE CODI_USUAR = '${id}';`;
+                                                        
+        conn.query(sql, (err, results)=>{                                            
+            if(err){
+                console.log(err);
+                console.log("--------------------------------");                                    
+                res.sendStatus(400);                        
+            }else{   
+                                                        
+                res.sendStatus(200);
+            }
+        });
+             
+    });
+
+    //UPDATE USER'S PROFILE PICTURE
+    app.put('/user/update_profile_pic', (req, res, err) =>{
 
         const {
             imagem,
@@ -92,6 +118,7 @@ module.exports = (app)=>{
              
     });
 
+    //RETRIEVES USER'S DATA (TESTING PURPOSE)
     app.get('/user/get_user_data', (req, res) =>{
 
         let sql = `SELECT NICK_USUAR AS nick, NOME_USUAR as nome, IMAG_PERFI as imagem FROM cadastro_usuario;`;               
@@ -107,9 +134,14 @@ module.exports = (app)=>{
         });   
     });
 
+    //SEARCH ALL USER'S IMAGES FOR FUTURE LISTING
     app.get('/user/search_images', (req, res) =>{
 
-        let sql = `SELECT IMAG_PERFI as TITULO, IMAG_PORTI as IMAGEM FROM upload_imagens WHERE CODI_USUAR = 1;`;              
+        const {
+            id
+        } = req.body;
+
+        let sql = `SELECT IMAG_PERFI as TITULO, IMAG_PORTI as IMAGEM FROM upload_imagens WHERE CODI_USUAR = '${id}';`;              
                                                                                         
             conn.query(sql, (err, results)=>{ 
                 
