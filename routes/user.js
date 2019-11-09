@@ -89,7 +89,6 @@ module.exports = (app)=>{
         
         let sql = `UPDATE cadastro_usuario SET NICK_USUAR = '${newUsername}', DESC_USUAR = '${newDescricaoUser}', SEXO_USUAR = '${newGender}'
                    WHERE CODI_USUAR = '${id}';`;   
-
         
         conn.query(sql, (err, results)=>{                                            
             if(err){
