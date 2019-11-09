@@ -218,6 +218,34 @@ module.exports = (app)=>{
         
     });
 
+    app.post('/user/create_championship', (req, res)=>{
+            
+        const {
+            id,
+            titulo_campeonato,
+            descricao_campeonato,
+            tema_campeonato
+        } = req.body;
+
+        // insert statment (WORKS AMAZINGLY!!!)
+        let sql = `INSERT INTO campeonatos
+                    (CODI_SITUA, CODI_USUAR, TITU_CAMPE, DESC_CAMPE, TEMA_CAMPE)
+                     VALUES (0, '${id}', '${titulo_campeonato}', '${descricao_campeonato}', '${tema_campeonato}');`;
+
+        // execute the insert statment
+        conn.query(sql, (err)=>{
+
+            if(err){
+                console.log(err);
+                console.log("--------------------------------");
+                res.sendStatus(400);
+            }else{
+                res.sendStatus(200);
+            }
+        });
+        
+    });
+
     
     // TOKEN OUTPUT (WHAT IT RETURNS) --> Authorization: Bearer <access_token> //Bearer moves a token to the Header of the request
 
