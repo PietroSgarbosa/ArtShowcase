@@ -75,13 +75,27 @@ module.exports = (app)=>{
 
         const {
             id,
-            name,
-        } = req.body; //RECIEVES DATA FROM THE FORM     
+            newUsername,
+            descricaoUser,
+            newGender
+        } = req.body; //RECIEVES DATA FROM THE FORM    
         
-        let sql = `UPDATE cadastro_usuario SET IMAG_PERFI = '${imagem}'
-                   WHERE CODI_USUAR = '${id}';`;
-                                                        
-        conn.query(sql, (err, results)=>{                                            
+        /*let sql = `UPDATE cadastro_usuario SET NICK_USUAR = '${newUsername}', DESC_USUAR = '${descricaoUser}', SEXO_USUAR = '${newGender}'
+                   WHERE CODI_USUAR = '${id}';`;*/
+
+        let sql = mountUpdateData(id, newUsername, descricaoUser, newGender);
+        console.log(sql);    
+
+        if(err){
+            console.log(err);
+            console.log("--------------------------------");                                    
+            res.sendStatus(400);                        
+        }else{   
+                                                    
+            res.sendStatus(200);
+        }
+        
+       /* conn.query(sql, (err, results)=>{                                            
             if(err){
                 console.log(err);
                 console.log("--------------------------------");                                    
@@ -90,9 +104,49 @@ module.exports = (app)=>{
                                                         
                 res.sendStatus(200);
             }
-        });
+        });*/
              
     });
+
+    function mountUpdateData(id, newUsername, descricaoUser, newGender){
+
+        var _sql, NICK_USUAR, DESC_USUAR, SEXO_USUAR;
+        var commaHandler, _commaHandler;
+
+        if (newUsername != null){
+            NICK_USUAR = " NICK_USUAR = '" + newUsername + "'";
+            
+        }else{
+            NICK_USUAR = '';
+        }
+
+        if (descricaoUser != null){
+            DESC_USUAR = " DESC_USUAR = '" + descricaoUser + "'";
+        }else{
+            DESC_USUAR = '';
+        }
+        
+        if (newGender != null){
+            SEXO_USUAR = " SEXO_USUAR = '" + newGender + "'";
+        }else{
+            SEXO_USUAR = '';
+        }
+
+        commaHandler = [NICK_USUAR,DESC_USUAR,SEXO_USUAR];
+        for(i = 0; i < commaHandler.length; i++)
+        {
+            if(commaHandler[i] == ''){
+                commaHandler.splice(i);
+            }
+        }
+
+        _commaHandler = commaHandler.toString();
+        console.log(commaHandler);
+
+        //_sql = "UPDATE cadastro_usuario SET" + NICK_USUAR  + DESC_USUAR  + SEXO_USUAR  + " WHERE CODI_USUAR = '" + id + "';";
+
+        //return _sql;
+    };
 
     //UPDATE USER'S PROFILE PICTURE
     app.put('/user/update_profile_pic', (req, res, err) =>{
