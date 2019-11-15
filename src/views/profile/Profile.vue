@@ -67,7 +67,7 @@
       <div class="tab">
         <b-tabs content-class="mt-3" align="center" pills card>
           <div class="background">
-            <b-tab title="Artes Publicadas" active>
+            <b-tab  @click="loadImages" title="Artes Publicadas" active>
               <h1>Seus trabalhos publicados</h1>
               <!-- LISTAGEM DE IMAGENS -->
 
@@ -75,11 +75,6 @@
               <b-container>
                 <b-card class="secoes">
                   <!-- TESTE PARA CHECAR O JSON -->
-
-
-
-
-
 
                   <div id="app1">
 
@@ -89,17 +84,12 @@
                       DA PROPRIA IMAGEM -->
                       <!-- NESTA ABA É NECESSÁRIO NÃO SÓ PUXAR A IMAGEM MAS SIM SEU TITULO -->
 
-                      <div class="box" v-for="index in 1" :key="index">
-                        <img src="/img/Ethel.jpg" class="imgSecoes"/>
-                        <h1> titulo </h1>
+                      <div class="box" v-for="index in user_images" :key="index">
+                        <img v-bind:src="index.porti_image" class="imgSecoes"/>
+                        <h1> {{index.titulo_image}} </h1>
                       </div>
                     </sequential-entrance>
                   </div>
-
-
-
-                  
-
 
                 </b-card>
               </b-container>
@@ -249,7 +239,7 @@
                     <br />
                     <br />
 
-                    <b-button variant="primary" class="mt-3 mx-auto">Submit</b-button>
+                    <b-button variant="primary" @click="criaCampeonato" class="mt-3 mx-auto">Submit</b-button>
                   </div>
 
                   <br />
@@ -351,10 +341,7 @@
           </ul>
         </footer>
 
-    
-      
-    </div>
-    
+    </div>    
    
   </div>
   </div>
@@ -473,6 +460,7 @@ export default {
     return {
       user_data: null,
       nome_usuario: null,
+      user_images: [],
       nick: null,
       descricaoUser: "",
       gender: null,
@@ -505,15 +493,18 @@ export default {
   mounted() {
     if (localStorage.getItem("reloaded")) {
       localStorage.removeItem("reloaded");
+      this.user_data = JSON.parse(localStorage.getItem("user_data"));
+      this.nome_usuario = this.user_data.name;
+      this.nick = this.user_data.nick;
+      this.imagem = this.user_data.photo;
+      this.gender = this.user_data.gender;
     } else {
       localStorage.setItem("reloaded", "1");
       location.reload();
     }
-    this.user_data = JSON.parse(localStorage.getItem("user_data"));
-    this.nome_usuario = this.user_data.name;
-    this.nick = this.user_data.nick;
-    this.imagem = this.user_data.photo;
-    this.gender = this.user_data.gender;
+    
+
+
   },
   methods: {
     redirect() {
@@ -546,6 +537,24 @@ export default {
       };
       reader.readAsDataURL(file);
     },
+
+    /*FUNCAO PARA CARREGAR AS IMAGENS DO CABLOCO*/ 
+    async loadImages(){
+
+      axios
+        .get("http://localhost:3035/user/search_images", { params : { id: this.user_data.id} } )
+        .then(res => {
+          if(res.status == 200){
+            this.user_images = res.data.results;
+            console.log(this.user_images);
+          }
+          else if(res.status == 404){
+            this.user_images = "Não foi possível carregar as imagens";
+          }
+      });
+
+    },
+
     /* SCRIPT PARA SETAR IMAGEM DE PERFIL */
     async profilePic() {
       //this.user_data = JSON.parse(localStorage.getItem("user_data")); ---> NAO PRECISA USAR MAS NUNCA SE SABE
@@ -637,10 +646,10 @@ export default {
       await axios;
       axios
         .post("http://localhost:3035/user/create_championship", {
-          id, //PRECISO DO ID CO CARA
-          titulo_campeonato: this.titulo_campeonato,
-          descricao_campeonato: this.descricao_campeonato,
-          tema_campeonato: this.tema_campeonato
+          id: this.user_data.id, 
+          titulo_campeonato: this.nomeCampeonato,
+          descricao_campeonato: this.info,
+          tema_campeonato: this.tema
         })
         .then(response => {
           if (response.status == 200) {
