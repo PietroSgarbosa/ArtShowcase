@@ -154,7 +154,6 @@ module.exports = (app)=>{
                 res.sendStatus(404);                        
             }else{
                 res.json({status : 200, results});
-                console.info(results);
             }
         });
         
