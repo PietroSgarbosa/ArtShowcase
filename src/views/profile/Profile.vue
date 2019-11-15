@@ -1,5 +1,6 @@
 <template>
-  <div class="body">
+  <div class="corpo">
+    <div class="corpo-over">
     <b-navbar class="nav1" toggleable="lg" type="dark" variant="dark">
       <b-navbar-brand class="title" @click="redirect" href="#">
         <img src="/img/whiteeagle.png" class="d-inline-block align-top" id="eagle" alt="eagle" />
@@ -10,7 +11,7 @@
 
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav class="text1">
-          <b-nav-item @click="redirect3" href="#">Informação</b-nav-item>
+          <b-nav-item @click="redirect3" href="#">Campeonatos</b-nav-item>
         </b-navbar-nav>
 
         <!-- Right aligned nav items -->
@@ -41,8 +42,8 @@
         <b-card
           no-body
           class="topCard overflow-hidden border border-light bg-transparent"
-          style="max-width: 540px;">
-
+          style="max-width: 540px;"
+        >
           <b-row no-gutters class="bg-transparent">
             <b-col>
               <div class="imgBox rounded-circle" href="#">
@@ -64,242 +65,280 @@
 
     <center>
       <div class="tab">
-        <b-tabs content-class="mt-3" align="center" pills card >
+        <b-tabs content-class="mt-3" align="center" pills card>
           <div class="background">
-          <b-tab title="Artes Publicadas" active>
-            <h1>Seus trabalhos publicados</h1>
-            <!-- LISTAGEM DE IMAGENS -->
+            <b-tab title="Artes Publicadas" active>
+              <h1>Seus trabalhos publicados</h1>
+              <!-- LISTAGEM DE IMAGENS -->
 
-            <!-- EXEMPLO DE COMO FICARÁ -->
-            <b-container>
-              <b-card class="secoes">
-                <!-- TESTE PARA CHECAR O JSON -->
-              </b-card>
-            </b-container>
-          </b-tab>
-          <b-tab title="Publicar" active>
-            <!-- FORMULARIO PARA UPAR IMAGEM COM PICTURE INPUT -->
-            <h1>Insira a imagem</h1>
-            <b-container>
-              <div class="changeData">
-                <br />
-                <br />
+              <!-- EXEMPLO DE COMO FICARÁ -->
+              <b-container>
+                <b-card class="secoes">
+                  <!-- TESTE PARA CHECAR O JSON -->
 
-                <div>
-                  <b-form-group
-                    class="elemento1"
-                    id="fieldset-horizontal"
-                    label-cols-sm="4"
-                    label-cols-lg="3"
-                    description="De um titulo ao seu trabalho para enriquecer seus dados."
-                    label="Titulo"
-                    label-for="input-horizontal"
-                    :invalid-feedback="invalidFeedback3"
-                    :valid-feedback="validFeedback"
-                    :state="state3"
-                  >
-                    <b-form-input v-model="titulo" id="input-horizontal" :state="state3" trim></b-form-input>
-                  </b-form-group>
 
-                  <b-form-group
-                    id="fieldset-horizontal"
-                    label-cols-sm="4"
-                    label-cols-lg="3"
-                    description="Adicone uma breve descrição."
-                    label="Descrição"
-                    label-for="input-horizontal"
-                    :invalid-feedback="invalidFeedback4"
-                    :valid-feedback="validFeedback"
-                    :state="state4"
-                  >
-                    <b-form-input v-model="descricaoImg" id="input-horizontal" :state="state4" trim></b-form-input>
-                  </b-form-group>
 
-                <input type="file" id="my_drawings" @change="onFileSelected('','my_drawings')" />
+
+
+
+                  <div id="app1">
+
+                    <sequential-entrance fromRight>
+
+                      <!-- A IMAGEM SERÁ UM ITEM INTERAGIVEL PARA CLICAR E LEVAR A UMA PAGINA ESPECIFICA 
+                      DA PROPRIA IMAGEM -->
+                      <!-- NESTA ABA É NECESSÁRIO NÃO SÓ PUXAR A IMAGEM MAS SIM SEU TITULO -->
+
+                      <div class="box" v-for="index in 1" :key="index">
+                        <img src="/img/Ethel.jpg" class="imgSecoes"/>
+                        <h1> titulo </h1>
+                      </div>
+                    </sequential-entrance>
+                  </div>
+
+
+
+                  
+
+
+                </b-card>
+              </b-container>
+            </b-tab>
+            <b-tab title="Publicar" active>
+              <!-- FORMULARIO PARA UPAR IMAGEM COM PICTURE INPUT -->
+              <h1>Insira a imagem</h1>
+              <b-container>
+                <div class="changeData">
                   <br />
-                    <b-button variant="primary" @click="onUpload" class="mt-3 mx-auto">Inserir no Portifólio</b-button>
-                  <br />
-                </div>
-                <br />
-                <br />
-              </div>
-            </b-container>
-          </b-tab>
-          <b-tab title="Campeonatos" active>
-            <h1>Criação de Campeonatos</h1>
-            <!-- LISTAGEM DE CAMPEONATOS ATIVOS -->
-
-            <b-container>
-              <div class="changeData">
-                <br />
-                <br />
-
-                <div>
-                  <b-form-group
-                    class="elemento1"
-                    id="fieldset-horizontal"
-                    label-cols-sm="2"
-                    label-cols-lg="2"
-                    description="Cada campeonato necessita de um titulo."
-                    label="Nome do Campeonato"
-                    label-for="input-horizontal"
-                    :invalid-feedback="invalidFeedback5"
-                    :valid-feedback="validFeedback"
-                    :state="state5"
-                  >
-                    <b-form-input
-                      v-model="nomeCampeonato"
-                      id="input-horizontal"
-                      :state="state5"
-                      trim
-                    ></b-form-input>
-                  </b-form-group>
-
                   <br />
 
-                  <b-row>
-                    <b-col sm="2">
-                      <label for="textarea-auto-height">Informações</label>
-                    </b-col>
-                    <b-col sm="10">
-                      <b-form-textarea
-                        placeholder="Explique as normas do seu campeonato."
-                        rows="3"
-                        max-rows="8"
-                        description="É importante que todo campeonato possua um informativo para orientar os participantes."
-                        v-model="info"
-                        :invalid-feedback="invalidFeedback6"
-                        :valid-feedback="validFeedback"
-                        :state="state6"
+                  <div>
+                    <b-form-group
+                      class="elemento1"
+                      id="fieldset-horizontal"
+                      label-cols-sm="4"
+                      label-cols-lg="3"
+                      description="De um titulo ao seu trabalho para enriquecer seus dados."
+                      label="Titulo"
+                      label-for="input-horizontal"
+                      :invalid-feedback="invalidFeedback3"
+                      :valid-feedback="validFeedback"
+                      :state="state3"
+                    >
+                      <b-form-input v-model="titulo" id="input-horizontal" :state="state3" trim></b-form-input>
+                    </b-form-group>
+
+                    <b-form-group
+                      id="fieldset-horizontal"
+                      label-cols-sm="4"
+                      label-cols-lg="3"
+                      description="Adicone uma breve descrição."
+                      label="Descrição"
+                      label-for="input-horizontal"
+                      :invalid-feedback="invalidFeedback4"
+                      :valid-feedback="validFeedback"
+                      :state="state4"
+                    >
+                      <b-form-input
+                        v-model="descricaoImg"
+                        id="input-horizontal"
+                        :state="state4"
                         trim
-                      ></b-form-textarea>
-                    </b-col>
-                  </b-row>
+                      ></b-form-input>
+                    </b-form-group>
 
+                    <input type="file" id="my_drawings" @change="onFileSelected('','my_drawings')" />
+                    <br />
+                    <b-button
+                      variant="primary"
+                      @click="onUpload"
+                      class="mt-3 mx-auto"
+                    >Inserir no Portifólio</b-button>
+                    <br />
+                  </div>
                   <br />
                   <br />
-
-                  <b-form-group
-                    class="elemento1"
-                    id="fieldset-horizontal"
-                    label-cols-sm="2"
-                    label-cols-lg="2"
-                    description="Defina um tema de desenho."
-                    label="Tema"
-                    label-for="input-horizontal"
-                    :invalid-feedback="invalidFeedback7"
-                    :valid-feedback="validFeedback"
-                    :state="state7"
-                  >
-                    <b-form-input
-                      v-model="tema"
-                      id="input-horizontal"
-                      :state="state7"
-                      trim
-                    ></b-form-input>
-                  </b-form-group>
-
-                  <br />
-                  <br />
-
-                  <label>Chaves</label>
-
-                  <br />
-
-                  <b-form-select
-                    v-model="chave"
-                    :options="options"
-                    class="mb-3"
-                    text-field="name"
-                    disabled-field="notEnabled"
-                    description="Escolha o número de chaves que você ira organizar."
-                  ></b-form-select>
-
-                  <br />
-                  <br />
-
-                  <b-button variant="primary" class="mt-3 mx-auto">Submit</b-button>
                 </div>
+              </b-container>
+            </b-tab>
+            <b-tab title="Campeonatos" active>
+              <h1>Criação de Campeonatos</h1>
+              <!-- LISTAGEM DE CAMPEONATOS ATIVOS -->
+
+              <b-container>
+                <div class="changeData">
+                  <br />
+                  <br />
+
+                  <div>
+                    <b-form-group
+                      class="elemento1"
+                      id="fieldset-horizontal"
+                      label-cols-sm="2"
+                      label-cols-lg="2"
+                      description="Cada campeonato necessita de um titulo."
+                      label="Nome do Campeonato"
+                      label-for="input-horizontal"
+                      :invalid-feedback="invalidFeedback5"
+                      :valid-feedback="validFeedback"
+                      :state="state5"
+                    >
+                      <b-form-input
+                        v-model="nomeCampeonato"
+                        id="input-horizontal"
+                        :state="state5"
+                        trim
+                      ></b-form-input>
+                    </b-form-group>
+
+                    <br />
+
+                    <b-row>
+                      <b-col sm="2">
+                        <label for="textarea-auto-height">Informações</label>
+                      </b-col>
+                      <b-col sm="10">
+                        <b-form-textarea
+                          placeholder="Explique as normas do seu campeonato."
+                          rows="3"
+                          max-rows="8"
+                          description="É importante que todo campeonato possua um informativo para orientar os participantes."
+                          v-model="info"
+                          :invalid-feedback="invalidFeedback6"
+                          :valid-feedback="validFeedback"
+                          :state="state6"
+                          trim
+                        ></b-form-textarea>
+                      </b-col>
+                    </b-row>
+
+                    <br />
+                    <br />
+
+                    <b-form-group
+                      class="elemento1"
+                      id="fieldset-horizontal"
+                      label-cols-sm="2"
+                      label-cols-lg="2"
+                      description="Defina um tema de desenho."
+                      label="Tema"
+                      label-for="input-horizontal"
+                      :invalid-feedback="invalidFeedback7"
+                      :valid-feedback="validFeedback"
+                      :state="state7"
+                    >
+                      <b-form-input v-model="tema" id="input-horizontal" :state="state7" trim></b-form-input>
+                    </b-form-group>
+
+                    <br />
+                    <br />
+
+                    <label>Número de Competidores</label>
+
+                    <br />
+
+                    <b-form-select
+                      v-model="competidores"
+                      :options="options"
+                      class="mb-3"
+                      text-field="name"
+                      disabled-field="notEnabled"
+                      description="Escolha o número de competidores que esse campeonato irá suportar."
+                    ></b-form-select>
+
+                    <br />
+                    <br />
+
+                    <b-button variant="primary" class="mt-3 mx-auto">Submit</b-button>
+                  </div>
+
+                  <br />
+                  <br />
+                </div>
+              </b-container>
+            </b-tab>
+
+            <b-tab title="Editar Dados" active>
+              <!-- ATUALIZAÇÕES  -->
+              <h1>Edite suas informações e troque sua imagem de perfil</h1>
+
+              <br />
+              <br />
+
+              <div class="changeData" align="center">
+                <b-form-group
+                  id="fieldset-1"
+                  description="Digite o seu novo nome de usuário."
+                  label="Usuário"
+                  label-for="input-1"
+                  :invalid-feedback="invalidFeedback1"
+                  :valid-feedback="validFeedback"
+                  :state="state1"
+                >
+                  <b-form-input id="input-1" v-model="newUsername" :state="state1" trim></b-form-input>
+                </b-form-group>
 
                 <br />
+
+                <b-row>
+                  <b-col sm="2">
+                    <label for="textarea-auto-height">Descrição</label>
+                  </b-col>
+                  <b-col sm="10">
+                    <b-form-textarea
+                      placeholder="Digite sua descrição..."
+                      rows="3"
+                      max-rows="8"
+                      description="Adicone uma breve descrição. do seu perfil e carreira"
+                      v-model="newDescricaoUser"
+                      :invalid-feedback="invalidFeedback2"
+                      :valid-feedback="validFeedback"
+                      :state="state2"
+                      trim
+                    ></b-form-textarea>
+                  </b-col>
+                </b-row>
+
+                <br />
+
+                <b-input-group prepend="Sexo" class="mt-3" align="center">
+                  <select v-model="newGender">
+                    <option disabled value>Selecione um:</option>
+                    <option>Masculino</option>
+                    <option>Feminino</option>
+                  </select>
+                </b-input-group>
+
+                <br />
+                <br />
+
+                <b-button
+                  variant="primary"
+                  @click="alteraDados"
+                  class="mt-3 mx-auto"
+                >Aceitar Edições</b-button>
+
+                <br />
+                <br />
+
+                <input type="file" id="profile_pic" @change="onFileSelected('','profile_pic')" />
+                <br />
+                <br />
+                <b-button
+                  variant="primary"
+                  @click="profilePic"
+                  class="mt-3 mx-auto"
+                >Definir imagem de perfil</b-button>
                 <br />
               </div>
-            </b-container>
-          </b-tab>
-
-          <b-tab title="Editar Dados" active>
-            <!-- ATUALIZAÇÕES  -->
-            <h1>Edite suas informações e troque sua imagem de perfil</h1>
-
-            <br />
-            <br />
-
-            <div class="changeData" align="center">
-              <b-form-group
-                id="fieldset-1"
-                description="Digite o seu novo nome de usuário."
-                label="Usuário"
-                label-for="input-1"
-                :invalid-feedback="invalidFeedback1"
-                :valid-feedback="validFeedback"
-                :state="state1"
-              >
-                <b-form-input id="input-1" v-model="newUsername" :state="state1" trim></b-form-input>
-              </b-form-group>
-
-              <br />
-
-              <b-row>
-                <b-col sm="2">
-                  <label for="textarea-auto-height">Descrição</label>
-                </b-col>
-                <b-col sm="10">
-                  <b-form-textarea
-                    placeholder="Digite sua descrição..."
-                    rows="3"
-                    max-rows="8"
-                    description="Adicone uma breve descrição. do seu perfil e carreira"
-                    v-model="newDescricaoUser"
-                    :invalid-feedback="invalidFeedback2"
-                    :valid-feedback="validFeedback"
-                    :state="state2"
-                    trim
-                  ></b-form-textarea>
-                </b-col>
-              </b-row>
-
-              <br />
-
-              <b-input-group prepend="Sexo" class="mt-3" align="center">
-                <select v-model="newGender">
-                  <option disabled value>Selecione um:</option>
-                  <option>Masculino</option>
-                  <option>Feminino</option>
-                </select>
-              </b-input-group>
-
-              <br />
-              <br />
-
-              <b-button variant="primary" @click="alteraDados" class="mt-3 mx-auto">Aceitar Edições</b-button>
-
-              <br />
-              <br />
-
-              <input type="file" id="profile_pic" @change="onFileSelected('','profile_pic')" />
-              <br />
-              <br />
-              <b-button variant="primary" @click="profilePic" class="mt-3 mx-auto">Definir imagem de perfil</b-button>
-              <br />
-            </div>
-          </b-tab>
+            </b-tab>
           </div>
         </b-tabs>
       </div>
     </center>
 
-    <div class="position-relative">
-      <div class="footer">
+    
+    <div class="footer">
         <footer id="suport">
           <ul>
             <li>
@@ -311,14 +350,21 @@
             <p class="right">2019, Projetado por Pietro.S. Codificado por SkyHorse.Labs</p>
           </ul>
         </footer>
-      </div>
+
+    
+      
     </div>
+    
+   
+  </div>
   </div>
 </template>
 
 <script>
 import * as config from "@/config.json";
 import axios from "axios";
+import SequentialEntrance from "vue-sequential-entrance";
+import "vue-sequential-entrance/vue-sequential-entrance.css";
 /* variavel GLOBAL */
 var image64;
 export default {
@@ -428,7 +474,7 @@ export default {
       user_data: null,
       nome_usuario: null,
       nick: null,
-      descricaoUser: '',
+      descricaoUser: "",
       gender: null,
       selectedFile: null,
       imagem: null,
@@ -436,22 +482,22 @@ export default {
       imgSrc: null,
       profile_pic: null,
       file: null,
-      tema: '',
-      newGender: '',
-      newUsername: '',
-      newDescricaoUser: '',
-      titulo: '',
-      descricaoImg: '',
-      nomeCampeonato: '',
-      info: '',
+      tema: "",
+      newGender: "",
+      newUsername: "",
+      newDescricaoUser: "",
+      titulo: "",
+      descricaoImg: "",
+      nomeCampeonato: "",
+      info: "",
 
-      /* AS VARIAVEIS DA CHAVE SERÃO DECLARADAS AQUI */
+      /* AS VARIAVEIS DA CHAVE SERÃO DECLARADAS AQUI SE FOSSEMOS USAR UMA!!! */
       selected: "2",
       options: [
-        { item: "2", name: "2 Chaves" },
-        { item: "4", name: "4 Chaves" },
-        { item: "6", name: "6 Chaves" },
-        { item: "8", name: "8 Chaves" }
+        { item: "2", name: "2 Competidores" },
+        { item: "4", name: "4 Competidores" },
+        { item: "6", name: "6 Competidores" },
+        { item: "8", name: "8 Competidores" }
       ]
     };
   },
@@ -474,7 +520,7 @@ export default {
       this.$router.push("/");
     },
     redirect1() {
-      this.$router.push("information");
+      this.$router.push("AbaCamp");
     },
     redirect2() {
       this.$router.push("contact");
@@ -491,18 +537,17 @@ export default {
     },
     /* SCRIPT PARA CAPTURAR A IMAGEM E USAR COMO URL */
     onFileSelected(event, id) {
-      var file = document
-      .querySelector('input[type=file][id='+id+']')
-      .files[0];
+      var file = document.querySelector("input[type=file][id=" + id + "]")
+        .files[0];
       const reader = new FileReader();
-      reader.onload = (event) => {
+      reader.onload = event => {
         this.imgSrc = event.target.result;
         image64 = this.imgSrc;
-      }
+      };
       reader.readAsDataURL(file);
     },
     /* SCRIPT PARA SETAR IMAGEM DE PERFIL */
-    async profilePic(){
+    async profilePic() {
       //this.user_data = JSON.parse(localStorage.getItem("user_data")); ---> NAO PRECISA USAR MAS NUNCA SE SABE
       await axios;
 
@@ -514,7 +559,6 @@ export default {
         })
         .then(response => {
           if (response.status == 200) {
-            
             this.user_data.photo = image64;
             //atualiza no local storage a imagem de perfil
             localStorage.setItem("user_data", JSON.stringify(this.user_data));
@@ -565,17 +609,22 @@ export default {
         })
         .then(response => {
           if (response.status == 200) {
-            this.user_data.nick = this.newUsername != null ? this.newUsername : this.user_data.nick;
-            this.user_data.descricaoUser = this.newDescricaoUser != null ? this.newDescricaoUser : this.user_data.descricaoUser;
-            this.user_data.gender = this.newGender != null ? this.newGender : this.user_data.gender;
+            this.user_data.nick =
+              this.newUsername != null ? this.newUsername : this.user_data.nick;
+            this.user_data.descricaoUser =
+              this.newDescricaoUser != null
+                ? this.newDescricaoUser
+                : this.user_data.descricaoUser;
+            this.user_data.gender =
+              this.newGender != null ? this.newGender : this.user_data.gender;
 
             localStorage.setItem("user_data", JSON.stringify(this.user_data));
             alert("Alterações concluídas!");
             this.nick = this.user_data.nick;
             this.gender = this.user_data.gender;
-            this.newUsername = '';
-            this.newDescricaoUser = '';
-            this.newGender = '';
+            this.newUsername = "";
+            this.newDescricaoUser = "";
+            this.newGender = "";
             this.$router.push("Profile");
           } else {
             alert("Ocorreu um erro nas alterações.");
@@ -589,9 +638,9 @@ export default {
       axios
         .post("http://localhost:3035/user/create_championship", {
           id, //PRECISO DO ID CO CARA
-          titulo_campeonato,
-          descricao_campeonato,
-          tema_campeonato
+          titulo_campeonato: this.titulo_campeonato,
+          descricao_campeonato: this.descricao_campeonato,
+          tema_campeonato: this.tema_campeonato
         })
         .then(response => {
           if (response.status == 200) {
@@ -602,7 +651,6 @@ export default {
           }
         });
     }
-
   }
 };
 </script>
@@ -610,12 +658,64 @@ export default {
 <style>
 /* -------- CSS PTOTÓTIPO -------- */
 
+#app1 {
+  font-family: "Fjalla One", sans-serif;
+  font-size: 15px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  background-color: #f0efef;
+  margin-top: 60px;
+  margin-bottom: 60px;
+  width: 100%;
+  height: auto;
+  margin: 0;
+}
+
+#app1 > span {
+  display:grid;
+  justify-content:center;
+  width: 600px;
+  height: auto;
+  bottom: 0;
+}
+.box {
+  border-radius: 5px;
+  background-color: deepskyblue;
+  width: 300px;
+  height: 400px;
+  margin: 1rem;
+}
+
 .background {
-  background-color: #f0efef
+  background-color: #f0efef;
 }
 
 .elemento1 {
 }
+
+.corpo {
+  background-image: url("/img/wppmini.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  overflow: auto;
+}
+
+.corpo-over {
+  width: 100%;
+  height: 100%;
+  bottom: 0;
+  position: relative;
+}
+
+
 
 .changeData {
   width: 60% !important;
@@ -623,28 +723,24 @@ export default {
   margin: 0;
 }
 
-.file-upload-form,
-.image-preview {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  padding: 20px;
-}
-img.preview {
-  width: 200px;
-  background-color: white;
-  border: 1px solid #ddd;
-  padding: 5px;
-}
-
 /* SECÕES */
 
 .secoes {
-  width: 300px !important;
-  height: 300px !important;
+  width: 65% !important;
+  height: auto !important;
+  padding: 0;
+  margin: 0;
+  background-color: #f0efef;
+  border: none;
 }
 
 .imgSecoes {
-  width: 80%;
-  height: 80%;
+  width: 95%;
+  height: 85%;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  border-radius: 2px;
+  border-style:solid 1px;
 }
 
 .imgBox {
@@ -663,11 +759,13 @@ img.preview {
 }
 
 .tab {
+  
   width: 80%;
   height: auto;
   top: -90px;
   margin: 10px;
-  background-color:deepskyblue;
+  background-color: deepskyblue;
+  
 }
 
 .img {
@@ -711,12 +809,12 @@ h4 {
 }
 
 .title {
-  font-family: "Mansalva", cursive;
+  font-family: "Fjalla One", sans-serif;
   font-size: 25px;
 }
 
 .text1 {
-  font-family: "Mansalva", cursive;
+  font-family: "Fjalla One", sans-serif;
   font-size: 18px;
 }
 

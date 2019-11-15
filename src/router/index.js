@@ -22,6 +22,12 @@ const Information = () => import("@/views/Information");
 //Confirmação de Cadastro
 const Confirm = () => import("@/views/registro/Confirm");
 
+//Listagem de campeonatos
+const AbaCamp = () => import("@/views/Campeonato/AbaCamp");
+
+//Sessão do campeonato
+const CampSession = () => import("@/views/Campeonato/CampSession");
+
 Vue.use(Router);
 
 let router = new Router({
@@ -70,6 +76,16 @@ let router = new Router({
       path: "/Confirm",
       name: "Confirm",
       component: Confirm,
+    },
+    {
+      path: "/abaCamp",
+      name: "AbaCamp",
+      component: AbaCamp,
+    },
+    {
+      path: "/campSession",
+      name: "CampSession",
+      component: CampSession,
     }
   ],
 });

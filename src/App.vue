@@ -27,7 +27,7 @@ $simple-line-font-path: "~simple-line-icons/fonts/";
 
 body {
   background-color:white;
-  height: 100%;
+  height: 900px;
   width: 100%;
 }
 

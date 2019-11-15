@@ -1,5 +1,5 @@
 <template variant="dark">
-  <div>
+  <div class="corpo">
    
     <div class="fixed-top">
     <b-navbar class="nav1" toggleable="lg" type="dark" variant="dark">
@@ -13,8 +13,8 @@
 
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav class="text1">
-
-          <b-nav-item @click="redirect3" href="#">Informação</b-nav-item>
+          <b-nav-item @click="redirect5" href="#">Campeonatos</b-nav-item>
+          
         </b-navbar-nav>
 
         <!-- Right aligned nav items -->
@@ -90,9 +90,18 @@
       </div>
 
 
+      <div class="position-relative">
+      <div class="fundo3">
+        <h3></h3>
+        
+      </div>
+      </div>
 
-  <!-- FOOTER AVANÇADO -->
-  <div class="position-relative"> 
+      
+
+
+  
+  <div > 
   <div class="footer">
     <footer id="suport">
       <ul>
@@ -107,7 +116,7 @@
     </footer>
     </div>
     </div>
-
+ 
 
 
 
@@ -146,6 +155,9 @@ export default {
     redirect4() {
       this.$router.push("contact");
     },
+    redirect5() {
+      this.$router.push("AbaCamp");
+    },
     onSlideStart(slide) {
         this.sliding = true
       },
@@ -162,6 +174,8 @@ export default {
 
 <style>
 
+@import url('https://fonts.googleapis.com/css?family=Fjalla+One&display=swap');
+
 /* -------- CSS PTOTÓTIPO -------- */
 
 
@@ -170,12 +184,12 @@ export default {
 }
 
 .title {
-  font-family: "Mansalva", cursive;
+  font-family: 'Fjalla One', sans-serif;
   font-size: 25px;
 }
 
 .text1 {
-  font-family: "Mansalva", cursive;
+  font-family: 'Fjalla One', sans-serif;
   font-size: 18px;
 }
 
@@ -191,7 +205,7 @@ export default {
 }
 
 .textCarousel {
-  font-family: "Mansalva", cursive;
+  font-family: 'Fjalla One', sans-serif;
   font-size: 60px;
   -webkit-text-stroke-width: 1px; 
   -webkit-text-stroke-color:black;
@@ -209,12 +223,39 @@ export default {
 
 .fundo1 {
   width: 100%;
-  background-color: darkgray;
+  background-color: #0074D9;
   text-align: center;
-  font-family: "Mansalva", cursive;
+  font-family: 'Fjalla One', sans-serif;
   padding: 10px;
   float:left;
   height: 350px;
+}
+
+.fundo2 {
+  width: 100%;
+  background-color: #39CCCC;
+  text-align: center;
+  padding: 10px;
+  float:left;
+  height: 350px;
+}
+
+.fundo3 {
+  width: 100%;
+  text-align: center;
+  padding: 10px;
+  float:left;
+  height: 900px;
+  background-image:url('/img/wppmini.jpg');
+  background-repeat: no-repeat;
+  background-position:center;
+}
+
+.corpo {
+  width: 100%;
+  height: 100%;
+ 
+
 }
 
 
@@ -223,6 +264,7 @@ h3 {
   font-size: 30px;
   text-shadow: 10px;
   color: white;
+  font-family: 'Fjalla One', sans-serif;
 }
 
 p {
@@ -237,7 +279,7 @@ p {
 }
 
 .link1{
-font-family: "Mansalva", cursive;
+font-family: 'Fjalla One', sans-serif;
 font-size: 40px;
 color: aliceblue;
 text-decoration:none;

@@ -11,6 +11,12 @@ import PictureInput from 'vue-picture-input';
 
 // TENTANDO REGISTRAR O COMPONENTE GLOBALMENTE COM MÉTODOS ALTERNATIVOS
 
+import SequentialEntrance from 'vue-sequential-entrance';
+import 'vue-sequential-entrance/vue-sequential-entrance.css';
+
+
+Vue.use(SequentialEntrance);
+
 Vue.use(PictureInput);
 
 
