@@ -159,6 +159,26 @@ module.exports = (app)=>{
         
     });
 
+    app.delete('/user/delete_image', (req, res) =>{
+
+        const {
+            user_id,
+            image_id
+            } = req.body;
+
+        let sql = `DELETE FROM upload_imagens WHERE CODI_IMAGE = '${image_id}' AND CODI_USUAR = '${user_id}';`;              
+                                                                                        
+        conn.query(sql, (err, results)=>{ 
+            
+            if(err){                                        
+                res.sendStatus(400);                        
+            }else{
+                res.sendStatus(200);
+            }
+        });
+        
+    });
+
     //TESTING
     /*app.post('/user/upload_image',verifyToken, (req, res) =>{
         const {
