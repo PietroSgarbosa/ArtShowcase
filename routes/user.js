@@ -1,8 +1,6 @@
 const conn = require('../dbconfig');
 const jwt = require('jsonwebtoken');
 
-
-
 module.exports = (app)=>{
    
     app.post('/user/login', (req, res)=>{
@@ -145,20 +143,20 @@ module.exports = (app)=>{
     //SEARCH ALL USER'S IMAGES FOR FUTURE LISTING
     app.get('/user/search_images', (req, res) =>{
 
-        const {
-            id
-        } = req.body;
+        //STORE THE INFO FROM THE GET REQUEST
+        const id = req.query.id;
 
-        let sql = `SELECT IMAG_PERFI as TITULO, IMAG_PORTI as IMAGEM FROM upload_imagens WHERE CODI_USUAR = '${id}';`;              
+        let sql = `SELECT CODI_IMAGE as cod_image, TITU_IMAGE as titulo_image, IMAG_PORTI as porti_image, DESC_IMAGE as desc_image FROM upload_imagens WHERE CODI_USUAR = '${id}';`;              
                                                                                         
-            conn.query(sql, (err, results)=>{ 
-                
-                if(err){                                        
-                    res.sendStatus(403);                        
-                }else{
-                    res.json({status : 200, results});
-                }
-            });
+        conn.query(sql, (err, results)=>{ 
+            
+            if(err){                                        
+                res.sendStatus(404);                        
+            }else{
+                res.json({status : 200, results});
+                console.info(results);
+            }
+        });
         
     });
 
@@ -218,6 +216,7 @@ module.exports = (app)=>{
         
     });
 
+    //CREATE CHAMPIONSHIP
     app.post('/user/create_championship', (req, res)=>{
             
         const {
