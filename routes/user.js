@@ -208,7 +208,6 @@ module.exports = (app)=>{
                 console.log("--------------------------------");
                 res.sendStatus(400);
             }else{
-                console.log("Usuário Criado!");
                 res.sendStatus(200);
             }
         });
