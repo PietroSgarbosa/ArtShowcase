@@ -68,7 +68,7 @@
         <b-tabs content-class="mt-3" align="center" pills card>
           <div class="background">
             <b-tab title="Artes Publicadas" active>
-              <h1>Seus trabalhos publicados</h1>
+              <h1 class="elementoTitulo">Seus trabalhos publicados</h1>
               <!-- LISTAGEM DE IMAGENS -->
 
               <!-- EXEMPLO DE COMO FICARÁ -->
@@ -89,9 +89,12 @@
                       DA PROPRIA IMAGEM -->
                       <!-- NESTA ABA É NECESSÁRIO NÃO SÓ PUXAR A IMAGEM MAS SIM SEU TITULO -->
 
-                      <div class="box" v-for="index in 1" :key="index">
+                      <div class="box" v-for="index in 2" :key="index">
                         <img src="/img/Ethel.jpg" class="imgSecoes"/>
-                        <h1> titulo </h1>
+                          <div class="content">
+                            <h1> titulo </h1>
+                            <b-button variant="danger" class="elementoDelete" @click="deleteImg">Deletar</b-button>
+                          </div>
                       </div>
                     </sequential-entrance>
                   </div>
@@ -106,7 +109,7 @@
             </b-tab>
             <b-tab title="Publicar" active>
               <!-- FORMULARIO PARA UPAR IMAGEM COM PICTURE INPUT -->
-              <h1>Insira a imagem</h1>
+              <h1 class="elementoTitulo">Publicar Imagem</h1>
               <b-container>
                 <div class="changeData">
                   <br />
@@ -114,7 +117,7 @@
 
                   <div>
                     <b-form-group
-                      class="elemento1"
+                      class="elementoProfile"
                       id="fieldset-horizontal"
                       label-cols-sm="4"
                       label-cols-lg="3"
@@ -129,6 +132,7 @@
                     </b-form-group>
 
                     <b-form-group
+                      class="elementoProfile"
                       id="fieldset-horizontal"
                       label-cols-sm="4"
                       label-cols-lg="3"
@@ -149,11 +153,13 @@
 
                     <input type="file" id="my_drawings" @change="onFileSelected('','my_drawings')" />
                     <br />
+                    <br />
                     <b-button
-                      variant="primary"
+                      variant="success"
                       @click="onUpload"
-                      class="mt-3 mx-auto"
+                      class="elementoButtom"
                     >Inserir no Portifólio</b-button>
+                    <br />
                     <br />
                   </div>
                   <br />
@@ -162,7 +168,7 @@
               </b-container>
             </b-tab>
             <b-tab title="Campeonatos" active>
-              <h1>Criação de Campeonatos</h1>
+              <h1 class="elementoTitulo">Criação de Campeonatos</h1>
               <!-- LISTAGEM DE CAMPEONATOS ATIVOS -->
 
               <b-container>
@@ -172,7 +178,7 @@
 
                   <div>
                     <b-form-group
-                      class="elemento1"
+                      class="elementoProfile"
                       id="fieldset-horizontal"
                       label-cols-sm="2"
                       label-cols-lg="2"
@@ -195,10 +201,11 @@
 
                     <b-row>
                       <b-col sm="2">
-                        <label for="textarea-auto-height">Informações</label>
+                        <label class="elementoProfile" for="textarea-auto-height">Informações</label>
                       </b-col>
                       <b-col sm="10">
                         <b-form-textarea
+                          class="elementoProfile"
                           placeholder="Explique as normas do seu campeonato."
                           rows="3"
                           max-rows="8"
@@ -216,7 +223,7 @@
                     <br />
 
                     <b-form-group
-                      class="elemento1"
+                      class="elementoProfile"
                       id="fieldset-horizontal"
                       label-cols-sm="2"
                       label-cols-lg="2"
@@ -233,14 +240,15 @@
                     <br />
                     <br />
 
-                    <label>Número de Competidores</label>
+                    <label class="elementoProfile">Número de Competidores</label>
 
                     <br />
 
                     <b-form-select
+                      class="elementoProfile mb-3"
                       v-model="competidores"
                       :options="options"
-                      class="mb-3"
+                      
                       text-field="name"
                       disabled-field="notEnabled"
                       description="Escolha o número de competidores que esse campeonato irá suportar."
@@ -249,7 +257,7 @@
                     <br />
                     <br />
 
-                    <b-button variant="primary" class="mt-3 mx-auto">Submit</b-button>
+                    <b-button variant="success" class="elementoButtom">Submit</b-button>
                   </div>
 
                   <br />
@@ -260,13 +268,14 @@
 
             <b-tab title="Editar Dados" active>
               <!-- ATUALIZAÇÕES  -->
-              <h1>Edite suas informações e troque sua imagem de perfil</h1>
+              <h1 class="elementoTitulo">Edite suas informações e troque sua imagem de perfil</h1>
 
               <br />
               <br />
 
               <div class="changeData" align="center">
                 <b-form-group
+                  class="elementoProfile"
                   id="fieldset-1"
                   description="Digite o seu novo nome de usuário."
                   label="Usuário"
@@ -282,10 +291,11 @@
 
                 <b-row>
                   <b-col sm="2">
-                    <label for="textarea-auto-height">Descrição</label>
+                    <label class="elementoProfile" for="textarea-auto-height">Descrição</label>
                   </b-col>
                   <b-col sm="10">
                     <b-form-textarea
+                      class="elementoProfile"
                       placeholder="Digite sua descrição..."
                       rows="3"
                       max-rows="8"
@@ -301,7 +311,7 @@
 
                 <br />
 
-                <b-input-group prepend="Sexo" class="mt-3" align="center">
+                <b-input-group class="elementoProfile mt-3" prepend="Sexo" align="center">
                   <select v-model="newGender">
                     <option disabled value>Selecione um:</option>
                     <option>Masculino</option>
@@ -313,9 +323,9 @@
                 <br />
 
                 <b-button
-                  variant="primary"
+                  variant="success"
                   @click="alteraDados"
-                  class="mt-3 mx-auto"
+                  class="elementoButtom"
                 >Aceitar Edições</b-button>
 
                 <br />
@@ -325,9 +335,9 @@
                 <br />
                 <br />
                 <b-button
-                  variant="primary"
+                  variant ="success"
                   @click="profilePic"
-                  class="mt-3 mx-auto"
+                  class="elementoButtom"
                 >Definir imagem de perfil</b-button>
                 <br />
               </div>
@@ -650,7 +660,22 @@ export default {
             alert("Ocorreu um erro na criação do campeonato.");
           }
         });
+    },
+
+    deleteImg() {
+      axios.delete() //metodo pré gerado pra deletar //
+      .then(response => {
+
+        // VARIAVEIS QUE SERÃO DELETADAS AQUI PELO AXIOS //
+
+      })
+      .catch(err =>{
+        this.erro = "Erro ao deletar a imagem" + err
+        alert("Erro ao deletar!");
+        this.$router.push("profile");
+      })
     }
+
   }
 };
 </script>
@@ -660,7 +685,8 @@ export default {
 
 #app1 {
   font-family: "Fjalla One", sans-serif;
-  font-size: 15px;
+  font-size: 12px;
+  color: white;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -683,15 +709,49 @@ export default {
   border-radius: 5px;
   background-color: deepskyblue;
   width: 300px;
-  height: 400px;
+  height: 480px;
   margin: 1rem;
+  
+}
+
+.content {
+  justify-content: center;
+  margin-bottom: 20px;
+  height: auto;
 }
 
 .background {
   background-color: #f0efef;
 }
 
-.elemento1 {
+.elementoProfile {
+  font-family: "Fjalla One", sans-serif;
+  font-size: 15px;
+}
+
+.elementoTitulo {
+  font-family: "Fjalla One", sans-serif;
+  font-size: 30px;
+}
+
+.elementoButtom {
+  font-family: "Fjalla One", sans-serif;
+  font-size: 25px;
+  border: solid 1px;
+  border-radius: 0px 20px 0px 20px;
+  margin-top: 20px;
+  background-color:dodgerblue;
+  color: white;
+}
+
+.elementoDelete {
+  font-family: "Fjalla One", sans-serif;
+  font-size: 20px;
+  border: solid 1px;
+  border-radius: 0px 20px 0px 20px;
+ 
+  background-color:dodgerblue;
+  color: white;
 }
 
 .corpo {
@@ -735,9 +795,9 @@ export default {
 }
 
 .imgSecoes {
-  width: 95%;
-  height: 85%;
-  margin-top: 5px;
+  width: 85%;
+  height: 70%;
+  margin-top: 15px;
   margin-bottom: 10px;
   border-radius: 2px;
   border-style:solid 1px;
