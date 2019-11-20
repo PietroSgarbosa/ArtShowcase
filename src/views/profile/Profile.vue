@@ -84,11 +84,11 @@
                       DA PROPRIA IMAGEM -->
                       <!-- NESTA ABA É NECESSÁRIO NÃO SÓ PUXAR A IMAGEM MAS SIM SEU TITULO -->
 
-                      <div class="box" v-for="index in user_images" :key="index">
+                      <div class="box1" v-for="index in user_images" :key="index">
                           <img v-bind:src="index.porti_image" class="imgSecoes"/>
                           <div class="content">    
                             <h1> {{index.titulo_image}} </h1>
-                            <b-button variant="danger" class="elementoDelete" @click="deleteImg">Deletar</b-button>
+                            <b-button variant="danger" class="elementoDelete" @click="deleteImg(index.cod_image)">Deletar</b-button>
                           </div>  
                       </div>
                     </sequential-entrance>
@@ -671,10 +671,16 @@ export default {
         });
     },
 
-    deleteImg() {
-      axios.delete() //metodo pré gerado pra deletar //
+   async deleteImg(imageId) {
+     await axios;
+      axios
+      .delete("http://localhost:3035/user/delete_image",
+      {
+        user_id : this.user_data.id,
+        image_id : imageId
+      }) //metodo pré gerado pra deletar //
       .then(response => {
-
+        alert("imagem deletada");
         // VARIAVEIS QUE SERÃO DELETADAS AQUI PELO AXIOS //
 
       })
@@ -714,7 +720,7 @@ export default {
   height: auto;
   bottom: 0;
 }
-.box {
+.box1 {
   border-radius: 5px;
   background-color: deepskyblue;
   width: 300px;
