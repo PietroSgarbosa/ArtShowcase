@@ -40,12 +40,13 @@
     <br />
 
   <div class="conteudo">
-    <div id="app1">
+    <div id="app2">
       <h1>Campeonatos Disponivéis</h1>
 
       <sequential-entrance fromRight>
-        <div class="box" v-for="index in 2" :key="index">
+        <div class="box2" v-for="index in 1" :key="index">
           <p class="alias2">Titulo: </p>
+          <p class="alias3">Criador: </p>
         </div>
       </sequential-entrance>
       
@@ -108,6 +109,18 @@ export default {
   font-family: 'Fjalla One', sans-serif;
   font-size: 20px;
   color: white;
+  margin-left: 5px;
+  position: relative;
+}
+
+.alias3 {
+  margin-right: 350px;
+  font-family: 'Fjalla One', sans-serif;
+  font-size: 20px;
+  color: white;
+  position: relative;
+  
+  margin-top: -45px;
 }
 
 .conteudo {
@@ -120,7 +133,7 @@ export default {
 }
 
 
-#app1 {
+#app2 {
   font-family: 'Fjalla One', sans-serif;
   font-size: 15px;
   -webkit-font-smoothing: antialiased;
@@ -130,12 +143,12 @@ export default {
   margin-top: 60px;
 }
 
-#app1 > span {
+#app2 > span {
   display:grid;
   justify-content:center;
   bottom: 0;
 }
-.box {
+.box2 {
   border-radius: 3px;
   background-color: #0074d9;
   width: 800px;
