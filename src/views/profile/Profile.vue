@@ -532,7 +532,7 @@ export default {
     /* SCRIPT PARA DESLOGAR */
     logOut() {
       if (localStorage) {
-        localStorage.removeItem("user_data");
+        localStorage.clear();
       }
       this.$router.push("/");
     },
@@ -550,19 +550,16 @@ export default {
 
     /*FUNCAO PARA CARREGAR AS IMAGENS DO CABLOCO*/ 
     async loadImages(){
-
       axios
         .get("http://localhost:3035/user/search_images", { params : { id: this.user_data.id} } )
         .then(res => {
           if(res.status == 200){
             this.user_images = res.data.results;
-            console.log(this.user_images);
           }
           else if(res.status == 404){
             this.user_images = "Não foi possível carregar as imagens";
           }
       });
-
     },
 
     /* SCRIPT PARA SETAR IMAGEM DE PERFIL */
@@ -676,19 +673,32 @@ export default {
       axios
       .delete("http://localhost:3035/user/delete_image",
       {
-        user_id : this.user_data.id,
-        image_id : imageId
+        params: 
+        {
+          user_id : this.user_data.id,
+          image_id : imageId
+        }
       }) //metodo pré gerado pra deletar //
       .then(response => {
-        alert("imagem deletada");
-        // VARIAVEIS QUE SERÃO DELETADAS AQUI PELO AXIOS //
+        alert("Imagem Deletada");
+        axios.get("http://localhost:3035/user/search_images", { params : { id: this.user_data.id} } )
+             .then(res => {
+                if(res.status == 200){
+                  this.user_images = res.data.results;
+                }
+                else if(res.status == 404){
+                  this.user_images = "Não foi possível carregar as imagens";
+                }
+              })
 
       })
+      
       .catch(err =>{
         this.erro = "Erro ao deletar a imagem" + err
         alert("Erro ao deletar!");
         this.$router.push("profile");
       })
+
     }
 
   }
