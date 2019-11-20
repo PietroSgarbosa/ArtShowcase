@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 
 module.exports = (app)=>{
    
+    //CHECK IF THE USER IS VALID FOR LOGIN
     app.post('/user/login', (req, res)=>{
         
         const {
@@ -159,6 +160,7 @@ module.exports = (app)=>{
         
     });
 
+    //DELETES USER IMAGE
     app.delete('/user/delete_image', (req, res) =>{
 
         const {
@@ -204,6 +206,7 @@ module.exports = (app)=>{
         });
     });*/
 
+    //USER REGISTER
     app.post('/user/register', (req, res)=>{
             
         const {
