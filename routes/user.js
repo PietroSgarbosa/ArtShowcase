@@ -164,7 +164,7 @@ module.exports = (app)=>{
         const {
             user_id,
             image_id
-            } = req.body;
+            } = req.query;
 
         let sql = `DELETE FROM upload_imagens WHERE CODI_IMAGE = '${image_id}' AND CODI_USUAR = '${user_id}';`;              
                                                                                         
