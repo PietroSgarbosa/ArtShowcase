@@ -30,8 +30,10 @@
     "vue": "^2.6.6",
     "vue-base64-file-upload": "^1.0.4",
     "vue-color": "^2.7.0",
+    "vue-gallery": "^2.0.1",
     "vue-jwt-decode": "^0.1.0",
     "vue-loading-overlay": "^3.2.0",
+    "vue-photo-grid": "^1.0.2",
     "vue-picture-input": "^2.1.6",
     "vue-router": "^3.1.1",
     "vue-sequential-entrance": "^1.1.3"

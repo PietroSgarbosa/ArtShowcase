@@ -14,7 +14,7 @@
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav class="text1">
           <b-nav-item @click="redirect5" href="#">Campeonatos</b-nav-item>
-          
+          <b-nav-item @click="redirect6" href="#">Galeria</b-nav-item>
         </b-navbar-nav>
 
         <!-- Right aligned nav items -->
@@ -69,12 +69,6 @@
       
       <b-carousel-slide class="img" img-src="/img/Klaus.jpg">
         <h1 class="textCarousel">Por favor professor nos ajude</h1>
-      </b-carousel-slide>
-
-      <b-carousel-slide class="img" img-src="/img/Ethel.jpg">
-      </b-carousel-slide>
-
-      <b-carousel-slide class="img" img-src="/img/Xenic.jpg">
       </b-carousel-slide>
       
     </b-carousel>
@@ -157,6 +151,9 @@ export default {
     },
     redirect5() {
       this.$router.push("AbaCamp");
+    },
+    redirect6() {
+      this.$router.push("showcase");
     },
     onSlideStart(slide) {
         this.sliding = true

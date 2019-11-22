@@ -28,6 +28,9 @@ const AbaCamp = () => import("@/views/Campeonato/AbaCamp");
 //Sessão do campeonato
 const CampSession = () => import("@/views/Campeonato/CampSession");
 
+//Showcase
+const Showcase = () => import("@/views/Showcase");
+
 Vue.use(Router);
 
 let router = new Router({
@@ -86,6 +89,11 @@ let router = new Router({
       path: "/campSession",
       name: "CampSession",
       component: CampSession,
+    },
+    {
+      path: "/Showcase",
+      name: "Showcase",
+      component: Showcase,
     }
   ],
 });

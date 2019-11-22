@@ -28,57 +28,6 @@
       </b-navbar>
     </div>
 
-    <!-- REGISTRO ANTIGO
-
-    <center>
-      <b-card class="register">
-        <b-col>
-          <b-col>
-            <b-col>
-              <img src="/img/whiteeagle.png" alt="Icon" class="size-img" />
-            </b-col>
-            <b-col>
-              <h4 class="mt-3">Cadastrar</h4>
-            </b-col>
-          </b-col>
-          <b-row>
-            <b-input-group prepend="Nome Completo">
-              <b-form-input v-model="usuario"></b-form-input>
-            </b-input-group>
-            <b-input-group prepend="Username" class="mt-3">
-              <b-form-input v-model="nick"></b-form-input>
-            </b-input-group>
-            <b-input-group prepend="E-mail" class="mt-3">
-              <b-form-input v-model="email"></b-form-input>
-            </b-input-group>
-            <b-input-group prepend="Password" class="mt-3">
-              <b-form-input v-model="senha"></b-form-input>
-            </b-input-group>
-            <b-input-group prepend="Idade" class="mt-3">
-              <b-form-input v-model="idade"></b-form-input>
-            </b-input-group>
-            <b-input-group prepend="Sexo" class="mt-3">
-              <select v-model="sexo">
-                <option disabled value>Selecione um:</option>
-                <option>Masculino</option>
-                <option>Feminino</option>
-              </select>
-              
-            </b-input-group>
-
-            <b-button variant="light" @click="registrarUser" class="mt-3 mx-auto w-50">Cadastrar</b-button>
-          </b-row>
-          <b-col class="login1">
-            <b-row>
-              <a class="link3" @click="redirect1" href="#">Já possui um perfil? Logue agora!</a>
-            </b-row>
-          </b-col>
-        </b-col>
-      </b-card>
-    </center>
-
-    -->
-
 
     <center>
         <div class="sessionRegister">

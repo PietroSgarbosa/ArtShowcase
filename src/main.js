@@ -14,6 +14,10 @@ import PictureInput from 'vue-picture-input';
 import SequentialEntrance from 'vue-sequential-entrance';
 import 'vue-sequential-entrance/vue-sequential-entrance.css';
 
+import PhotoGrid from 'vue-photo-grid';
+
+
+Vue.use(PhotoGrid);
 
 Vue.use(SequentialEntrance);
 

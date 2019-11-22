@@ -9,10 +9,10 @@
         </b-navbar-brand>
 
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-
+          
         <b-collapse id="nav-collapse" is-nav>
           <b-navbar-nav class="text1">
-            
+            <b-nav-item @click="redirect6" href="#">Galeria</b-nav-item>
           </b-navbar-nav>
 
           <!-- Right aligned nav items -->
@@ -91,6 +91,9 @@ export default {
   },
   redirect1() {
     this.$router.push("profile");
+  },
+  redirect6() {
+    this.$router.push("showcase");
   }
   }
 };

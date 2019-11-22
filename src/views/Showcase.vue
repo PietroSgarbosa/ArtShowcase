@@ -1,10 +1,15 @@
-<template >
+<template>
   <div class="corpo">
     <div class="corpo-over">
       <div class="fixed-top">
         <b-navbar class="nav1" toggleable="lg" type="dark" variant="dark">
           <b-navbar-brand class="title" @click="redirect" href="#">
-            <img src="/img/whiteeagle.png" class="d-inline-block align-top" id="eagle" alt="eagle" />
+            <img
+              src="/img/whiteeagle.png"
+              class="d-inline-block align-top"
+              id="eagle"
+              alt="eagle"
+            />
             ArtShowCase
           </b-navbar-brand>
 
@@ -13,6 +18,7 @@
           <b-collapse id="nav-collapse" is-nav>
             <b-navbar-nav class="text1">
               <b-nav-item @click="redirect1" href="#">Campeonatos</b-nav-item>
+              <b-nav-item @click="redirect6" href="#">Galeria</b-nav-item>
             </b-navbar-nav>
 
             <!-- Right aligned nav items -->
@@ -28,26 +34,26 @@
         </b-navbar>
       </div>
 
+      <center class="centro">
+        <gallery
+          :images="images"
+          :index="index"
+          @close="index = null"
+        ></gallery>
 
-      <center>
-        <div class="session">
-          <div class="topLogin">
-            <h1 class="welcome">Bem vindo de volta!</h1>
-            <img src="/img/whiteeagle.png" class="logo" id="eagle2" alt="eagle">
-          </div>
-
-          <b-form-input class="elemento1" v-model="nick" placeholder="Login"></b-form-input>
-
-          <b-form-input class="elemento2" v-model="senha" placeholder="Senha"></b-form-input>
-
-          <b-button variant="primary" class="button1" @click="autentificacao">Entrar</b-button>
-          <br />
-          <br />
-
-          <a class="link2" @click="redirect3" href="#">Ainda não possui um perfil? Cadastre agora!</a>
+        <div
+          class="image"
+          v-for="(image, imageIndex) in images"
+          :key="imageIndex"
+          @click="index = imageIndex"
+          :style="{
+            backgroundImage: 'url(' + image + ')',
+            width: '300px',
+            height: '200px'
+          }"
+        >
+        <p href="#">teste</p>
         </div>
-        <br />
-        <br />
       </center>
     </div>
 
@@ -60,7 +66,9 @@
           <li>
             <a href>Sobre Nós</a>
           </li>
-          <a class="right">2019, Projetado por Pietro.S. Codificado por SkyHorse.Labs</a>
+          <a class="right"
+            >2019, Projetado por Pietro.S. Codificado por SkyHorse.Labs</a
+          >
         </ul>
       </footer>
     </div>
@@ -71,13 +79,22 @@
 import * as config from "@/config.json";
 import axios from "axios";
 
+import VueGallery from "vue-gallery";
+
 export default {
-  component: {},
+  component: {
+    gallery: VueGallery
+  },
 
   data: _ => {
     return {
-      nick: null,
-      senha: null
+      images: [
+        "/img/Ethel.jpg",
+        "/img/reiLeaoCalvo.jpg",
+        "https://dummyimage.com/1280/000000/ffffff",
+        "https://dummyimage.com/400/000000/ffffff"
+      ],
+      index: null
     };
   },
 
@@ -96,39 +113,33 @@ export default {
     redirect3() {
       this.$router.push("register");
     },
-
-    async autentificacao() {
-      await axios;
-
-      /* ROTA DO SERVIDOR BACK */
-      axios
-        .post("http://localhost:3035/user/login", {
-          nick: this.nick,
-          senha: this.senha,
-          user_data: []
-        })
-
-        /* ROTA DO SERVIDOR BACK */
-
-        .then(response => {
-          if (response.status == 200) {
-            this.user_data = response.data.user;
-            localStorage.setItem("user_data", JSON.stringify(this.user_data));
-            var welcome = JSON.parse(localStorage.getItem("user_data"));
-            alert("Bem vindo " + welcome.nick + "!");
-            welcome = null;
-            this.$router.push("/profile");
-          } else {
-            alert("Usuário ou senha incorretos!");
-          }
-        });
+    redirect6() {
+      this.$router.push("showcase");
     }
   }
 };
 </script>
 
-<style>
+<style scoped>
 /* -------- CSS PTOTÓTIPO -------- */
+
+.image {
+  float: left;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  border: 1px solid #ebebeb;
+  margin: 5px;
+}
+
+.centro {
+  position: relative;
+  
+  top: 300px;
+  width: 95%;
+  height: auto;
+  margin-left: 40px; 
+}
 
 .logo {
   position: relative;
@@ -267,7 +278,6 @@ h4 {
 .register1 {
   top: 20px;
 }
-
 
 #eagle {
   width: 35x;
