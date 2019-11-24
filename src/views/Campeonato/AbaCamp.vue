@@ -1,60 +1,78 @@
-<template >
+<template>
   <div class="corpo">
     <div class="corpo-over">
-    <div class="fixed-top">
-      <b-navbar class="nav1" toggleable="lg" type="dark" variant="dark">
-        <b-navbar-brand class="title" @click="redirect" href="#">
-          <img src="/img/whiteeagle.png" class="d-inline-block align-top" id="eagle" alt="eagle" />
-          ArtShowCase
-        </b-navbar-brand>
+      <div class="fixed-top">
+        <b-navbar class="nav1" toggleable="lg" type="dark" variant="dark">
+          <b-navbar-brand class="title" @click="redirect" href="#">
+            <img
+              src="/img/whiteeagle.png"
+              class="d-inline-block align-top"
+              id="eagle"
+              alt="eagle"
+            />
+            ArtShowCase
+          </b-navbar-brand>
 
-        <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-          
-        <b-collapse id="nav-collapse" is-nav>
-          <b-navbar-nav class="text1">
-            <b-nav-item @click="redirect6" href="#">Galeria</b-nav-item>
-          </b-navbar-nav>
+          <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
-          <!-- Right aligned nav items -->
-          <b-navbar-nav class="ml-auto">
-            <b-nav-item-dropdown text="Lang" right>
-              <b-dropdown-item href="#">EN</b-dropdown-item>
-              <b-dropdown-item href="#">ES</b-dropdown-item>
-              <b-dropdown-item href="#">RU</b-dropdown-item>
-              <b-dropdown-item href="#">FA</b-dropdown-item>
-            </b-nav-item-dropdown>
-            <b-nav-item-dropdown right>
-            <!-- Using 'button-content' slot -->
-            <template v-slot:button-content>
-              <em>Usuário</em>
-            </template>
-            <b-dropdown-item @click="redirect1" href="#">Perfil</b-dropdown-item>
-            <b-dropdown-item @click="logOut" href="#">Deslogar</b-dropdown-item>
-          </b-nav-item-dropdown>
-          </b-navbar-nav>
-        </b-collapse>
-      </b-navbar>
-    </div>
+          <b-collapse id="nav-collapse" is-nav>
+            <b-navbar-nav class="text1">
+              <b-nav-item @click="redirect6" href="#">Galeria</b-nav-item>
+            </b-navbar-nav>
 
-    <br />
-    <br />
+            <!-- Right aligned nav items -->
+            <b-navbar-nav class="ml-auto">
+              <b-nav-item-dropdown text="Lang" right>
+                <b-dropdown-item href="#">EN</b-dropdown-item>
+                <b-dropdown-item href="#">ES</b-dropdown-item>
+                <b-dropdown-item href="#">RU</b-dropdown-item>
+                <b-dropdown-item href="#">FA</b-dropdown-item>
+              </b-nav-item-dropdown>
+              <b-nav-item-dropdown right>
+                <!-- Using 'button-content' slot -->
+                <template v-slot:button-content>
+                  <em>Usuário</em>
+                </template>
+                <b-dropdown-item @click="redirect1" href="#"
+                  >Perfil</b-dropdown-item
+                >
+                <b-dropdown-item @click="logOut" href="#"
+                  >Deslogar</b-dropdown-item
+                >
+              </b-nav-item-dropdown>
+            </b-navbar-nav>
+          </b-collapse>
+        </b-navbar>
+      </div>
 
-  <div class="conteudo">
-    <div id="app2">
-      <h1>Campeonatos Disponivéis</h1>
+      <br />
+      <br />
 
-      <sequential-entrance fromRight>
-        <div class="box2" v-for="index in 1" :key="index">
-          <p class="alias2">Titulo: </p>
-          <p class="alias3">Criador: </p>
+      <div class="conteudo">
+        <div id="app2">
+          <h1>Campeonatos Disponivéis</h1>
+
+          <sequential-entrance fromRight>
+            <div class="box2" v-for="index in 3" :key="index">
+              <div class="leftbox">
+                <p class="alias2">Titulo:</p>
+              </div>
+              <div class="rightbox">
+                <p class="alias3">Criador:</p>
+                <b-button
+                  variant="success"
+                  @click="redirectCamp"
+                  class="elementoCamp"
+                  >Ver</b-button
+                >
+              </div>
+            </div>
+          </sequential-entrance>
         </div>
-      </sequential-entrance>
-      
+      </div>
     </div>
 
-</div>
-    
-    </div>
+
     <div class="footer">
       <footer id="suport">
         <ul>
@@ -64,7 +82,9 @@
           <li>
             <a href>Sobre Nós</a>
           </li>
-          <a class="right">2019, Projetado por Pietro.S. Codificado por SkyHorse.Labs</a>
+          <a class="right"
+            >2019, Projetado por Pietro.S. Codificado por SkyHorse.Labs</a
+          >
         </ul>
       </footer>
     </div>
@@ -83,18 +103,20 @@ export default {
 
   data: _ => {
     return {};
-
   },
-   methods: {
-  redirect() {
-    this.$router.push("/");
-  },
-  redirect1() {
-    this.$router.push("profile");
-  },
-  redirect6() {
-    this.$router.push("showcase");
-  }
+  methods: {
+    redirect() {
+      this.$router.push("/");
+    },
+    redirect1() {
+      this.$router.push("profile");
+    },
+    redirect6() {
+      this.$router.push("showcase");
+    },
+    redirectCamp() {
+      this.$router.push("CampSession");
+    }
   }
 };
 </script>
@@ -102,28 +124,46 @@ export default {
 <style>
 /* -------- CSS PTOTÓTIPO -------- */
 
-@import url('https://fonts.googleapis.com/css?family=Fjalla+One&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Fjalla+One&display=swap");
 
 /* ANIMAÇÃO DA LISTAGEM */
 
-.alias2 {
-  margin-right: 700px;
-  margin-top: 10px;
-  font-family: 'Fjalla One', sans-serif;
+.elementoCamp {
+  font-family: "Fjalla One", sans-serif;
   font-size: 20px;
+  border: solid 1px;
+  border-radius: 0px 20px 0px 20px;
+  float: right;
+  background-color: dodgerblue;
   color: white;
-  margin-left: 5px;
+  position: relative;
+  margin-top: -30px;
+  margin-right: 10px;
+}
+
+.leftbox {
+  position: relative;
+  float: left;
+}
+
+.rightbox {
   position: relative;
 }
 
-.alias3 {
-  margin-right: 350px;
-  font-family: 'Fjalla One', sans-serif;
+.alias2 {
+  margin-top: 10px;
+  margin-left: 10px;
+  font-family: "Fjalla One", sans-serif;
   font-size: 20px;
   color: white;
-  position: relative;
-  
-  margin-top: -45px;
+}
+
+.alias3 {
+  margin-top: 10px;
+  margin-left: 10px;
+  font-family: "Fjalla One", sans-serif;
+  font-size: 20px;
+  color: white;
 }
 
 .conteudo {
@@ -135,9 +175,8 @@ export default {
   left: 0;
 }
 
-
 #app2 {
-  font-family: 'Fjalla One', sans-serif;
+  font-family: "Fjalla One", sans-serif;
   font-size: 15px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -147,8 +186,8 @@ export default {
 }
 
 #app2 > span {
-  display:grid;
-  justify-content:center;
+  display: grid;
+  justify-content: center;
   bottom: 0;
 }
 .box2 {
@@ -169,11 +208,19 @@ export default {
   background-position: center;
   width: 100%;
   height: 100%;
+  background-size: cover;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  overflow: auto;
 }
 
 .corpo-over {
   width: 100%;
   height: 100%;
+  bottom: 0;
+  position: relative;
 }
 
 .signin {
@@ -201,12 +248,12 @@ h4 {
 }
 
 .title {
-  font-family: 'Fjalla One', sans-serif;
+  font-family: "Fjalla One", sans-serif;
   font-size: 25px;
 }
 
 .text1 {
-  font-family: 'Fjalla One', sans-serif;
+  font-family: "Fjalla One", sans-serif;
   font-size: 18px;
 }
 
@@ -215,7 +262,7 @@ h4 {
 }
 
 .link2 {
-  font-family: 'Fjalla One', sans-serif;
+  font-family: "Fjalla One", sans-serif;
   font-size: 20px;
   color: aliceblue;
   text-decoration: none;
@@ -235,7 +282,7 @@ h4 {
 .footer {
   position: relative;
   width: 100%;
-  font-family: 'Fjalla One', sans-serif;
+  font-family: "Fjalla One", sans-serif;
   font-size: 15px;
   letter-spacing: 1px;
   bottom: 0;
