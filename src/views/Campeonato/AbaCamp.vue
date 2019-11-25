@@ -53,12 +53,12 @@
           <h1>Campeonatos Disponivéis</h1>
 
           <sequential-entrance fromRight>
-            <div class="box2" v-for="index in 3" :key="index">
+            <div class="box2" v-for="index in campeonatos" :key="index">
               <div class="leftbox">
-                <p class="alias2">Titulo:</p>
+                <p class="alias2">Titulo: {{ index.titulo }}</p>
               </div>
               <div class="rightbox">
-                <p class="alias3">Criador:</p>
+                <p class="alias3">Criador: {{ index.criador }}</p>
                 <b-button
                   variant="success"
                   @click="redirectCamp"
@@ -102,8 +102,23 @@ export default {
   component: {},
 
   data: _ => {
-    return {};
+    return {
+      campeonatos : []
+    };
   },
+
+  mounted() {
+    axios.get("http://localhost:3035/championship/get_championship")
+             .then(res => {
+                if(res.status == 200){
+                  this.campeonatos = res.data.results;
+                }
+                else if(res.status == 404){
+                  this.campeonatos = "Não foi possível carregar os campeonatos";
+                }
+              })
+  },
+
   methods: {
     redirect() {
       this.$router.push("/");
