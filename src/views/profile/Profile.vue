@@ -11,7 +11,7 @@
 
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav class="text1">
-          <b-nav-item @click="redirect3" href="#">Campeonatos</b-nav-item>
+          <b-nav-item @click="redirect4" href="#">Campeonatos</b-nav-item>
         </b-navbar-nav>
 
         <!-- Right aligned nav items -->
@@ -528,6 +528,9 @@ export default {
     },
     redirect3() {
       this.$router.push("register");
+    },
+    redirect4() {
+      this.$router.push("AbaCamp");
     },
     /* SCRIPT PARA DESLOGAR */
     logOut() {
