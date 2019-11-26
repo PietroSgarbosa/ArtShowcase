@@ -61,8 +61,8 @@
                 <p class="alias3">Criador: {{ index.criador }}</p>
                 <b-button
                   variant="success"
-                  @click="redirectCamp"
                   class="elementoCamp"
+                  @click="redirectCamp(index.codi_campe)"
                   >Ver</b-button
                 >
               </div>
@@ -103,7 +103,7 @@ export default {
 
   data: _ => {
     return {
-      campeonatos : []
+      campeonatos: null
     };
   },
 
@@ -129,7 +129,10 @@ export default {
     redirect6() {
       this.$router.push("showcase");
     },
-    redirectCamp() {
+    async redirectCamp(id_campeonato) {
+      //console.log(id_campeonato);
+      //console.log(this.campeonatos[id_campeonato-1]);
+      localStorage.setItem("dados_campeonato", JSON.stringify(this.campeonatos[id_campeonato-1]));
       this.$router.push("CampSession");
     }
   }
