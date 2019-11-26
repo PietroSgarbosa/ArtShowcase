@@ -50,11 +50,11 @@
       <br />
 
       <div class="painel">
-        <h1>Titulo:</h1>
-        <h1>{{ this.campName }}</h1>
-        <!-- CHAMAR DADOS DE CAMPEONATO, variaveis de exemplo -->
+        <h1>Título:</h1>
+        <h1>{{ this.dados_campeonato.titulo }}</h1>
+        <!-- CHAMAR DADOS DE CAMPEONATO, variaveis de e xemplo -->
         <h2>Criador:</h2>
-        <h2>{{ this.nick }}</h2>
+        <h2>{{ this.dados_campeonato.criador }}</h2>
         <!-- variaveis de exemplo -->
       </div>
 
@@ -75,10 +75,9 @@
                     ><strong> Informações </strong>
                   </template>
                   <div class="content1">
-                  
+                   {{ this.dados_campeonato.descricao }}
                   </div>
                   <div class="content2">
-                   
                   </div>
                 </b-tab>
 
@@ -94,8 +93,8 @@
                     ><strong> Entrada </strong>
                   </template>
                   <div class="content1">
-                    <p class="elementoTema">Tema:</p>
-                    <p class="elementoSession">{{ this.tema }}</p>
+                    <p class="elementoTema">Tema: </p>
+                    <p class="elementoSession">{{ this.dados_campeonato.tema }}</p>
 
                     <!-- variaveis de exemplo -->
                   </div>
@@ -104,7 +103,7 @@
 
                     <p class="elementoChoose">Selecionar Trabalho</p>
                     <br />
-                    <b-dropdown
+                    <select
                       split
                       split-variant="outline-primary"
                       variant="primary"
@@ -112,10 +111,10 @@
                       class="m-2"
                       v-model="choosenOne"  
                     >
-                      <b-dropdown-item v-for="index in 4" :key="index" href="#"
-                        >Action</b-dropdown-item
-                      >
-                    </b-dropdown>
+                      <option v-for="index in user_images" :key="index" href="#" :value="index.cod_image">
+                        {{ index.titulo_image }}
+                      </option>
+                    </select>
 
                     <b-button
                       variant="success"
@@ -238,6 +237,9 @@ export default {
 
   data: _ => {
     return {
+      user_data: null,
+      dados_campeonato: null,
+      user_images: null,
       images: [
         "/img/Ethel.jpg",
         "/img/reiLeaoCalvo.jpg",
@@ -249,9 +251,33 @@ export default {
       voto: null 
     };
   },
+
+   mounted() {
+
+    if (localStorage.getItem("dados_campeonato")) {
+      this.dados_campeonato = localStorage.getItem("dados_campeonato");
+      localStorage.removeItem("dados_campeonato");
+      this.dados_campeonato = JSON.parse(this.dados_campeonato);
+      //  console.log(this.dados_campeonato);
+      this.user_data = JSON.parse(localStorage.getItem("user_data"));
+      //console.log(this.user_data);
+    } 
+
+    axios
+        .get("http://localhost:3035/user/search_image_title", { params : { id: this.user_data.id} } )
+        .then(res => {
+          if(res.status == 200){
+            this.user_images = res.data.results;
+          }
+          else if(res.status == 404){
+            this.user_images = "Não foi possível carregar as imagens";
+          }
+      });
+  },
   methods: {
     redirect() {
-      this.$router.push("/");
+      console.log(this.choosenOne);
+      //this.$router.push("/");
     },
     redirect1() {
       this.$router.push("profile");
@@ -266,6 +292,20 @@ export default {
     async inserirImgCamp() {
       await axios;
         axios
+        .post("http://localhost:3035/championship/participate_championship", 
+        {
+          id_campeonato : this.dados_campeonato.codi_campe,
+          id_usuario: this.user_data.id,
+          id_imagem: this.choosenOne
+        })
+        .then(res => {
+                if(res.status == 200){
+                 alert("Boa sorte na competição!");
+                }
+                else if(res.status == 400){
+                  alert("Não foi possível carregar os campeonatos");
+                }
+              })
     }
   }
 };
