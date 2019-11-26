@@ -165,7 +165,6 @@ module.exports = (app)=>{
 
         //STORE THE INFO FROM THE GET REQUEST
         const id = req.query.id;
-        console.log(id);
         let sql = `SELECT CODI_IMAGE as cod_image, TITU_IMAGE as titulo_image FROM upload_imagens WHERE CODI_USUAR = '${id}';`;              
                                                                                         
         conn.query(sql, (err, results)=>{ 

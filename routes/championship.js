@@ -1,6 +1,27 @@
 const conn = require('../dbconfig');
 
 module.exports = (app)=>{
+
+    //RETURNS ALL SUBSCRIBED IMAGES
+    app.get('/championship/get_championship_images', (req, res) =>{
+
+        const id = req.query.id_campeonato;
+
+        let sql = `SELECT b.IMAG_PORTI as img_concorrente, a.QTDE_VOTOS as votos, 
+        a.CODI_USUAR as artista FROM participantes_campeonato a
+        join upload_imagens b on b.CODI_USUAR = a.CODI_USUAR 
+        WHERE a.CODI_CAMPE = ${id};`;                                                                                       
+                                                                                        
+        conn.query(sql, (err, results)=>{ 
+            
+            if(err){                                        
+                res.sendStatus(400);                        
+            }else{
+                
+                res.json({status : 200, results});
+            }
+        });   
+    });
    
     //RETURNS ALL CHAMPIONSHIPS AVAILABLE
     app.get('/championship/get_championship', (req, res) =>{
@@ -40,7 +61,7 @@ module.exports = (app)=>{
                 res.sendStatus(400);                        
             }else{
                 
-                res.json({status : 200, results});
+                res.json({status : 200});
             }
         });   
     });
