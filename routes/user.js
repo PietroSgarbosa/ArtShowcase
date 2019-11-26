@@ -200,31 +200,6 @@ module.exports = (app)=>{
         
     });
 
-    //TESTING
-    /*app.post('/user/upload_image',verifyToken, (req, res) =>{
-        const {
-            fs
-        } = req.body; //RECIEVES DATA FROM THE FORM 
-        console.log(fs);
-        
-        jwt.verify(req.token, process.env.JWT_SECRET, (err, authData)=>{
-           
-            let sql = `INSERT INTO upload_imagens (CODI_USUAR, IMAG_PERFI, IMAG_PORTI) 
-                       VALUES ('1', '11', '1');`;               
-                                                                                        
-            conn.query(sql, (err, results)=>{                                            
-                if(err){                                        
-                    res.sendStatus(403);                        
-                }else{                                          
-                    res.json({                                  
-                        message : 'post created',
-                        authData
-                    });
-                }
-            });
-        });
-    });*/
-
     //USER REGISTER
     app.post('/user/register', (req, res)=>{
             
@@ -266,12 +241,12 @@ module.exports = (app)=>{
             tema_campeonato
         } = req.body;
 
-        // insert statment (WORKS AMAZINGLY!!!)
+        
         let sql = `INSERT INTO campeonatos
                     (CODI_SITUA, CODI_USUAR, TITU_CAMPE, DESC_CAMPE, TEMA_CAMPE)
                      VALUES (0, '${id}', '${titulo_campeonato}', '${descricao_campeonato}', '${tema_campeonato}');`;
 
-        // execute the insert statment
+        
         conn.query(sql, (err)=>{
 
             if(err){
