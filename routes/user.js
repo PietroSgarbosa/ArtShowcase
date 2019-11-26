@@ -160,6 +160,25 @@ module.exports = (app)=>{
         
     });
 
+    //SEARCH ALL USER'S IMAGES FOR FUTURE LISTING
+    app.get('/user/search_image_title', (req, res) =>{
+
+        //STORE THE INFO FROM THE GET REQUEST
+        const id = req.query.id;
+        console.log(id);
+        let sql = `SELECT CODI_IMAGE as cod_image, TITU_IMAGE as titulo_image FROM upload_imagens WHERE CODI_USUAR = '${id}';`;              
+                                                                                        
+        conn.query(sql, (err, results)=>{ 
+            
+            if(err){                                        
+                res.sendStatus(404);                        
+            }else{
+                res.json({status : 200, results});
+            }
+        });
+        
+    });
+
     //DELETES USER IMAGE
     app.delete('/user/delete_image', (req, res) =>{
 

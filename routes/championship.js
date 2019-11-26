@@ -25,5 +25,27 @@ module.exports = (app)=>{
             }
         });   
     });
+
+    app.post('/championship/participate_championship', (req, res) =>{
+        
+        const {
+            id_campeonato,
+            id_usuario,
+            id_imagem
+        } = req.body
+
+        let sql = `INSERT INTO participantes_campeonato (CODI_CAMPE, CODI_USUAR, CODI_IMAGE)
+        VALUES ('${id_campeonato}', '${id_usuario}', '${id_imagem}')`;               
+                                                                                        
+        conn.query(sql, (err, results)=>{ 
+            
+            if(err){                                        
+                res.sendStatus(400);                        
+            }else{
+                
+                res.json({status : 200, results});
+            }
+        });   
+    });
 }
 
