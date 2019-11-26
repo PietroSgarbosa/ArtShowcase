@@ -158,7 +158,7 @@
           :key="imageIndex"
           @click="index = imageIndex"
           :style="{
-            backgroundImage: 'url(' + image + ')',
+            backgroundImage: 'url(' + image.img_concorrente + ')',
             width: '300px',
             height: '200px'
           }"
@@ -240,12 +240,7 @@ export default {
       user_data: null,
       dados_campeonato: null,
       user_images: null,
-      images: [
-        "/img/Ethel.jpg",
-        "/img/reiLeaoCalvo.jpg",
-        "/img/Invasor.jpg",
-        "/img/Xenic.jpg"
-      ],
+      images: [],
       index: null,
       choosenOne: null, //IMAGEM ESCOLHIDA 
       voto: null 
@@ -269,8 +264,19 @@ export default {
           if(res.status == 200){
             this.user_images = res.data.results;
           }
-          else if(res.status == 404){
+          else if(res.status == 400){
             this.user_images = "Não foi possível carregar as imagens";
+          }
+      })
+      
+    axios
+        .get("http://localhost:3035/championship/get_championship_images", { params : { id_campeonato : this.dados_campeonato.codi_campe } })
+        .then(res => {
+          if(res.status == 200){
+            this.images = res.data.results;
+          }
+          else if(res.status == 400){
+            this.images = "Não foi possível carregar as imagens";
           }
       });
   },
