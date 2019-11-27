@@ -39,7 +39,7 @@ module.exports = (app)=>{
             if(err){                                        
                 res.sendStatus(400);                        
             }else{
-                res.json({results});
+                res.json({status : 200, results});
             }
         });   
     });
@@ -51,7 +51,7 @@ module.exports = (app)=>{
 
         let sql = `SELECT b.IMAG_PORTI as img_concorrente, a.QTDE_VOTOS as votos, 
         a.CODI_USUAR as artista FROM participantes_campeonato a
-        join upload_imagens b on b.CODI_USUAR = a.CODI_USUAR 
+        join upload_imagens b on b.CODI_USUAR = a.CODI_USUAR and a.CODI_IMAGE = b.CODI_IMAGE 
         WHERE a.CODI_CAMPE = ${id};`;                                                                                       
                                                                                         
         conn.query(sql, (err, results)=>{ 
