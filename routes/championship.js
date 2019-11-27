@@ -29,8 +29,7 @@ module.exports = (app)=>{
     app.get('/championship/winner', (req, res) =>{
         
         const { 
-            id_campeonato,
-            id_imagem 
+            id_campeonato
         } = req.query;
 
         let sql = `SELECT * FROM controle_votos WHERE CODI_CAMPE = '${ id_campeonato }';`;               
@@ -40,7 +39,6 @@ module.exports = (app)=>{
             if(err){                                        
                 res.sendStatus(400);                        
             }else{
-                
                 res.json({results});
             }
         });   
