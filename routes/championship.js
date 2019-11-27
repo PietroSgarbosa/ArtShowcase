@@ -32,7 +32,12 @@ module.exports = (app)=>{
             id_campeonato
         } = req.query;
 
-        let sql = `SELECT * FROM controle_votos WHERE CODI_CAMPE = '${ id_campeonato }';`;               
+        let sql = `SELECT CODI_IMAGE AS vencedor, 
+        COUNT(CODI_IMAGE) AS qtde_votos  
+        FROM controle_votos WHERE CODI_CAMPE = ${ id_campeonato }
+        GROUP BY CODI_IMAGE
+        ORDER BY vencedor DESC
+        LIMIT 1;`;               
                                                                                         
         conn.query(sql, (err, results)=>{ 
             
@@ -47,12 +52,12 @@ module.exports = (app)=>{
     //RETURNS ALL SUBSCRIBED IMAGES
     app.get('/championship/get_championship_images', (req, res) =>{
 
-        const id = req.query.id_campeonato;
+        const id_campeonato = req.query.id_campeonato;
 
         let sql = `SELECT b.IMAG_PORTI as img_concorrente, a.QTDE_VOTOS as votos, 
         a.CODI_USUAR as artista FROM participantes_campeonato a
-        join upload_imagens b on b.CODI_USUAR = a.CODI_USUAR and a.CODI_IMAGE = b.CODI_IMAGE 
-        WHERE a.CODI_CAMPE = ${id};`;                                                                                       
+        join upload_imagens b on b.CODI_USUAR = a.CODI_USUAR  and a.CODI_IMAGE = b.CODI_IMAGE 
+        WHERE a.CODI_CAMPE = ${id_campeonato};`;                                                                                       
                                                                                         
         conn.query(sql, (err, results)=>{ 
             
