@@ -38,7 +38,7 @@ module.exports = (app)=>{
                    WHERE a.CODI_IMAGE = (SELECT CODI_IMAGE AS vencedor 
                                         FROM controle_votos WHERE CODI_CAMPE = ${id_campeonato}
                                         GROUP BY CODI_IMAGE
-                                        ORDER BY  COUNT(CODI_IMAGE) DESC
+                                        ORDER BY COUNT(CODI_IMAGE) DESC
                                         LIMIT 1);`;               
         
         conn.query(sql, (err, results)=>{ 
