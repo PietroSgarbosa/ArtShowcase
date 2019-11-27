@@ -2,6 +2,50 @@ const conn = require('../dbconfig');
 
 module.exports = (app)=>{
 
+    //INSERT VOTE
+    app.post('/championship/vote_on_image', (req, res) =>{
+        
+        const {
+            id_campeonato,
+            id_usuario,
+            id_imagem
+        } = req.body
+
+        let sql = `INSERT INTO controle_votos (CODI_CAMPE, CODI_USUAR, CODI_IMAGE)
+        VALUES ('${id_campeonato}', '${id_usuario}', '${id_imagem}')`;               
+                                                                                        
+        conn.query(sql, (err, results)=>{ 
+            
+            if(err){                                        
+                res.sendStatus(400);                        
+            }else{
+                
+                res.json({status : 200});
+            }
+        });   
+    });
+
+    //GET WINNER
+    app.get('/championship/winner', (req, res) =>{
+        
+        const { 
+            id_campeonato,
+            id_imagem 
+        } = req.query;
+
+        let sql = `SELECT * FROM controle_votos WHERE CODI_CAMPE = '${ id_campeonato }';`;               
+                                                                                        
+        conn.query(sql, (err, results)=>{ 
+            
+            if(err){                                        
+                res.sendStatus(400);                        
+            }else{
+                
+                res.json({results});
+            }
+        });   
+    });
+
     //RETURNS ALL SUBSCRIBED IMAGES
     app.get('/championship/get_championship_images', (req, res) =>{
 
