@@ -25,28 +25,30 @@ module.exports = (app)=>{
         });   
     });
 
-    //GET WINNER
+    //RETURNS WINNER
     app.get('/championship/winner', (req, res) =>{
-        
+
         const { 
             id_campeonato
         } = req.query;
 
-        let sql = `SELECT CODI_IMAGE AS vencedor, 
-        COUNT(CODI_IMAGE) AS qtde_votos  
-        FROM controle_votos WHERE CODI_CAMPE = ${ id_campeonato }
-        GROUP BY CODI_IMAGE
-        ORDER BY vencedor DESC
-        LIMIT 1;`;               
-                                                                                        
+
+        let sql = `SELECT a.CODI_USUAR as id_vencedor, b.NOME_USUAR as nome_vencedor FROM participantes_campeonato a 
+                   JOIN cadastro_usuario b ON a.CODI_USUAR = b.CODI_USUAR
+                   WHERE a.CODI_IMAGE = (SELECT CODI_IMAGE AS vencedor 
+                                        FROM controle_votos WHERE CODI_CAMPE = ${id_campeonato}
+                                        GROUP BY CODI_IMAGE
+                                        ORDER BY  COUNT(CODI_IMAGE) DESC
+                                        LIMIT 1);`;               
+        
         conn.query(sql, (err, results)=>{ 
-            
             if(err){                                        
                 res.sendStatus(400);                        
             }else{
-                res.json({status : 200, results});
+                res.send({ status : 200, results});
             }
-        });   
+        });
+
     });
 
     //RETURNS ALL SUBSCRIBED IMAGES
