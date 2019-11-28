@@ -56,9 +56,9 @@ module.exports = (app)=>{
 
         const id_campeonato = req.query.id_campeonato;
 
-        let sql = `SELECT b.IMAG_PORTI as img_concorrente, a.QTDE_VOTOS as votos, 
+        let sql = `SELECT a.CODI_IMAGE as id_img, b.IMAG_PORTI as img_concorrente, 
         a.CODI_USUAR as artista FROM participantes_campeonato a
-        join upload_imagens b on b.CODI_USUAR = a.CODI_USUAR  and a.CODI_IMAGE = b.CODI_IMAGE 
+        join upload_imagens b on b.CODI_USUAR = a.CODI_USUAR and a.CODI_IMAGE = b.CODI_IMAGE 
         WHERE a.CODI_CAMPE = ${id_campeonato};`;                                                                                       
                                                                                         
         conn.query(sql, (err, results)=>{ 
