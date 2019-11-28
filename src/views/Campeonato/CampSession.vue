@@ -50,12 +50,21 @@
       <br />
 
       <div class="painel">
-        <h1>Título:</h1>
-        <h1>{{ this.dados_campeonato.titulo }}</h1>
-        <!-- CHAMAR DADOS DE CAMPEONATO, variaveis de e xemplo -->
-        <h2>Criador:</h2>
-        <h2>{{ this.dados_campeonato.criador }}</h2>
-        <!-- variaveis de exemplo -->
+        <div class="painelLeft">
+          <h2>Título:</h2>
+          <h2>{{ this.dados_campeonato.titulo }}</h2>
+          <!-- CHAMAR DADOS DE CAMPEONATO, variaveis de e xemplo -->
+        </div>
+        <div class="painelRight">
+          <h2>Criador:</h2>
+          <h2>{{ this.dados_campeonato.criador }}</h2>
+          <img
+            src="/img/whiteeagle.png"
+            class="d-inline-block align-top eagleClass"
+            id="eagle3"
+            alt="eagle"
+          />
+        </div>
       </div>
 
       <center>
@@ -63,11 +72,7 @@
           <div>
             <b-card no-body>
               <b-tabs pills card vertical end>
-
-
-
                 <!-- INFORMAÇÕES DO CAMPEONATO -->
-
 
                 <b-tab active>
                   <template v-slot:title>
@@ -75,17 +80,12 @@
                     ><strong> Informações </strong>
                   </template>
                   <div class="content1">
-                   {{ this.dados_campeonato.descricao }}
+                    {{ this.dados_campeonato.descricao }}
                   </div>
-                  <div class="content2">
-                  </div>
+                  <div class="content2"></div>
                 </b-tab>
 
-
-
-
-                  <!-- ENTRAR E INSIRIR IMAGEM -->
-
+                <!-- ENTRAR E INSIRIR IMAGEM -->
 
                 <b-tab active>
                   <template v-slot:title>
@@ -93,8 +93,10 @@
                     ><strong> Entrada </strong>
                   </template>
                   <div class="content1">
-                    <p class="elementoTema">Tema: </p>
-                    <p class="elementoSession">{{ this.dados_campeonato.tema }}</p>
+                    <p class="elementoTema">Tema:</p>
+                    <p class="elementoTema">
+                      {{ this.dados_campeonato.tema }}
+                    </p>
 
                     <!-- variaveis de exemplo -->
                   </div>
@@ -109,9 +111,14 @@
                       variant="primary"
                       text="Artes Publicadas"
                       class="m-2"
-                      v-model="choosenOne"  
+                      v-model="choosenOne"
                     >
-                      <option v-for="index in user_images" :key="index" href="#" :value="index.cod_image">
+                      <option
+                        v-for="index in user_images"
+                        :key="index"
+                        href="#"
+                        :value="index.cod_image"
+                      >
                         {{ index.titulo_image }}
                       </option>
                     </select>
@@ -125,14 +132,7 @@
                   </div>
                 </b-tab>
 
-
-
-
                 <!-- LISTAGEM E VOTAÇÃO -->
-
-
-
-
 
                 <b-tab active>
                   <template v-slot:title>
@@ -140,63 +140,62 @@
                     ><strong> Votação </strong>
                   </template>
 
+                  <div class="align">
+                    <gallery
+                      :images="images"
+                      :index="index"
+                      @close="index = null"
+                    ></gallery>
 
-
-        <div class="align">
-<gallery
-          :images="images"
-          :index="index"
-          @close="index = null"
-        ></gallery>
-
-        <sequential-entrance fromRight>
-
-        
-        <div
-          class="image"
-          v-for="(image, imageIndex) in images"
-          :key="imageIndex"
-          @click="index = imageIndex"
-          :style="{
-            backgroundImage: 'url(' + image.img_concorrente + ')',
-            width: '300px',
-            height: '200px'
-          }"
-        >
-        <div class="capsule">
-          <b-form-checkbox class="check" size="lg"   ></b-form-checkbox>
-        </div>
-
-        </div>
-        
-
-</sequential-entrance>
-        </div>
-
-
-
-
-
-                  </b-tab>
-
-
-
-
-
-
+                    <sequential-entrance fromRight>
+                      <div
+                        class="image"
+                        v-for="(image, imageIndex) in images"
+                        :key="imageIndex"
+                        @click="index = imageIndex"
+                        :style="{
+                          backgroundImage: 'url(' + image.img_concorrente + ')',
+                          width: '300px',
+                          height: '200px'
+                        }"
+                      >
+                        <div class="capsule">
+                          <b-form-checkbox
+                            class="check"
+                            size="lg"
+                          ></b-form-checkbox>
+                        </div>
+                      </div>
+                    </sequential-entrance>
+                  </div>
+                </b-tab>
 
                 <!-- RESULTADOS FINAIS, ESSA SEÇAÕ DEVE SER BLOQUEADA ATÉ O FIM DO CAMPEONATO -->
-
-
-
 
                 <b-tab active>
                   <template v-slot:title>
                     <b-spinner type="grow" small></b-spinner
                     ><strong> Resultado </strong>
                   </template>
-                  <b-card-text>Tab contents 3</b-card-text></b-tab
-                >
+
+                  <div class="content1">
+                    <p class="elementoTema">Vencedor:</p>
+                    <p class="elementoTema">
+                      {{}}
+                      <!-- VARIAVEIL DO VENCEDOR -->
+                    </p>
+
+                    <!-- variaveis de exemplo -->
+                  </div>
+                  <div class="trophy">
+                    <img
+                      src="/img/winner2.png"
+                      class="d-inline-block align-top"
+                      id="gold"
+                      alt="trophy"
+                    />
+                  </div>
+                </b-tab>
               </b-tabs>
             </b-card>
           </div>
@@ -242,13 +241,12 @@ export default {
       user_images: null,
       images: [],
       index: null,
-      choosenOne: null, //IMAGEM ESCOLHIDA 
-      voto: null 
+      choosenOne: null, //IMAGEM ESCOLHIDA
+      voto: null
     };
   },
 
-   mounted() {
-
+  mounted() {
     if (localStorage.getItem("dados_campeonato")) {
       this.dados_campeonato = localStorage.getItem("dados_campeonato");
       localStorage.removeItem("dados_campeonato");
@@ -256,28 +254,30 @@ export default {
       //  console.log(this.dados_campeonato);
       this.user_data = JSON.parse(localStorage.getItem("user_data"));
       //console.log(this.user_data);
-    } 
+    }
 
     axios
-        .get("http://localhost:3035/user/search_image_title", { params : { id: this.user_data.id} } )
-        .then(res => {
-          if(res.status == 200){
-            this.user_images = res.data.results;
-          }
-          else if(res.status == 400){
-            this.user_images = "Não foi possível carregar as imagens";
-          }
+      .get("http://localhost:3035/user/search_image_title", {
+        params: { id: this.user_data.id }
       })
-      
+      .then(res => {
+        if (res.status == 200) {
+          this.user_images = res.data.results;
+        } else if (res.status == 400) {
+          this.user_images = "Não foi possível carregar as imagens";
+        }
+      });
+
     axios
-        .get("http://localhost:3035/championship/get_championship_images", { params : { id_campeonato : this.dados_campeonato.codi_campe } })
-        .then(res => {
-          if(res.status == 200){
-            this.images = res.data.results;
-          }
-          else if(res.status == 400){
-            this.images = "Não foi possível carregar as imagens";
-          }
+      .get("http://localhost:3035/championship/get_championship_images", {
+        params: { id_campeonato: this.dados_campeonato.codi_campe }
+      })
+      .then(res => {
+        if (res.status == 200) {
+          this.images = res.data.results;
+        } else if (res.status == 400) {
+          this.images = "Não foi possível carregar as imagens";
+        }
       });
   },
   methods: {
@@ -297,21 +297,19 @@ export default {
 
     async inserirImgCamp() {
       await axios;
-        axios
-        .post("http://localhost:3035/championship/participate_championship", 
-        {
-          id_campeonato : this.dados_campeonato.codi_campe,
+      axios
+        .post("http://localhost:3035/championship/participate_championship", {
+          id_campeonato: this.dados_campeonato.codi_campe,
           id_usuario: this.user_data.id,
           id_imagem: this.choosenOne
         })
         .then(res => {
-                if(res.status == 200){
-                 alert("Boa sorte na competição!");
-                }
-                else if(res.status == 400){
-                  alert("Não foi possível carregar os campeonatos");
-                }
-              })
+          if (res.status == 200) {
+            alert("Boa sorte na competição!");
+          } else if (res.status == 400) {
+            alert("Não foi possível carregar os campeonatos");
+          }
+        });
     }
   }
 };
@@ -323,6 +321,7 @@ export default {
 @import url("https://fonts.googleapis.com/css?family=Fjalla+One&display=swap");
 
 /* ANIMAÇÃO DA LISTAGEM */
+
 
 .check {
   position: absolute;
@@ -343,7 +342,7 @@ export default {
 .capsule {
   position: absolute;
   width: 100%;
-  height:18%;
+  height: 18%;
   bottom: 0;
   background-color: deepskyblue;
   padding-bottom: 20px;
@@ -362,7 +361,6 @@ export default {
 }
 
 .elementoVote {
-  
   float: right;
   font-family: "Fjalla One", sans-serif;
   font-size: 20px;
@@ -370,7 +368,6 @@ export default {
   border-radius: 0px 20px 0px 20px;
   background-color: dodgerblue;
   color: white;
-  
 }
 
 .elementoSession {
@@ -433,14 +430,38 @@ export default {
   position: absolute;
   margin-top: 70px;
   margin-left: 130px;
-  width: 300px;
-  height: 120px;
+  width: 650px;
+  height: auto;
   background-color: dodgerblue;
   border: solid 1px;
   border-radius: 0px 20px 0px 20px;
   font-family: "Fjalla One", sans-serif;
   color: white;
   padding: 10px;
+}
+
+.painelLeft {
+  position: relative;
+  float: left;
+  padding: 5px;
+}
+
+.painelRight {
+  position: relative;
+  left: 50px;
+  padding: 5px;
+}
+
+.trophy {
+  position: relative;
+  float: right;
+}
+
+#gold {
+  width: 80px;
+  height: 110px;
+  margin-left: -30px;
+  margin-top: 10px;
 }
 
 .tab {
@@ -602,8 +623,20 @@ h4 {
 }
 
 #eagle {
-  width: 35x;
+  width: 35px;
   height: 35px;
+}
+
+#eagle3 {
+  width: 80px;
+  height: 80px;
+}
+
+.eagleClass {
+  position: absolute;
+  float: right;
+  right: 80px;
+  top: 5px;
 }
 
 /* --- FOOTER --- */
