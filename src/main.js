@@ -24,6 +24,7 @@ Vue.use(SequentialEntrance);
 Vue.use(PictureInput);
 
 
+
 Vue.prototype.moment = moment
 
 Vue.use(BootstrapVue);

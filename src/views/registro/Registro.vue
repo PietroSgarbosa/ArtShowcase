@@ -1,4 +1,4 @@
-  <template>
+<template>
   <div class="corpo">
     <div class="corpo-over">
     <div class="fixed-top">
