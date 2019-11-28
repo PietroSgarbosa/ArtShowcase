@@ -100,7 +100,7 @@
 
                     <!-- variaveis de exemplo -->
                   </div>
-                  <div class="content2">
+                  <div class="content2" v-bind:style="HideParticipar">
                     <!-- COMBOBOX -->
 
                     <p class="elementoChoose">Selecionar Trabalho</p>
@@ -137,7 +137,7 @@
                 <b-tab active>
                   <template v-slot:title>
                     <b-spinner type="grow" small></b-spinner
-                    ><strong> Votação </strong>
+                    ><strong @click="carregarImagens"> Votação </strong>
                   </template>
 
                   <div class="align">
@@ -160,9 +160,11 @@
                         }"
                       >
                         <div class="capsule">
-                          <b-form-checkbox
+                          <b-form-checkbox 
+                            v-bind:style="chkVoteHide"
                             class="check"
                             size="lg"
+                            @change="vote(image.id_img)"
                           ></b-form-checkbox>
                         </div>
                       </div>
@@ -181,7 +183,7 @@
                   <div class="content1">
                     <p class="elementoTema">Vencedor:</p>
                     <p class="elementoTema">
-                      {{}}
+                      {{ this.dados_vencedor.nome_vencedor }}
                       <!-- VARIAVEIL DO VENCEDOR -->
                     </p>
 
@@ -236,25 +238,69 @@ export default {
 
   data: _ => {
     return {
-      user_data: null,
       dados_campeonato: null,
+      chkVoteHide: "",
+      HideParticipar: "",
+      user_data: null,
       user_images: null,
       images: [],
       index: null,
       choosenOne: null, //IMAGEM ESCOLHIDA
-      voto: null
+      voto: null,
+      dados_vencedor: {
+        nome_vencedor:'',
+        imagem_vencedor:''
+      }
     };
   },
 
   mounted() {
+
     if (localStorage.getItem("dados_campeonato")) {
       this.dados_campeonato = localStorage.getItem("dados_campeonato");
-      localStorage.removeItem("dados_campeonato");
+      // localStorage.removeItem("dados_campeonato");
       this.dados_campeonato = JSON.parse(this.dados_campeonato);
       //  console.log(this.dados_campeonato);
       this.user_data = JSON.parse(localStorage.getItem("user_data"));
-      //console.log(this.user_data);
-    }
+      if(this.user_data === null){
+        this.chkVoteHide= "display:none;"
+        this.HideParticipar= "display:none;"
+      }
+    } 
+    
+   axios
+      .get("http://localhost:3035/championship/user_participating", {
+        params: { 
+          id_campeonato: this.dados_campeonato.codi_campe,
+          id_usuario: this.user_data.id 
+          }
+      })
+      .then(res => {
+        if (res.status == 200) {
+          if(res.data.results[0].participando == 1){
+            this.HideParticipar = "display:none;";
+          }
+        } else if (res.status == 400) {
+          this.HideParticipar = "display:none;";
+        }
+      });
+
+   axios
+      .get("http://localhost:3035/championship/user_voted", {
+        params: { 
+          id_campeonato: this.dados_campeonato.codi_campe,
+          id_usuario: this.user_data.id 
+          }
+      })
+      .then(res => {
+        if (res.status == 200) {
+          if(res.data.results[0].votou_sn == 1){
+            this.chkVoteHide = "display:none;";
+          }
+        } else if (res.status == 400) {
+          this.chkVoteHide = "display:none;";
+        }
+      });
 
     axios
       .get("http://localhost:3035/user/search_image_title", {
@@ -279,11 +325,26 @@ export default {
           this.images = "Não foi possível carregar as imagens";
         }
       });
+
+    axios
+      .get("http://localhost:3035/championship/winner", {
+        params: { id_campeonato: this.dados_campeonato.codi_campe }
+      })
+      .then(res => {
+        if (res.status == 200) {
+          if(res.data.results.length < 1){
+          this.dados_vencedor.nome_vencedor = ' Campeonato em andamento...'
+          }else{
+          this.dados_vencedor.nome_vencedor = res.data.results[0].nome_vencedor;
+          }
+        } else if (res.status == 400) {
+          this.dados_vencedor = "Não foi possível carregar o vencedor";
+        }
+      });
   },
   methods: {
     redirect() {
-      console.log(this.choosenOne);
-      //this.$router.push("/");
+      this.$router.push("/");
     },
     redirect1() {
       this.$router.push("profile");
@@ -291,8 +352,11 @@ export default {
     redirect6() {
       this.$router.push("showcase");
     },
-    redirectCamp() {
-      this.$router.push("CampSession");
+    logOut() {
+      if (localStorage) {
+        localStorage.clear();
+      }
+      this.$router.push("/");
     },
 
     async inserirImgCamp() {
@@ -305,11 +369,58 @@ export default {
         })
         .then(res => {
           if (res.status == 200) {
+            if (localStorage.getItem("reloaded")) {
+                    localStorage.removeItem("reloaded");
+                  } else {
+                    localStorage.setItem("reloaded", "1");
+                    location.reload();
+                  }
             alert("Boa sorte na competição!");
           } else if (res.status == 400) {
             alert("Não foi possível carregar os campeonatos");
           }
         });
+    },
+
+    async vote(idImg){
+      this.chkVoteHide = "display:none;";
+      await axios;
+      axios
+      .post("http://localhost:3035/championship/vote_on_image",
+      {
+        id_campeonato : this.dados_campeonato.codi_campe,
+        id_usuario : this.user_data.id,
+        id_imagem : idImg
+      })
+      .then(res => {
+                if(res.status == 200){
+                 if (localStorage.getItem("reloaded")) {
+                    localStorage.removeItem("reloaded");
+                  } else {
+                    localStorage.setItem("reloaded", "1");
+                    location.reload();
+                  }
+                  alert("Voto computado!");
+                }
+                else if(res.status == 400){
+                  alert("Não foi possível votar");
+                }
+              });
+    },
+
+    async carregarImagens(){
+      await axios
+      axios
+        .get("http://localhost:3035/championship/get_championship_images", { params : { id_campeonato : this.dados_campeonato.codi_campe } })
+        .then(res => {
+          if(res.status == 200){
+            this.images = res.data.results;
+          }
+          else if(res.status == 400){
+            this.images = "Não foi possível carregar as imagens";
+          }
+      });
+
     }
   }
 };
