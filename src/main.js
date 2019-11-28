@@ -7,6 +7,22 @@ import BootstrapVue from "bootstrap-vue";
 import App from "./App";
 import router from "./router";
 import moment from 'moment';
+import PictureInput from 'vue-picture-input';
+
+// TENTANDO REGISTRAR O COMPONENTE GLOBALMENTE COM MÉTODOS ALTERNATIVOS
+
+import SequentialEntrance from 'vue-sequential-entrance';
+import 'vue-sequential-entrance/vue-sequential-entrance.css';
+
+import PhotoGrid from 'vue-photo-grid';
+
+
+Vue.use(PhotoGrid);
+
+Vue.use(SequentialEntrance);
+
+Vue.use(PictureInput);
+
 
 
 Vue.prototype.moment = moment
@@ -18,6 +34,6 @@ new Vue({
   router,
   template: "<App/>",
   components: {
-    App
+    App,
   }
 });

@@ -1,10 +1,11 @@
 <template>
   <div class="background">
+  
 
 
 <!-- NAV BAR -->
 
-
+    <div class="fixed-top">
     <b-navbar class="nav1" toggleable="lg" type="dark" variant="dark">
       <b-navbar-brand class="title" @click="redirect1" href="#">Art Showcase</b-navbar-brand>
 
@@ -36,7 +37,7 @@
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
-
+    </div>
 
 
 <div>
@@ -73,10 +74,34 @@
     </b-card>
   </div>
 </div>
+
+
+
+  <div class="footer">
+    <footer id="suport">
+      <ul>
+        <li>
+          <a href="">SkyHorse</a>
+        </li>
+        <li>
+          <a href="">Sobre Nós</a>
+        </li>
+          <p class="right">2019, Projetado por Pietro.S. Codificado por SkyHorse.Labs</p>
+      </ul>
+    </footer>
+    </div>
+  
+    
+  <!-- FOOTER ANTIGO
   <footer >
     <p class="footer-text"> ARTSHOWCASE - <b>SkyHorse.Inc</b> </p>
     <p class="footer-text"> COPYRIGHT© </p>
   </footer>
+  -->
+
+
+
+    
   </div>
 </template>
 
@@ -93,10 +118,10 @@ export default {
 
   methods: {
     redirect() {
-      this.$router.push("home");
+      this.$router.push("/");
     },
     redirect1() {
-      this.$router.push("/");
+      this.$router.push("login");
     },
     redirect2() {
       this.$router.push("register");
@@ -128,16 +153,77 @@ export default {
   font-size: 18px;
 }
 
-.footer-text {
-  text-align: center;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  
-}
-
 .cardOne {
   margin: 0px;
   text-align: right;
 }
 
+
+/* FOOTER */
+
+.footer {
+  width: 100%;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 15px;
+  letter-spacing: 1px;
+  color: white;
+  background-color: #333;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+#suport {
+  width: 100%;
+  height: 150px;
+  background-color: #333;
+  position: relative;
+  bottom: 0;
+}
+
+#suport ul {
+  background-color:#333;
+  list-style:none;
+  float: left;
+  width: 100%;
+}
+
+#suport ul li {
+  display: inline;
+}
+
+#suport ul li a {
+    
+    display: inline-block;
+    margin:20px;
+    
+    height: 50px;  
+    
+    color: white;
+    text-decoration: none;
+}
+
+
+#suport ul li a:hover {
+  
+    color: red;
+    
+}
+
+.right {
+  float: right;
+  width: 550px;
+   
+  margin:20px; 
+  display: inline-block;
+}
+
+.body {
+  height: 100%;
+  width: 100%;
+  
+}
 
 </style>

@@ -28,9 +28,15 @@
     "request": "^2.88.0",
     "simple-line-icons": "^2.4.1",
     "vue": "^2.6.6",
+    "vue-base64-file-upload": "^1.0.4",
     "vue-color": "^2.7.0",
-    "vue-loading-overlay": "^3.1.1",
-    "vue-router": "^3.1.1"
+    "vue-gallery": "^2.0.1",
+    "vue-jwt-decode": "^0.1.0",
+    "vue-loading-overlay": "^3.2.0",
+    "vue-photo-grid": "^1.0.2",
+    "vue-picture-input": "^2.1.6",
+    "vue-router": "^3.1.1",
+    "vue-sequential-entrance": "^1.1.3"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.9.2",
@@ -47,7 +53,7 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "growl": "^1.10.5",
-    "https-proxy-agent": "^2.2.2",
+    "https-proxy-agent": "^2.2.3",
     "jest": "^24.9.0",
     "node-sass": "^4.11.0",
     "sass-loader": "^7.1.0",

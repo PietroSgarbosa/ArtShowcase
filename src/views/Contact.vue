@@ -4,9 +4,7 @@
     <b-button variant="success" @click="redirect"></b-button>
     -->
 
-
-<!-- NAV BAR -->
-
+    <!-- NAV BAR -->
 
     <b-navbar class="nav1" toggleable="lg" type="dark" variant="dark">
       <b-navbar-brand class="title" @click="redirect" href="#">Art Showcase</b-navbar-brand>
@@ -40,47 +38,57 @@
       </b-collapse>
     </b-navbar>
 
+    <h1>Insira a imagem</h1>
+    <br />
+    <br />
 
+    <picture-input
+      ref="pictureInput"
+      @change="onChanged"
+      @remove="onRemoved"
+      :width="500"
+      :removable="true"
+      removeButtonClass="ui red button"
+      :height="500"
+      accept="image/jpeg, image/png, image/gif"
+      buttonClass="ui button primary"
+      :customStrings="{
+  upload: '<h1>Upload it!</h1>',
+  drag: 'Drag and drop your image here'}"
+    ></picture-input>
 
-<!-- CARROSSEL -->
+    <button @click="attemptUpload" v-bind:class="{ disabled: !image }">Upload</button>
 
-  
-  <footer >
-    <p class="footer-text"> ARTSHOWCASE - <b>SkyHorse.Inc</b> </p>
-    <p class="footer-text"> COPYRIGHT© </p>
-  </footer>
+    <br />
+    <br />
+
+    <!-- CARROSSEL -->
+
+    <footer>
+      <p class="footer-text">
+        ARTSHOWCASE -
+        <b>SkyHorse.Inc</b>
+      </p>
+      <p class="footer-text">COPYRIGHT©</p>
+    </footer>
   </div>
 </template>
 
 <script>
 import * as config from "@/config.json";
+import PictureInput from "vue-picture-input"
 
 export default {
-  component: {},
+  component: {
+    PictureInput
+  },
   data: _ => {
-      return {
-
-      };
+    return {
+      imageData: ""
+    };
   },
 
-  methods: {
-   redirect() {
-      this.$router.push("home");
-    },
-    redirect1() {
-      this.$router.push("/");
-    },
-    redirect2() {
-      this.$router.push("register");
-    },
-    redirect3() {
-      this.$router.push("information");
-    },
-    redirect4() {
-      this.$router.push("contact");
-    }
-    
-  }
+  methods: {}
 };
 </script>
 
@@ -103,13 +111,11 @@ export default {
 .footer-text {
   text-align: center;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  
 }
 
 footer {
   margin: 20px;
   position: relative;
   padding: 10px;
-  
 }
 </style>
