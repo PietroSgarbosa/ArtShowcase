@@ -2,6 +2,46 @@ const conn = require('../dbconfig');
 
 module.exports = (app)=>{
 
+    //CHECK IF USER IS ALREADY PARTICIPATING
+    app.get('/championship/user_participating', (req, res) =>{
+        
+        const {
+            id_campeonato,
+            id_usuario
+        } = req.query
+
+        let sql = `SELECT COUNT(*) as participando FROM participantes_campeonato WHERE CODI_CAMPE = ${ id_campeonato } AND CODI_USUAR = ${id_usuario};`;               
+                                                                                        
+        conn.query(sql, (err, results)=>{ 
+            
+            if(err){                                        
+                res.sendStatus(400);                        
+            }else{
+                res.json({status : 200, results});
+            }
+        });   
+    });
+
+    //CHECK IF USER ALREADY VOTED
+    app.get('/championship/user_voted', (req, res) =>{
+        
+        const {
+            id_campeonato,
+            id_usuario
+        } = req.query
+
+        let sql = `SELECT COUNT(*) as votou_sn FROM controle_votos WHERE CODI_USUAR = ${id_usuario} AND CODI_CAMPE = ${ id_campeonato } ;`;               
+                                                                                        
+        conn.query(sql, (err, results)=>{ 
+            
+            if(err){                                        
+                res.sendStatus(400);                        
+            }else{
+                res.json({status : 200, results});
+            }
+        });   
+    });
+
     //INSERT VOTE
     app.post('/championship/vote_on_image', (req, res) =>{
         
@@ -27,11 +67,10 @@ module.exports = (app)=>{
 
     //RETURNS WINNER
     app.get('/championship/winner', (req, res) =>{
-
         const { 
             id_campeonato
         } = req.query;
-
+       
 
         let sql = `SELECT a.CODI_USUAR as id_vencedor, b.NOME_USUAR as nome_vencedor FROM participantes_campeonato a 
                    JOIN cadastro_usuario b ON a.CODI_USUAR = b.CODI_USUAR
@@ -42,6 +81,7 @@ module.exports = (app)=>{
                                         LIMIT 1);`;               
         
         conn.query(sql, (err, results)=>{ 
+            
             if(err){                                        
                 res.sendStatus(400);                        
             }else{
