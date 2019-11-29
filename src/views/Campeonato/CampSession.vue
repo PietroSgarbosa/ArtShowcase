@@ -360,6 +360,11 @@ export default {
     },
 
     async inserirImgCamp() {
+      if(this.choosenOne === null){
+
+        alert("Selecione um trabalho para participar!")
+        
+      }else{
       await axios;
       axios
         .post("http://localhost:3035/championship/participate_championship", {
@@ -380,6 +385,7 @@ export default {
             alert("Não foi possível carregar os campeonatos");
           }
         });
+      }
     },
 
     async vote(idImg){
