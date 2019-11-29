@@ -86,7 +86,7 @@
                 </b-tab>
 
                 <!-- ENTRAR E INSIRIR IMAGEM -->
-
+                
                 <b-tab active>
                   <template v-slot:title>
                     <b-spinner type="grow" small></b-spinner
@@ -131,13 +131,13 @@
                     >
                   </div>
                 </b-tab>
-
+               
                 <!-- LISTAGEM E VOTAÇÃO -->
-
+                <div v-bind:style="HideVotacao">
                 <b-tab active>
                   <template v-slot:title>
-                    <b-spinner type="grow" small></b-spinner
-                    ><strong @click="carregarImagens"> Votação </strong>
+                    <b-spinner type="grow" small ></b-spinner
+                    ><strong @click="carregarImagens" > Votação </strong>
                   </template>
 
                   <div class="align">
@@ -171,6 +171,7 @@
                     </sequential-entrance>
                   </div>
                 </b-tab>
+                </div>
 
                 <!-- RESULTADOS FINAIS, ESSA SEÇAÕ DEVE SER BLOQUEADA ATÉ O FIM DO CAMPEONATO -->
 
@@ -181,7 +182,7 @@
                   </template>
 
                   <div class="content1">
-                    <p class="elementoTema">Vencedor:</p>
+                    <p class="elementoTema"></p>
                     <p class="elementoTema">
                       {{ this.dados_vencedor.nome_vencedor }}
                       <!-- VARIAVEIL DO VENCEDOR -->
@@ -240,6 +241,8 @@ export default {
     return {
       dados_campeonato: null,
       chkVoteHide: "",
+      HideEntrada: "",
+      HideVotacao: "",
       HideParticipar: "",
       user_data: null,
       user_images: null,
@@ -263,10 +266,21 @@ export default {
       //  console.log(this.dados_campeonato);
       this.user_data = JSON.parse(localStorage.getItem("user_data"));
       if(this.user_data === null){
-        this.chkVoteHide= "display:none;"
-        this.HideParticipar= "display:none;"
+        this.chkVoteHide= "display:none;";
+        this.HideParticipar= "display:none;";
       }
     } 
+
+    if(this.dados_campeonato.situacao == 0){
+      this.HideParticipar = "";
+      this.HideVotacao = "display:none;";
+    }else if(this.dados_campeonato.situacao == 1){
+      this.HideParticipar = "display:none;";
+      this.HideVotacao = "";
+    }else{
+      this.HideParticipar= "display:none;"
+      this.HideVotacao = "";
+    }
     
    axios
       .get("http://localhost:3035/championship/user_participating", {
@@ -332,10 +346,12 @@ export default {
       })
       .then(res => {
         if (res.status == 200) {
-          if(res.data.results.length < 1){
-          this.dados_vencedor.nome_vencedor = ' Campeonato em andamento...'
+          if(this.dados_campeonato.situacao == 0){
+          this.dados_vencedor.nome_vencedor = 'Fase de Inscrição... Participe você também!!!'
+          }else if(this.dados_campeonato.situacao == 1){
+          this.dados_vencedor.nome_vencedor = 'Fase de Votação! Escolha sua arte preferida!'
           }else{
-          this.dados_vencedor.nome_vencedor = res.data.results[0].nome_vencedor;
+          this.dados_vencedor.nome_vencedor = 'TEMOS UM VENCEDOR! Parabéns ' + res.data.results[0].nome_vencedor + '!!!';
           }
         } else if (res.status == 400) {
           this.dados_vencedor = "Não foi possível carregar o vencedor";
