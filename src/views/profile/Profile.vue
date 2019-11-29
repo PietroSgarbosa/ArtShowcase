@@ -229,7 +229,8 @@
 
                     <br />
                     <br />
-
+                    
+                
                     <label class="elementoProfile">Número de Competidores</label>
 
                     <br />
@@ -243,6 +244,7 @@
                       disabled-field="notEnabled"
                       description="Escolha o número de competidores que esse campeonato irá suportar."
                     ></b-form-select>
+                    
 
                     <br />
                     <br />
@@ -664,7 +666,12 @@ export default {
         .then(response => {
           if (response.status == 200) {
             alert("Campeonato Criado!");
-            this.$router.push("Confirm");
+            if (localStorage.getItem("reloaded")) {
+              localStorage.removeItem("reloaded");
+            } else {
+              localStorage.setItem("reloaded", "1");
+              location.reload();
+            }
           } else {
             alert("Ocorreu um erro na criação do campeonato.");
           }
