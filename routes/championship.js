@@ -72,8 +72,10 @@ module.exports = (app)=>{
         } = req.query;
        
 
-        let sql = `SELECT a.CODI_USUAR as id_vencedor, b.NOME_USUAR as nome_vencedor FROM participantes_campeonato a 
-                   JOIN cadastro_usuario b ON a.CODI_USUAR = b.CODI_USUAR
+        let sql = `SELECT a.CODI_USUAR as id_vencedor, b.NOME_USUAR as nome_vencedor, c.IMAG_PORTI as imagem_vencedor 
+                FROM participantes_campeonato a 
+                JOIN cadastro_usuario b ON a.CODI_USUAR = b.CODI_USUAR
+                JOIN upload_imagens c ON a.CODI_IMAGE = c.CODI_IMAGE
                    WHERE a.CODI_IMAGE = (SELECT CODI_IMAGE AS vencedor 
                                         FROM controle_votos WHERE CODI_CAMPE = ${id_campeonato}
                                         GROUP BY CODI_IMAGE
