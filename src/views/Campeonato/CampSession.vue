@@ -133,7 +133,7 @@
                 </b-tab>
                
                 <!-- LISTAGEM E VOTAÇÃO -->
-                <div v-bind:style="HideVotacao">
+    
                 <b-tab active>
                   <template v-slot:title>
                     <b-spinner type="grow" small ></b-spinner
@@ -171,7 +171,7 @@
                     </sequential-entrance>
                   </div>
                 </b-tab>
-                </div>
+                
 
                 <!-- RESULTADOS FINAIS, ESSA SEÇAÕ DEVE SER BLOQUEADA ATÉ O FIM DO CAMPEONATO -->
 
@@ -273,13 +273,13 @@ export default {
 
     if(this.dados_campeonato.situacao == 0){
       this.HideParticipar = "";
-      this.HideVotacao = "display:none;";
+      this.chkVoteHide = "display:none;";
     }else if(this.dados_campeonato.situacao == 1){
       this.HideParticipar = "display:none;";
-      this.HideVotacao = "";
+      this.chkVoteHide = "";
     }else{
       this.HideParticipar= "display:none;"
-      this.HideVotacao = "";
+      this.chkVoteHide = "";
     }
     
    axios
