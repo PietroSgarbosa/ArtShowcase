@@ -50,7 +50,7 @@
 
       <div class="conteudo">
         <div id="app2">
-          <h1>Campeonatos Disponivéis</h1>
+          <h1>Campeonatos Disponíveis</h1>
 
           <sequential-entrance fromRight>
             <div class="box2" v-for="index in campeonatos" :key="index">
