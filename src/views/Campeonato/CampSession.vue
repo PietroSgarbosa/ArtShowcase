@@ -90,7 +90,7 @@
                 <b-tab active>
                   <template v-slot:title>
                     <b-spinner type="grow" small></b-spinner
-                    ><strong> Entrada </strong>
+                    ><strong> Inscrição </strong>
                   </template>
                   <div class="content1">
                     <p class="elementoTema">Tema:</p>
@@ -192,7 +192,7 @@
                   </div>
                   <div class="trophy">
                     <img
-                      src="/img/winner2.png"
+                      :src="this.dados_vencedor.imagem_vencedor"
                       class="d-inline-block align-top"
                       id="gold"
                       alt="trophy"
@@ -348,15 +348,19 @@ export default {
         if (res.status == 200) {
           if(this.dados_campeonato.situacao == 0){
           this.dados_vencedor.nome_vencedor = 'Fase de Inscrição... Participe você também!!!'
+          this.dados_vencedor.imagem_vencedor = "/img/winner2.png";
           }else if(this.dados_campeonato.situacao == 1){
           this.dados_vencedor.nome_vencedor = 'Fase de Votação! Escolha sua arte preferida!'
+          this.dados_vencedor.imagem_vencedor = "/img/winner2.png";
           }else{
           this.dados_vencedor.nome_vencedor = 'TEMOS UM VENCEDOR! Parabéns ' + res.data.results[0].nome_vencedor + '!!!';
+          this.dados_vencedor.imagem_vencedor = res.data.results[0].imagem_vencedor;
           }
         } else if (res.status == 400) {
           this.dados_vencedor = "Não foi possível carregar o vencedor";
         }
       });
+    
   },
   methods: {
     redirect() {
