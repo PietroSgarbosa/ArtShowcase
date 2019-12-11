@@ -1,4 +1,5 @@
 const conn = require('../dbconfig');
+const addSubtractDate = require("add-subtract-date");
 const jwt = require('jsonwebtoken');
 
 module.exports = (app)=>{
@@ -240,10 +241,25 @@ module.exports = (app)=>{
             tema_campeonato
         } = req.body;
 
+        var _fim_inscricao = new Date();
+        _fim_inscricao.setDate(_fim_inscricao.getDate());
+        _fim_inscricao.setMonth(_fim_inscricao.getMonth());
+        _fim_inscricao.setFullYear(_fim_inscricao.getFullYear());
+        
+        var fim_inscricao = addSubtractDate.add(_fim_inscricao, 2, "days");
+        fim_inscricao = fim_inscricao.getFullYear() +'-'+ fim_inscricao.getMonth() +'-'+ fim_inscricao.getDate();
+        console.log(fim_inscricao);
+
+        var _fim_campeonato = new Date();
+        _fim_campeonato.setDate(_fim_campeonato.getDate());
+        _fim_campeonato.setMonth(_fim_campeonato.getMonth() + 1);
+        _fim_campeonato.setFullYear(_fim_campeonato.getFullYear());
+
+        var fim_campeonato = _fim_campeonato.getFullYear() +'-'+ _fim_campeonato.getMonth() +'-'+ _fim_campeonato.getDate()
         
         let sql = `INSERT INTO campeonatos
-                    (CODI_SITUA, CODI_USUAR, TITU_CAMPE, DESC_CAMPE, TEMA_CAMPE)
-                     VALUES (0, '${id}', '${titulo_campeonato}', '${descricao_campeonato}', '${tema_campeonato}');`;
+                    (CODI_SITUA, CODI_USUAR, TITU_CAMPE, DESC_CAMPE, TEMA_CAMPE, FIM__INSCR, DATA_ENCER)
+                     VALUES (0, '${id}', '${titulo_campeonato}', '${descricao_campeonato}', '${tema_campeonato}','${fim_inscricao}','${fim_campeonato}');`;
 
         
         conn.query(sql, (err)=>{
@@ -253,7 +269,7 @@ module.exports = (app)=>{
                 console.log("--------------------------------");
                 res.sendStatus(400);
             }else{
-                res.sendStatus(200);
+                 res.sendStatus(200);
             }
         });
         

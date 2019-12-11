@@ -9,6 +9,7 @@
   "author": "Rafael Carvalho (Offar)",
   "license": "ISC",
   "dependencies": {
+    "add-subtract-date": "^1.0.14",
     "body-parser": "^1.19.0",
     "consign": "^0.1.6",
     "cors": "^2.8.5",
