@@ -1,5 +1,4 @@
 const conn = require('../dbconfig');
-const addSubtractDate = require("add-subtract-date");
 const jwt = require('jsonwebtoken');
 
 module.exports = (app)=>{
@@ -242,17 +241,16 @@ module.exports = (app)=>{
         } = req.body;
 
         var _fim_inscricao = new Date();
-        _fim_inscricao.setDate(_fim_inscricao.getDate());
+        _fim_inscricao.setDate(_fim_inscricao.getDate() + 2);
         _fim_inscricao.setMonth(_fim_inscricao.getMonth());
         _fim_inscricao.setFullYear(_fim_inscricao.getFullYear());
         
-        var fim_inscricao = addSubtractDate.add(_fim_inscricao, 2, "days");
         fim_inscricao = fim_inscricao.getFullYear() +'-'+ fim_inscricao.getMonth() +'-'+ fim_inscricao.getDate();
         console.log(fim_inscricao);
 
         var _fim_campeonato = new Date();
-        _fim_campeonato.setDate(_fim_campeonato.getDate());
-        _fim_campeonato.setMonth(_fim_campeonato.getMonth() + 1);
+        _fim_campeonato.setDate(_fim_campeonato.getDate() + 7);
+        _fim_campeonato.setMonth(_fim_campeonato.getMonth());
         _fim_campeonato.setFullYear(_fim_campeonato.getFullYear());
 
         var fim_campeonato = _fim_campeonato.getFullYear() +'-'+ _fim_campeonato.getMonth() +'-'+ _fim_campeonato.getDate()
