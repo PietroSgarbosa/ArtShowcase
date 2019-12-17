@@ -245,7 +245,7 @@ module.exports = (app)=>{
         } = req.body;
 
 
-        _fim_inscricao.setDate(_fim_inscricao.getDate()+17);
+        _fim_inscricao.setDate(_fim_inscricao.getDate()+2);// "+2" IS THE NUMBER OF DAYS AVAILABLE FOR SUBSCRIPTION
         _fim_inscricao.setMonth(_fim_inscricao.getMonth());
         _fim_inscricao.setFullYear(_fim_inscricao.getFullYear());
 
@@ -255,7 +255,7 @@ module.exports = (app)=>{
 
         var fim_inscricao = ano+'-'+(mes+1)+'-'+dia;
 
-        _fim_campeonato.setDate(_fim_campeonato.getDate()+5);
+        _fim_campeonato.setDate(_fim_campeonato.getDate()+5);// "+5" IS THE NUMBER OF DAYS AVAILABLE FOR VOTING
         _fim_campeonato.setMonth(_fim_campeonato.getMonth());
         _fim_campeonato.setFullYear(_fim_campeonato.getFullYear());
 
