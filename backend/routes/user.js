@@ -232,6 +232,10 @@ module.exports = (app)=>{
 
     //CREATE CHAMPIONSHIP
     app.post('/user/create_championship', (req, res)=>{
+
+        var _fim_inscricao = new Date();
+        var _fim_campeonato = new Date();
+        var dia, mes, ano;
             
         const {
             id,
@@ -240,21 +244,26 @@ module.exports = (app)=>{
             tema_campeonato
         } = req.body;
 
-        var _fim_inscricao = new Date();
-        _fim_inscricao.setDate(_fim_inscricao.getDate() + 2);
+
+        _fim_inscricao.setDate(_fim_inscricao.getDate()+17);
         _fim_inscricao.setMonth(_fim_inscricao.getMonth());
         _fim_inscricao.setFullYear(_fim_inscricao.getFullYear());
-        
-        var fim_inscricao = new Date(_fim_inscricao.getFullYear(),_fim_inscricao.getMonth(),_fim_inscricao.getDate());
-        console.log(fim_inscricao);
 
-        var _fim_campeonato = new Date();
-        _fim_campeonato.setDate(_fim_campeonato.getDate() + 7);
+        dia = _fim_inscricao.getDate();
+        mes = _fim_inscricao.getMonth();
+        ano = _fim_inscricao.getFullYear();
+
+        var fim_inscricao = ano+'-'+(mes+1)+'-'+dia;
+
+        _fim_campeonato.setDate(_fim_campeonato.getDate()+5);
         _fim_campeonato.setMonth(_fim_campeonato.getMonth());
         _fim_campeonato.setFullYear(_fim_campeonato.getFullYear());
 
-        var fim_campeonato = new Date(_fim_campeonato.getFullYear(), _fim_campeonato.getMonth(),_fim_campeonato.getDate());
-        console.log(fim_campeonato);
+        dia = _fim_campeonato.getDate();
+        mes = _fim_campeonato.getMonth();
+        ano = _fim_campeonato.getFullYear();
+   
+        var fim_campeonato = ano+'-'+(mes+1)+'-'+dia;
         
         let sql = `INSERT INTO campeonatos
                     (CODI_SITUA, CODI_USUAR, TITU_CAMPE, DESC_CAMPE, TEMA_CAMPE, FIM__INSCR, DATA_ENCER)
@@ -268,7 +277,7 @@ module.exports = (app)=>{
                 console.log("--------------------------------");
                 res.sendStatus(400);
             }else{
-                res.send({status : 200});
+                 res.send({status : 200, fim_inscricao, fim_campeonato});
             }
         });
         
