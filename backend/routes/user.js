@@ -277,7 +277,7 @@ module.exports = (app)=>{
                 console.log("--------------------------------");
                 res.sendStatus(400);
             }else{
-                 res.send({status : 200, fim_inscricao, fim_campeonato});
+                res.sendStatus(200);
             }
         });
         
